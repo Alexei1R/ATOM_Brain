@@ -1,3 +1,10 @@
 [submodule "libs/assimp"]
 	path = libs/assimp
 	url = https://github.com/assimp/assimp.git
+[submodule "libs/imgui-cmake/imgui"]
+	path = libs/imgui-cmake/imgui
+	url = https://github.com/ocornut/imgui.git
+	branch = docking
+[submodule "libs/imgui-cmake/glfw"]
+	path = libs/imgui-cmake/glfw
+	url = https://github.com/glfw/glfw.git
