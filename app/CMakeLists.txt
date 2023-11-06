@@ -17,7 +17,13 @@ target_include_directories(YourExecutableName PRIVATE ${OGRE_INCLUDE_DIRS})
 
 
 # Link Ogre libraries to your executable
-target_link_libraries(YourExecutableName PRIVATE ${OGRE_LIBRARIES}) 
+target_link_libraries(YourExecutableName
+    ${OGRE_LIBRARIES}
+    glfw
+    glad
+    glm
+ ) 
+
 
 # Set the output directory for the binary
 set_target_properties(YourExecutableName PROPERTIES
