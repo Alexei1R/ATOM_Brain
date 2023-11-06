@@ -1,6 +1,7 @@
 #include "Ogre.h"
 #include "OgreApplicationContext.h"
 
+
 //! [key_handler]
 class KeyHandler : public OgreBites::InputListener
 {

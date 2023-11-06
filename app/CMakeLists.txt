@@ -9,6 +9,7 @@ set(SOURCES
     main.cpp
 )
 
+
 # Create an executable from the source files
 add_executable(YourExecutableName ${SOURCES})
 
