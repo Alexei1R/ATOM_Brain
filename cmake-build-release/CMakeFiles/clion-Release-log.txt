@@ -1,8 +1,0 @@
-/snap/clion/250/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S /home/toor/Desktop/Code/ATOM_Brain -B /home/toor/Desktop/Code/ATOM_Brain/cmake-build-release
--- Including X11 support
--- CMAKE_CURRENT_SOURCE_DIR: /home/toor/Desktop/Code/ATOM_Brain/libs/imgui-cmake
--- CMAKE_SOURCE_DIR: /home/toor/Desktop/Code/ATOM_Brain
--- GLM: Version 0.9.9.9
--- Configuring done (0.1s)
--- Generating done (0.0s)
--- Build files have been written to: /home/toor/Desktop/Code/ATOM_Brain/cmake-build-release
