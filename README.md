@@ -19,18 +19,14 @@ If the repository was cloned non-recursively previously, use `git submodule upda
 
 ## Usage
 
-Create the `build` directory and configure the build system:
+Create the `build` directory and configure the build system and run make:
 
 ```bash
-cmake -B build # Or `cmake -D BUILD_TESTING=OFF -B build` to skip tests. 
+mkdir build & cd build & cmake .. & make -j$(nproc)
 ```
 
-Build the project:
+To run the project cd `build` and run execurable
 
 ```bash
-cmake --build build
-```
-
-```bash
-cmake -E chdir build ctest
+cd build & ./executable
 ```

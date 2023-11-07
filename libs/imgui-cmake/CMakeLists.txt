@@ -15,6 +15,7 @@ include_directories(${CMAKE_SOURCE_DIR}/libs/glad/include)
 
 set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/libs/imgui-cmake/imgui)
 
+
 set(CMAKE_DEBUG_POSTFIX d)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED)
@@ -56,5 +57,5 @@ target_include_directories(imgui
 # Link against the OpenGL and GLEW libraries
 target_link_libraries(imgui
 	glfw
-	libglew_static
+	# libglew_static
 )

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -rdynamic CMakeFiles/executable.dir/main.cpp.o -o ../executable  ../libs/imgui-cmake/libimgui.a ../libs/glad/libglad.a ../libs/glfw/src/libglfw3.a -Wl,-Bstatic -lrt -Wl,-Bdynamic -lm -ldl 
