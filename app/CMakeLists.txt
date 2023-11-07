@@ -12,6 +12,11 @@ set(SOURCES
         ATOM/Core/Layers/LayerStack.h
         ATOM/Core/Layers/LayerStack.cpp
         ATOM/atompch.h
+        ATOM/Core/macros.h
+        ATOM/Core/Loging/Log.h
+        ATOM/Core/Loging/Log.cpp
+        ATOM/Application.h
+        ATOM/Application.cpp
 )
 
 

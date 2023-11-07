@@ -1,6 +1,12 @@
 #include <spdlog/spdlog.h>
-
+#include "ATOM/Application.h"
+#include "ATOM/Core/Loging/Log.h"
 
 int main(){
-    spdlog::info("Welcome to spdlog!");
+    Atom::Log::Init();
+    ATLOG_INFO("Initialized Log!");
+
+    Atom::Application* app = new Atom::Application();
+    app->Run();
+    delete app;
 }

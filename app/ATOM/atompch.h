@@ -22,5 +22,7 @@
 
 #include "glad/glad.h"
 
+#include "ATOM/Core/Loging/Log.h"
+
 
 #endif //ATOM_ATOMPCH_H
