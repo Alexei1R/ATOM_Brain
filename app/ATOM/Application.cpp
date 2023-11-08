@@ -15,6 +15,8 @@ namespace Atom {
         m_Window->SetVSync(true);
         m_Window->SetWindowCloseCallback(BIND_EVENT_FN(WindowClose));
 
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
 
 
 
@@ -63,6 +65,17 @@ namespace Atom {
             glClearColor(0.8, 0.8, 0.8, 1.0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            for (Layer* layer : m_LayerStack)
+            {
+                layer->OnUpdate();
+            }
+
+            m_ImGuiLayer->Begin();
+            {
+                for (Layer* layer : m_LayerStack)
+                    layer->OnImGuiRender();
+            }
+            m_ImGuiLayer->End();
 
 
 //            ATLOG_INFO("Some info");

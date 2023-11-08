@@ -22,6 +22,9 @@ set(SOURCES
         Platform/Window/OpenGLWindow.cpp
         ATOM/Core/Event/Mause.cpp
         ATOM/Core/Event/Keyboard.cpp
+        ATOM/Core/Editor/ImGuiLayer.cpp
+        ATOM/Core/Editor/ImGuiLayer.h
+
 )
 
 
