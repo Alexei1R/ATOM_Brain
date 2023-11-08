@@ -97,6 +97,7 @@ namespace Atom {
     {
         return m_Data.VSync;
     }
+
     void OpenGLWindow::SetCallbacks()
     {
 
@@ -110,8 +111,10 @@ namespace Atom {
 
         glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
         {
-
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            data.m_EventCallback();
         });
+
 
         glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
         {

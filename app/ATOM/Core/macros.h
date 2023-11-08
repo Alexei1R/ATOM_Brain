@@ -7,7 +7,7 @@
 #include "ATOM/atompch.h"
 
 
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+#define BIND_EVENT_FN(x) std::bind(&Application::x, this)
 #define ATOM_ASSERT(x, ...) { if(!(x)) { ATLOG_CRITICAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 namespace Atom {
 

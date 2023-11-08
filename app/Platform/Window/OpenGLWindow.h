@@ -26,7 +26,7 @@ namespace Atom {
         inline unsigned int GetHeight()const override { return m_Data.Height; };
 
         // Window attributes
-        void SetWindowCloseCallback(const EventCallbackFn& callback) override { m_EventCallback = callback; }
+        void SetWindowCloseCallback(const EventCallbackFn& callback) override { m_Data.m_EventCallback = callback; }
         void SetVSync(bool enabled) override;
         bool IsVSync() const override;
 
@@ -40,7 +40,7 @@ namespace Atom {
     private:
 
         GLFWwindow* m_Window;
-        EventCallbackFn m_EventCallback;
+
 
 
         struct WindowData
@@ -48,7 +48,7 @@ namespace Atom {
             std::string Title;
             unsigned int Width, Height;
             bool VSync;
-
+            EventCallbackFn m_EventCallback;
         };
 
         WindowData m_Data;

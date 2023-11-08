@@ -13,7 +13,7 @@ namespace Atom {
 
         m_Window = Window::Create();
         m_Window->SetVSync(true);
-
+        m_Window->SetWindowCloseCallback(BIND_EVENT_FN(WindowClose));
 
 
 
@@ -71,14 +71,9 @@ namespace Atom {
         }
     }
 
-
-
-
-
-
-
-
-
+    void Application::WindowClose() {
+        m_IsRuning = false;
+    }
 
 
 }

@@ -21,7 +21,7 @@ namespace Atom {
         void PushOverlay(Layer* layer);
         static Application* s_Instance;
         inline static Application& GetApp() { return *s_Instance; }
-
+        void WindowClose();
     private:
         bool m_IsRuning = true;
         Window* m_Window;
