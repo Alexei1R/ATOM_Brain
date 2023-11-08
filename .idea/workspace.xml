@@ -27,13 +27,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e045793-c160-40e1-b0f7-27cbba5d8898" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Gui/EditorLayer.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Gui/EditorLayer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Gui/ImGuiLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/ImGuiLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Gui/ImGuiLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/ImGuiLayer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,7 +148,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1699442128437</updated>
-      <workItem from="1699442130541" duration="649000" />
+      <workItem from="1699442130541" duration="947000" />
     </task>
     <servers />
   </component>

@@ -18,7 +18,8 @@ namespace Atom {
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
 
-
+        m_EditorLayer = new EditorLayer();
+        PushLayer(m_EditorLayer);
 
 
 

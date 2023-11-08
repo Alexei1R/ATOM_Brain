@@ -24,6 +24,8 @@ set(SOURCES
         ATOM/Core/Event/Keyboard.cpp
         ATOM/Core/Editor/ImGuiLayer.cpp
         ATOM/Core/Editor/ImGuiLayer.h
+        ATOM/Core/Editor/EditorLayer.cpp
+        ATOM/Core/Editor/EditorLayer.h
 
 )
 

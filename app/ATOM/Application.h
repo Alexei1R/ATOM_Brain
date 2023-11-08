@@ -11,6 +11,7 @@
 #include "ATOM/Core/Layers/LayerStack.h"
 #include "ATOM/Core/Window.h"
 #include "ATOM/Core/Editor/ImGuiLayer.h"
+#include "ATOM/Core/Editor/EditorLayer.h"
 
 
 namespace Atom {
@@ -30,7 +31,7 @@ namespace Atom {
         Window* m_Window;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
-
+        EditorLayer* m_EditorLayer;
     };
 }
 
