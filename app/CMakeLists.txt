@@ -26,6 +26,8 @@ set(SOURCES
         ATOM/Core/Editor/ImGuiLayer.h
         ATOM/Core/Editor/EditorLayer.cpp
         ATOM/Core/Editor/EditorLayer.h
+        ATOM/Core/Editor/FrameBuffer.h
+        ATOM/Core/Editor/FrameBuffer.cpp
 
 )
 
@@ -39,7 +41,9 @@ target_link_libraries(executable
     glfw
     glm
     spdlog
- ) 
+    assimp
+ )
+
 
 
 target_include_directories(executable PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/)

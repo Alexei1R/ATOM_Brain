@@ -12,7 +12,7 @@
 #include "ATOM/Core/Window.h"
 #include "ATOM/Core/Editor/ImGuiLayer.h"
 #include "ATOM/Core/Editor/EditorLayer.h"
-
+#include "ATOM/Core/Editor/FrameBuffer.h"
 
 namespace Atom {
     class Application {
@@ -32,6 +32,7 @@ namespace Atom {
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
         EditorLayer* m_EditorLayer;
+        Framebuffer* m_Framebuffer;
     };
 }
 
