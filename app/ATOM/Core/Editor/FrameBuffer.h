@@ -5,7 +5,8 @@
 #ifndef ATOM_FRAMEBUFFER_H
 #define ATOM_FRAMEBUFFER_H
 
-#include "ATOM/Application.h"
+#include "ATOM/Core/Layers/Layer.h"
+
 
 namespace Atom {
     class Framebuffer : public Layer {

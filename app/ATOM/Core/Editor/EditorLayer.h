@@ -6,11 +6,12 @@
 #define ATOM_EDITORLAYER_H
 #include "ATOM/atompch.h"
 #include "imgui.h"
+#include "FrameBuffer.h"
 
 namespace Atom {
     class EditorLayer : public Layer {
     public:
-        EditorLayer();
+        EditorLayer(Framebuffer* framebuffer);
         ~EditorLayer();
         virtual void OnAttach()override;
         virtual void OnDetach()override;
@@ -28,12 +29,15 @@ namespace Atom {
         std::vector<std::function<void()>> m_FunctionsVenctor;
         std::function<void(int, int)> m_ViewportCallbackFunction;
 
+        Framebuffer* m_FrameBuffer;
     };
 
 
 
 
 }
+
+
 
 
 #endif //ATOM_EDITORLAYER_H

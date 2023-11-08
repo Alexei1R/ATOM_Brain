@@ -3,6 +3,7 @@
 //
 
 #include "FrameBuffer.h"
+#include "ATOM/Application.h"
 
 namespace Atom {
     Framebuffer::Framebuffer()

@@ -6,14 +6,16 @@
 
 
 namespace Atom {
-    EditorLayer::EditorLayer()
+    EditorLayer::EditorLayer(Framebuffer* framebuffer)
             :Layer("EditorLayer")
     {
+        this->m_FrameBuffer = framebuffer;
 
     }
 
     EditorLayer::~EditorLayer()
     {
+        delete m_FrameBuffer;
     }
 
     void EditorLayer::DrawMenu() {
@@ -204,11 +206,15 @@ namespace Atom {
                 previousWindowSize = windowSize;
                 if (m_ViewportCallbackFunction) {
                     m_ViewportCallbackFunction(windowSize.x, windowSize.y);
+                    m_FrameBuffer->SetFramebufferTextureSizeCallback(windowSize.x, windowSize.y);
                     glViewport(0, 0, windowSize.x, windowSize.y);
                 }
             }
 
-            ImGui::Text("Renderer2D Stats:");
+            //ImGui::Text("Renderer2D Stats:");
+            m_FrameBuffer->Bind();
+            ImGui::Image((void*)m_FrameBuffer->GetFramebufferTexture(), windowSize);
+            m_FrameBuffer->UnBind();
             ImGui::End();
 
 

@@ -18,10 +18,10 @@ namespace Atom {
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
 
-//        m_Framebuffer = new Framebuffer();
-//        PushLayer(m_Framebuffer);
+        m_Framebuffer = new Framebuffer();
+        PushLayer(m_Framebuffer);
 
-        m_EditorLayer = new EditorLayer();
+        m_EditorLayer = new EditorLayer(m_Framebuffer);
         PushLayer(m_EditorLayer);
 
 
@@ -43,6 +43,10 @@ namespace Atom {
 
     Application::~Application()
     {
+        delete m_Framebuffer;
+        delete m_Window;
+        delete m_ImGuiLayer;
+        delete m_EditorLayer;
     }
 
 
@@ -66,8 +70,21 @@ namespace Atom {
 
         while (m_IsRuning)
         {
+
             glClearColor(0.8, 0.8, 0.8, 1.0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+            m_Framebuffer->Bind();
+
+
+            glClearColor(0.8, 0.8, 0.8, 1.0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+
+            m_Framebuffer->UnBind();
+
 
             for (Layer* layer : m_LayerStack)
             {
