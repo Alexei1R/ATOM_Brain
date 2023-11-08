@@ -9,7 +9,7 @@
 
 #include "ATOM/Core/Layers/Layer.h"
 #include "ATOM/Core/Layers/LayerStack.h"
-
+#include "ATOM/Core/Window.h"
 
 namespace Atom {
     class Application {
@@ -21,8 +21,10 @@ namespace Atom {
         void PushOverlay(Layer* layer);
         static Application* s_Instance;
         inline static Application& GetApp() { return *s_Instance; }
-        bool m_IsRuning = true;
 
+    private:
+        bool m_IsRuning = true;
+        Window* m_Window;
         LayerStack m_LayerStack;
 
 

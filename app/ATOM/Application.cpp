@@ -11,7 +11,8 @@ namespace Atom {
     {
         s_Instance = (Application*)this;
 
-
+        m_Window = Window::Create();
+        m_Window->SetVSync(true);
 
 
 
@@ -59,8 +60,13 @@ namespace Atom {
 
         while (m_IsRuning)
         {
+            glClearColor(0.8, 0.8, 0.8, 1.0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            ATLOG_INFO("Some info");
+
+
+//            ATLOG_INFO("Some info");
+            m_Window->OnUpdate();
 
         }
     }

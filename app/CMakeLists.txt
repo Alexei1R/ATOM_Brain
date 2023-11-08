@@ -17,6 +17,11 @@ set(SOURCES
         ATOM/Core/Loging/Log.cpp
         ATOM/Application.h
         ATOM/Application.cpp
+        ATOM/Core/Window.h
+        Platform/Window/OpenGLWindow.h
+        Platform/Window/OpenGLWindow.cpp
+        ATOM/Core/Event/Mause.cpp
+        ATOM/Core/Event/Keyboard.cpp
 )
 
 
