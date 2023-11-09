@@ -12,9 +12,6 @@
 [submodule "libs/spdlog"]
 	path = libs/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "libs/assimp"]
-	path = libs/assimp
-	url = https://github.com/assimp/assimp.git
 [submodule "libs/ogre"]
 	path = libs/ogre
 	url = https://github.com/OGRECave/ogre.git

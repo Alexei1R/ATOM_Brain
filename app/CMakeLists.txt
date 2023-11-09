@@ -41,7 +41,6 @@ target_link_libraries(executable
     glfw
     glm
     spdlog
-    assimp
     OgreMain
     OgreRTShaderSystem
     OgreBites
