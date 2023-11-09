@@ -13,7 +13,11 @@ Components:
 
 Start by cloning the repository with `git clone --recursive https://github.com/`.
 
-If the repository was cloned non-recursively previously, use `git submodule update --init` to clone the necessary submodules.
+If the repository was cloned non-recursively previously, use 
+```bash
+git submodule update --init
+```
+to clone the necessary submodules.
 
 <ins>**2. Configuring the dependencies:**</ins>
 
@@ -27,6 +31,3 @@ mkdir build & cd build & cmake .. & make -j$(nproc)
 
 To run the project cd `build` and run execurable
 
-```bash
-cd build & ./executable
-```
