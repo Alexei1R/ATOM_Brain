@@ -32,21 +32,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/Traseu.fbx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/fs.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/vs.glsl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/atompch.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/atompch.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +186,7 @@
       <workItem from="1699603874680" duration="1000" />
       <workItem from="1699604112737" duration="248000" />
       <workItem from="1699624449557" duration="474000" />
-      <workItem from="1699626194343" duration="5741000" />
+      <workItem from="1699626194343" duration="12303000" />
     </task>
     <servers />
   </component>

@@ -24,9 +24,9 @@ namespace Atom
     private:
         const float YAW = -90.0f;
         const float PITCH = 0.0f;
-        const float SPEED = 0.0015f;
-        const float SENSITIVITY = 0.1f;
-        const float ZOOM = 45.0f;
+        const float SPEED = 0.003f;
+        const float SENSITIVITY = 0.6f;
+        const float ZOOM = 120.0f;
         // camera Attributes
         glm::vec3 Position;
         glm::vec3 Front;
@@ -47,12 +47,11 @@ namespace Atom
         glm::vec3 GetCameraFront();
 
         glm::mat4 GetViewMatrix();
-    private:
         void ProcessKeyboard(Camera_Movement direction, float deltaTime);
-
         void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
 
         void ProcessMouseScroll(float yoffset);
+
 
     public:
         void Update();

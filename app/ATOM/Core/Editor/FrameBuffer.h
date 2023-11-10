@@ -36,6 +36,7 @@ namespace Atom {
         unsigned int height = 480;
         unsigned int m_FBO;
         unsigned int m_FramebufferTexture;
+        unsigned int m_DepthAttachment;
 
 
     };

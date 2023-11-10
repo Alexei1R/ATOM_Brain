@@ -14,10 +14,8 @@
 #include "ATOM/Core/Editor/EditorLayer.h"
 #include "ATOM/Core/Editor/FrameBuffer.h"
 
-#include "ATOM/Core/Renderer/Shader.h"
-#include "ATOM/Core/Renderer/Model.h"
-#include "ATOM/Core/Renderer/Camera.h"
-#include "ATOM/Core/Renderer/Transform.h"
+#include "ATOM/Core/ScreenData/DrawMap.h"
+
 
 namespace Atom {
     class Application {
@@ -39,11 +37,7 @@ namespace Atom {
         EditorLayer* m_EditorLayer;
         Framebuffer* m_Framebuffer;
 
-
-        Camera* m_Camera;
-        Shader* m_Shader;
-        Model* m_Model;
-        Transform* m_Transform;
+        DrawMap* m_DrawMap;
 
     };
 }

@@ -37,14 +37,12 @@ namespace Atom {
             ImGui::End();
         };
         m_EditorLayer->AddDrawCallback(imdraw);
-        m_Camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
-        m_Shader = new Shader("ASSETS/vs.glsl","ASSETS/fs.glsl");
-        m_Shader->Bind();
-        m_Model = new Model();
-        m_Model->loadModel("ASSETS/Traseu.fbx");
 
 
-        m_Transform = new Transform(*m_Shader);
+        m_DrawMap = new DrawMap();
+        PushLayer(m_DrawMap);
+
+
 
     }
 
@@ -55,11 +53,6 @@ namespace Atom {
         delete m_Window;
         delete m_ImGuiLayer;
         delete m_EditorLayer;
-
-
-        delete m_Camera;
-        delete m_Shader;
-        delete m_Model;
     }
 
 
@@ -83,18 +76,14 @@ namespace Atom {
 
         while (m_IsRuning)
         {
-            m_Transform->UpdateCam(m_Camera->GetViewMatrix(), m_Camera->GetCameraPos(), m_Camera->GetCameraFront(),m_Window->GetHeight(),m_Window->GetWidth());
-            m_Camera->Update();
+
+            glClearColor(0.8, 0.8, 0.8, 1.0);
 
 
             m_Framebuffer->Bind();
-
-
-            glClearColor(0.8, 0.8, 0.8, 1.0);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            m_Shader->Bind();
-            m_Model->Draw(*m_Shader);
-            m_Shader->UnBind();
+
+            m_DrawMap->DrawModel(m_Window->GetWidth(), m_Window->GetHeight());
             m_Framebuffer->UnBind();
 
 
@@ -111,7 +100,6 @@ namespace Atom {
             m_ImGuiLayer->End();
 
 
-//            ATLOG_INFO("Some info");
             m_Window->OnUpdate();
 
         }

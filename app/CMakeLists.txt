@@ -40,6 +40,8 @@ set(SOURCES
         ATOM/Core/Renderer/Model.h
         ATOM/Core/Renderer/Transform.cpp
         ATOM/Core/Renderer/Transform.h
+        ATOM/Core/ScreenData/DrawMap.cpp
+        ATOM/Core/ScreenData/DrawMap.h
 
 )
 

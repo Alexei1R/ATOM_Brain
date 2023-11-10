@@ -88,11 +88,13 @@ namespace Atom {
         if (Keyboard::key(GLFW_KEY_D)) {
             ProcessKeyboard(Camera_Movement::RIGHT, deltaTime);
         }
-        double dx = Mouse::getDX();
-        double dy = Mouse::getDY();
+        if(Keyboard::key(GLFW_KEY_LEFT_SHIFT)  || Mouse::button(GLFW_MOUSE_BUTTON_MIDDLE)){
+            double dx = Mouse::getDX();
+            double dy = Mouse::getDY();
 
-        ProcessMouseMovement(dx, -dy, true);
+            ProcessMouseMovement(dx, -dy, true);
 
+        }
     }
 
     void Camera::updateCameraVectors() {
