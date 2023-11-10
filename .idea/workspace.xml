@@ -12,42 +12,13 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="ATOM" targetName="uninstall" />
-      <config projectName="ATOM" targetName="Plugin_OctreeSceneManager" />
-      <config projectName="ATOM" targetName="OgreProperty" />
-      <config projectName="ATOM" targetName="VRMLConverter" />
-      <config projectName="ATOM" targetName="OgreRTShaderSystem" />
-      <config projectName="ATOM" targetName="OgreMain" />
-      <config projectName="ATOM" targetName="executable" />
-      <config projectName="ATOM" targetName="OgreAssimpConverter" />
-      <config projectName="ATOM" targetName="Plugin_OctreeZone" />
-      <config projectName="ATOM" targetName="update_mappings" />
-      <config projectName="ATOM" targetName="RenderSystem_GL" />
-      <config projectName="ATOM" targetName="Plugin_DotScene" />
-      <config projectName="ATOM" targetName="Codec_Assimp" />
       <config projectName="ATOM" targetName="imgui" />
-      <config projectName="ATOM" targetName="OgreBullet" />
-      <config projectName="ATOM" targetName="OgreTerrain" />
-      <config projectName="ATOM" targetName="Plugin_BSPSceneManager" />
-      <config projectName="ATOM" targetName="OgreMeshUpgrader" />
-      <config projectName="ATOM" targetName="OgreGLSupport" />
-      <config projectName="ATOM" targetName="OgreMeshLodGenerator" />
-      <config projectName="ATOM" targetName="OgreDoc" />
-      <config projectName="ATOM" targetName="Codec_STBI" />
-      <config projectName="ATOM" targetName="OgreXMLConverter" />
-      <config projectName="ATOM" targetName="spdlog" />
       <config projectName="ATOM" targetName="docs" />
-      <config projectName="ATOM" targetName="Plugin_ParticleFX" />
-      <config projectName="ATOM" targetName="DefaultSamples" />
-      <config projectName="ATOM" targetName="OgreOverlay" />
-      <config projectName="ATOM" targetName="OgreVolume" />
-      <config projectName="ATOM" targetName="glfw" />
-      <config projectName="ATOM" targetName="OgrePaging" />
-      <config projectName="ATOM" targetName="SampleBrowser" />
-      <config projectName="ATOM" targetName="OgreBites" />
-      <config projectName="ATOM" targetName="RenderSystem_GL3Plus" />
-      <config projectName="ATOM" targetName="RenderSystem_GLES2" />
+      <config projectName="ATOM" targetName="executable" />
+      <config projectName="ATOM" targetName="update_mappings" />
       <config projectName="ATOM" targetName="glad" />
-      <config projectName="ATOM" targetName="Plugin_PCZSceneManager" />
+      <config projectName="ATOM" targetName="spdlog" />
+      <config projectName="ATOM" targetName="glfw" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -58,13 +29,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ATOM_Brain.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ATOM_Brain.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/stb_image.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/stb_image.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/c_cpp_properties.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/atompch.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/atompch.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +67,9 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2XyaeqZSJYs0rCDs6df0iWmXmMh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -109,156 +88,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CMakeSettings",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="CMake Application.executable">
-    <configuration name="Codec_Assimp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Codec_Assimp" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Codec_STBI" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Codec_STBI" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DefaultSamples" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="DefaultSamples" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreAssimpConverter" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreAssimpConverter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="OgreAssimpConverter">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreBites" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreBites" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreBullet" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreBullet" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreDoc" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreDoc" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreGLSupport" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreGLSupport" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreMain" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreMain" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreMeshLodGenerator" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreMeshLodGenerator" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreMeshUpgrader" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreMeshUpgrader" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="OgreMeshUpgrader">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreOverlay" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreOverlay" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgrePaging" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgrePaging" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreProperty" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreProperty" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreRTShaderSystem" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreRTShaderSystem" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreTerrain" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreTerrain" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreVolume" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreVolume" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OgreXMLConverter" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="OgreXMLConverter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="OgreXMLConverter">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plugin_BSPSceneManager" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Plugin_BSPSceneManager" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plugin_DotScene" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Plugin_DotScene" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plugin_OctreeSceneManager" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Plugin_OctreeSceneManager" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plugin_OctreeZone" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Plugin_OctreeZone" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plugin_PCZSceneManager" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Plugin_PCZSceneManager" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Plugin_ParticleFX" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="Plugin_ParticleFX" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RenderSystem_GL" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="RenderSystem_GL" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RenderSystem_GL3Plus" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="RenderSystem_GL3Plus" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RenderSystem_GLES2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="RenderSystem_GLES2" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SampleBrowser" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="SampleBrowser" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="SampleBrowser">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VRMLConverter" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="VRMLConverter" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="VRMLConverter">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -312,35 +146,6 @@
       <item itemvalue="CMake Application.glfw" />
       <item itemvalue="CMake Application.update_mappings" />
       <item itemvalue="CMake Application.imgui" />
-      <item itemvalue="CMake Application.OgreBites" />
-      <item itemvalue="CMake Application.OgreBullet" />
-      <item itemvalue="CMake Application.OgreMeshLodGenerator" />
-      <item itemvalue="CMake Application.OgreOverlay" />
-      <item itemvalue="CMake Application.OgrePaging" />
-      <item itemvalue="CMake Application.OgreProperty" />
-      <item itemvalue="CMake Application.OgreRTShaderSystem" />
-      <item itemvalue="CMake Application.OgreTerrain" />
-      <item itemvalue="CMake Application.OgreVolume" />
-      <item itemvalue="CMake Application.OgreDoc" />
-      <item itemvalue="CMake Application.OgreMain" />
-      <item itemvalue="CMake Application.Codec_Assimp" />
-      <item itemvalue="CMake Application.Plugin_BSPSceneManager" />
-      <item itemvalue="CMake Application.Plugin_DotScene" />
-      <item itemvalue="CMake Application.Plugin_OctreeSceneManager" />
-      <item itemvalue="CMake Application.Plugin_OctreeZone" />
-      <item itemvalue="CMake Application.Plugin_ParticleFX" />
-      <item itemvalue="CMake Application.Plugin_PCZSceneManager" />
-      <item itemvalue="CMake Application.Codec_STBI" />
-      <item itemvalue="CMake Application.RenderSystem_GL" />
-      <item itemvalue="CMake Application.RenderSystem_GL3Plus" />
-      <item itemvalue="CMake Application.RenderSystem_GLES2" />
-      <item itemvalue="CMake Application.OgreGLSupport" />
-      <item itemvalue="CMake Application.DefaultSamples" />
-      <item itemvalue="CMake Application.SampleBrowser" />
-      <item itemvalue="CMake Application.OgreAssimpConverter" />
-      <item itemvalue="CMake Application.OgreMeshUpgrader" />
-      <item itemvalue="CMake Application.VRMLConverter" />
-      <item itemvalue="CMake Application.OgreXMLConverter" />
       <item itemvalue="CMake Application.spdlog" />
     </list>
   </component>
@@ -354,6 +159,8 @@
       <updated>1699603872472</updated>
       <workItem from="1699603874680" duration="1000" />
       <workItem from="1699604112737" duration="248000" />
+      <workItem from="1699624449557" duration="474000" />
+      <workItem from="1699626194343" duration="1276000" />
     </task>
     <servers />
   </component>
@@ -365,5 +172,10 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticFoundErrors value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/libs/ogre" />
+    </ignored-roots>
   </component>
 </project>

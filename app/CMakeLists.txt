@@ -28,6 +28,14 @@ set(SOURCES
         ATOM/Core/Editor/EditorLayer.h
         ATOM/Core/Editor/FrameBuffer.h
         ATOM/Core/Editor/FrameBuffer.cpp
+        ATOM/Core/Renderer/Shader.cpp
+        ATOM/Core/Renderer/Shader.h
+        ATOM/Core/Renderer/Camera.cpp
+        ATOM/Core/Renderer/Camera.h
+        ATOM/Core/Renderer/stb_image.cpp
+        ATOM/Core/Renderer/stb_image.h
+        ATOM/Core/Renderer/Mesh.cpp
+        ATOM/Core/Renderer/Mesh.h
 
 )
 

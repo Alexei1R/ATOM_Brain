@@ -21,8 +21,13 @@
 #include "ATOM/Core/Layers/LayerStack.h"
 
 #include "glad/glad.h"
+#include "GLFW/glfw3.h"
+#include "glm/glm.hpp"
 
 #include "ATOM/Core/Loging/Log.h"
+
+#include "ATOM/Core/Event/Mause.h"
+#include "ATOM/Core/Event/Keyboard.h"
 
 
 #endif //ATOM_ATOMPCH_H
