@@ -12,6 +12,7 @@ Components:
 <ins>**1. Downloading the repository:**</ins>
 
 Start by cloning the repository with 
+
 ```bash
 git clone --recursive https://github.com/Alexei1R/ATOM_Brain
 ```
