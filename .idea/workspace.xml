@@ -14,9 +14,12 @@
       <config projectName="ATOM" targetName="uninstall" />
       <config projectName="ATOM" targetName="imgui" />
       <config projectName="ATOM" targetName="docs" />
+      <config projectName="ATOM" targetName="assimp" />
+      <config projectName="ATOM" targetName="unit" />
       <config projectName="ATOM" targetName="executable" />
       <config projectName="ATOM" targetName="update_mappings" />
       <config projectName="ATOM" targetName="glad" />
+      <config projectName="ATOM" targetName="zlibstatic" />
       <config projectName="ATOM" targetName="spdlog" />
       <config projectName="ATOM" targetName="glfw" />
     </generated>
@@ -29,18 +32,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/stb_image.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/stb_image.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/atompch.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/atompch.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +93,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="assimp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="assimp" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="docs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="docs" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -133,7 +133,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="unit" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="unit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="unit">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="update_mappings" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="update_mappings" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="zlibstatic" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="zlibstatic" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -142,6 +152,9 @@
       <item itemvalue="CMake Application.executable" />
       <item itemvalue="CMake Application.glad" />
       <item itemvalue="CMake Application.uninstall" />
+      <item itemvalue="CMake Application.assimp" />
+      <item itemvalue="CMake Application.zlibstatic" />
+      <item itemvalue="CMake Application.unit" />
       <item itemvalue="CMake Application.docs" />
       <item itemvalue="CMake Application.glfw" />
       <item itemvalue="CMake Application.update_mappings" />
@@ -160,7 +173,7 @@
       <workItem from="1699603874680" duration="1000" />
       <workItem from="1699604112737" duration="248000" />
       <workItem from="1699624449557" duration="474000" />
-      <workItem from="1699626194343" duration="1276000" />
+      <workItem from="1699626194343" duration="1657000" />
     </task>
     <servers />
   </component>

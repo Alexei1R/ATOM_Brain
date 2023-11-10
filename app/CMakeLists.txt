@@ -44,6 +44,7 @@ set(SOURCES
 add_executable(executable ${SOURCES})
 
 target_link_libraries(executable
+    assimp
     imgui
     glad
     glfw
