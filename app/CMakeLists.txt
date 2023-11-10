@@ -36,6 +36,8 @@ set(SOURCES
         ATOM/Core/Renderer/stb_image.h
         ATOM/Core/Renderer/Mesh.cpp
         ATOM/Core/Renderer/Mesh.h
+        ATOM/Core/Renderer/Model.cpp
+        ATOM/Core/Renderer/Model.h
 
 )
 
