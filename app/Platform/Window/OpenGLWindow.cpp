@@ -118,6 +118,10 @@ namespace Atom {
 
         glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
         {
+            if (Keyboard::key(GLFW_KEY_F1)) { glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); }
+            if (Keyboard::key(GLFW_KEY_F2)) { glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); }
+
+
             Keyboard::keyCallback(window, key, scancode, action, mods);
 
         });

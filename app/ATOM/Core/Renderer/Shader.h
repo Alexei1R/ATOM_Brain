@@ -4,6 +4,7 @@
 
 #ifndef ATOM_SHADER_H
 #define ATOM_SHADER_H
+
 #include "ATOM/atompch.h"
 
 

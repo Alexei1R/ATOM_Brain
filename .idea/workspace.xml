@@ -32,11 +32,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Model.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Model.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/Traseu.fbx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/fs.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/vs.glsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Shader.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/atompch.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/atompch.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,6 +89,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/toor/Desktop/Code/ATOM_Brain/app/ASSETS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,6 +99,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/ASSETS" />
+    </key>
+  </component>
   <component name="RunManager" selected="CMake Application.executable">
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -174,7 +190,7 @@
       <workItem from="1699603874680" duration="1000" />
       <workItem from="1699604112737" duration="248000" />
       <workItem from="1699624449557" duration="474000" />
-      <workItem from="1699626194343" duration="2421000" />
+      <workItem from="1699626194343" duration="5741000" />
     </task>
     <servers />
   </component>

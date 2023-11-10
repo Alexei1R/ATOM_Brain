@@ -91,7 +91,7 @@ namespace Atom {
         double dx = Mouse::getDX();
         double dy = Mouse::getDY();
 
-        ProcessMouseMovement(dx, dy, true);
+        ProcessMouseMovement(dx, -dy, true);
 
     }
 
