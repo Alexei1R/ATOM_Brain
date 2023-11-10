@@ -2,9 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/libs/assimp" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/glm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/imgui-cmake/imgui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/ogre" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/spdlog" vcs="Git" />
   </component>
 </project>
