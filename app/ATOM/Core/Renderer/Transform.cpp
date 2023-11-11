@@ -22,7 +22,7 @@ namespace Atom{
         shader.SetUniformMatrix4f("proj", glm::value_ptr(proj), 1);
         shader.SetUniformMatrix4f("view", glm::value_ptr(view), 1);
         shader.SetUniform3f("viewPos", camPos.x, camPos.y, camPos.z);
-        //shader.SetUniform3f("viewDir", camFront.x, camFront.y, camFront.z);
+//        shader.SetUniform3f("viewDir", camFront.x, camFront.y, camFront.z);
 
     }
 

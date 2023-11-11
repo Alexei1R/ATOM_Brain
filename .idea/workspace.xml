@@ -32,16 +32,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/ao.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/backpack.mtl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/diffuse.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/normal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/roughness.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/source_attribution.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ASSETS/specular.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ASSETS/fs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/app/ASSETS/fs.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ASSETS/vs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/app/ASSETS/vs.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,36 +79,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/toor/Desktop/Code/ATOM_Brain/app/ASSETS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/toor/Desktop/Code/ATOM_Brain/app/ASSETS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/ASSETS" />
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.executable">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="assimp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="assimp" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -186,7 +184,8 @@
       <workItem from="1699603874680" duration="1000" />
       <workItem from="1699604112737" duration="248000" />
       <workItem from="1699624449557" duration="474000" />
-      <workItem from="1699626194343" duration="12303000" />
+      <workItem from="1699626194343" duration="13047000" />
+      <workItem from="1699696325470" duration="2923000" />
     </task>
     <servers />
   </component>
