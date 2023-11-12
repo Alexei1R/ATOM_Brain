@@ -15,3 +15,6 @@
 [submodule "libs/assimp"]
 	path = libs/assimp
 	url = https://github.com/assimp/assimp
+[submodule "libs/filament"]
+	path = libs/filament
+	url = https://github.com/google/filament.git
