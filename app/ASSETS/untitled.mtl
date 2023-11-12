@@ -1,0 +1,13 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl None
+Ns 500
+Ka 0.64705884 0.0627451 0.0627451
+Kd 0.4392157 0.21960784 0.21960784
+Ks 0.02745098 0.0 0.8352941
+d 1
+illum 2
+map_Kd diffuse.jpg
+map_Bump normal.png
+map_Ks specular.jpg

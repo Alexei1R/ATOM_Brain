@@ -1,6 +1,7 @@
+add_subdirectory(imgui-cmake)
 add_subdirectory(assimp)
 add_subdirectory(glad)
 add_subdirectory(glfw)
-add_subdirectory(imgui-cmake)
 add_subdirectory(glm)
 add_subdirectory(spdlog)
+add_subdirectory(filament)
