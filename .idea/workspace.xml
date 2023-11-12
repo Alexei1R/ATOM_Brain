@@ -34,11 +34,6 @@
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ASSETS/fs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/app/ASSETS/fs.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ASSETS/vs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/app/ASSETS/vs.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Model.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
@@ -74,25 +69,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/toor/Desktop/Code/ATOM_Brain/app/ASSETS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/toor/Desktop/Code/ATOM_Brain/app/ASSETS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/ASSETS" />
@@ -189,7 +184,7 @@
       <workItem from="1699696325470" duration="2923000" />
       <workItem from="1699788312292" duration="402000" />
       <workItem from="1699788733178" duration="730000" />
-      <workItem from="1699795973048" duration="1696000" />
+      <workItem from="1699795973048" duration="4390000" />
     </task>
     <servers />
   </component>

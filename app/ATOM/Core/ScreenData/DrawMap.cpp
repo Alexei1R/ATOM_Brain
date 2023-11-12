@@ -12,9 +12,10 @@ namespace Atom {
         m_Shader = new Shader("ASSETS/vs.glsl","ASSETS/fs.glsl");
         m_Shader->Bind();
         m_Model = new Model();
-        m_Model->loadModel("ASSETS/Traseu.fbx");
+        m_Model->loadModel("ASSETS/t.fbx");
         m_Transform = new Transform(*m_Shader);
-        m_Transform->rotate(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+        m_Transform->rotateRadians(180.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+        m_Transform->transform(glm::vec3(0.0f, -5.0f, 0.0f));
     }
 
     DrawMap::~DrawMap()
