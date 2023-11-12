@@ -109,6 +109,13 @@ namespace Atom {
         // diffuse: texture_diffuseN
         // specular: texture_specularN
         // normal: texture_normalN
+        aiColor3D aiDiffuseColor(1.0f, 1.0f, 1.0f);  // Default to white if no diffuse color is found
+        material->Get(AI_MATKEY_COLOR_DIFFUSE, aiDiffuseColor);
+
+        // Iterate through each vertex and set the diffuse color
+        for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
+            vertices[i].Color = glm::vec3(aiDiffuseColor.r, aiDiffuseColor.g, aiDiffuseColor.b);
+        }
 
         // 1. diffuse maps
         std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE,

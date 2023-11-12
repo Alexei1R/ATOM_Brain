@@ -14,6 +14,7 @@
       <config projectName="ATOM" targetName="uninstall" />
       <config projectName="ATOM" targetName="imgui" />
       <config projectName="ATOM" targetName="docs" />
+      <config projectName="ATOM" targetName="glm_shared" />
       <config projectName="ATOM" targetName="assimp" />
       <config projectName="ATOM" targetName="unit" />
       <config projectName="ATOM" targetName="executable" />
@@ -32,18 +33,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/ao.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/backpack.mtl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/diffuse.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/normal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/roughness.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/source_attribution.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ASSETS/specular.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ASSETS/fs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/app/ASSETS/fs.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ASSETS/vs.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/app/ASSETS/vs.glsl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Transform.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Mesh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Model.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Renderer/Model.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
@@ -129,6 +124,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="glm_shared" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="glm_shared" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="imgui" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="imgui" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -169,6 +169,7 @@
       <item itemvalue="CMake Application.docs" />
       <item itemvalue="CMake Application.glfw" />
       <item itemvalue="CMake Application.update_mappings" />
+      <item itemvalue="CMake Application.glm_shared" />
       <item itemvalue="CMake Application.imgui" />
       <item itemvalue="CMake Application.spdlog" />
     </list>
@@ -186,6 +187,9 @@
       <workItem from="1699624449557" duration="474000" />
       <workItem from="1699626194343" duration="13047000" />
       <workItem from="1699696325470" duration="2923000" />
+      <workItem from="1699788312292" duration="402000" />
+      <workItem from="1699788733178" duration="730000" />
+      <workItem from="1699795973048" duration="1696000" />
     </task>
     <servers />
   </component>

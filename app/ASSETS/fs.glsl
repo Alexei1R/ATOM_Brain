@@ -10,6 +10,8 @@ uniform vec3 viewPos;
 uniform sampler2D texture_diffuse1;
 uniform sampler2D texture_specular1;
 
+in vec3 Color;
+
 
 vec3 lightPosition = vec3(0.0, 0.0,100.0);
 
@@ -33,5 +35,6 @@ void main()
     vec3 ambient = ambientStrength * texture(texture_diffuse1, Texcordinates).xyz * lightColor;
 
     vec3 result = ambient + diffuse + specular;
-    FragColor = vec4(result, 1.0);
+//    FragColor = vec4(result, 1.0);
+    FragColor = vec4(Color, 1.0);
 }
