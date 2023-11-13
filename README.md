@@ -18,6 +18,18 @@ git clone --recursive https://github.com/Alexei1R/ATOM_Brain
 ```
 
 
+Before build install
+```bash
+sudo apt-get install libx11-dev
+sudo apt-get install libglfw3 libglfw3-dev
+sudo apt-get install libgl1-mesa-dev
+sudo apt-get install libxrandr-dev
+sudo apt-get install libxinerama-dev
+sudo apt-get install libxcursor-dev
+sudo apt-get install libxi-dev
+```
+
+
 If the repository was cloned non-recursively previously, use 
 ```bash
 git submodule update --init
