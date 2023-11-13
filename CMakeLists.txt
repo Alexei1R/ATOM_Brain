@@ -1,8 +1,23 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
-project(ATOM VERSION 0.0.1 LANGUAGES CXX)
+project(ATOM
+        VERSION 0.0.1
+        LANGUAGES CXX
+)
 
-# include(CTest)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# include(CTest)  # Uncomment if you want to include CTest
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)  # Choose Release, Debug, etc.
+endif()
+
+add_compile_options(
+        "-Wno-array-bounds"
+        "-Wno-error=stringop-overflow"
+)
 
 add_subdirectory(libs)
 add_subdirectory(app)

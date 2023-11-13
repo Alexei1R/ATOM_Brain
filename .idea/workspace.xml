@@ -3,27 +3,11 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader">{
-  &quot;useNewFormat&quot;: true
-}</component>
+  <component name="CMakePresetLoader"><![CDATA[{
+  "useNewFormat": true
+}]]></component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
-  </component>
-  <component name="CMakeRunConfigurationManager">
-    <generated>
-      <config projectName="ATOM" targetName="uninstall" />
-      <config projectName="ATOM" targetName="imgui" />
-      <config projectName="ATOM" targetName="docs" />
-      <config projectName="ATOM" targetName="glm_shared" />
-      <config projectName="ATOM" targetName="assimp" />
-      <config projectName="ATOM" targetName="unit" />
-      <config projectName="ATOM" targetName="executable" />
-      <config projectName="ATOM" targetName="update_mappings" />
-      <config projectName="ATOM" targetName="glad" />
-      <config projectName="ATOM" targetName="zlibstatic" />
-      <config projectName="ATOM" targetName="spdlog" />
-      <config projectName="ATOM" targetName="glfw" />
-    </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -32,9 +16,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="">
+    <list default="true" id="41aa6802-78f6-4587-8a38-2f2f4a181297" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/ScreenData/DrawMap.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +30,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,14 +41,11 @@
     <option name="majorVersion" value="2023" />
     <option name="minorVersion" value="2.2" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2XyaeqZSJYs0rCDs6df0iWmXmMh" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2Y8VG6twyVuIzcnYRuqYpE77uqQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -78,28 +59,17 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/toor/Desktop/Code/ATOM_Brain/app/ASSETS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/ASSETS" />
-    </key>
-  </component>
   <component name="RunManager" selected="CMake Application.executable">
-    <configuration name="assimp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="assimp" CONFIG_NAME="Debug">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="docs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="docs" CONFIG_NAME="Debug">
+    <configuration name="assimp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="assimp" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -156,12 +126,11 @@
     </configuration>
     <list>
       <item itemvalue="CMake Application.executable" />
-      <item itemvalue="CMake Application.glad" />
       <item itemvalue="CMake Application.uninstall" />
       <item itemvalue="CMake Application.assimp" />
       <item itemvalue="CMake Application.zlibstatic" />
       <item itemvalue="CMake Application.unit" />
-      <item itemvalue="CMake Application.docs" />
+      <item itemvalue="CMake Application.glad" />
       <item itemvalue="CMake Application.glfw" />
       <item itemvalue="CMake Application.update_mappings" />
       <item itemvalue="CMake Application.glm_shared" />
@@ -172,34 +141,16 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="567bdf3a-350e-4735-bf89-6cd502cab9cf" name="Changes" comment="" />
-      <created>1699603872472</created>
+      <changelist id="41aa6802-78f6-4587-8a38-2f2f4a181297" name="Changes" comment="" />
+      <created>1699907095055</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1699603872472</updated>
-      <workItem from="1699603874680" duration="1000" />
-      <workItem from="1699604112737" duration="248000" />
-      <workItem from="1699624449557" duration="474000" />
-      <workItem from="1699626194343" duration="13047000" />
-      <workItem from="1699696325470" duration="2923000" />
-      <workItem from="1699788312292" duration="402000" />
-      <workItem from="1699788733178" duration="730000" />
-      <workItem from="1699795973048" duration="4390000" />
+      <updated>1699907095055</updated>
+      <workItem from="1699907096718" duration="9000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VCPKGProject">
-    <isAutomaticEditVcpkgJson value="false" />
-    <isAutomaticCheckingOnLaunch value="false" />
-    <isAutomaticFoundErrors value="true" />
-    <isAutomaticFoundErrors value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/libs/ogre" />
-    </ignored-roots>
   </component>
 </project>
