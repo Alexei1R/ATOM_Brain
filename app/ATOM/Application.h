@@ -15,6 +15,7 @@
 #include "ATOM/Core/Editor/FrameBuffer.h"
 
 #include "ATOM/Core/ScreenData/DrawMap.h"
+#include "ATOM/Sensors/ImuLayer.h"
 
 
 namespace Atom {
@@ -38,7 +39,7 @@ namespace Atom {
         Framebuffer* m_Framebuffer;
 
         DrawMap* m_DrawMap;
-
+        ImuLayer* m_ImuLayer;
     };
 }
 

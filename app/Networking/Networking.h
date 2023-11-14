@@ -4,6 +4,8 @@
 
 #ifndef ATOM_NETWORKING_H
 #define ATOM_NETWORKING_H
+
+
 #include "ATOM/atompch.h"
 
 
@@ -52,7 +54,9 @@ namespace Atom{
 
     private:
         static void SteamNetConnectionStatusChangedCallback( SteamNetConnectionStatusChangedCallback_t *pInfo );
+        void OnConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* status);
         void PollIncomingMessages();
+        void PollConnectionStateChanges();
     private:
         NetSpecs m_Specs;
         std::function<void(ClientID)> m_OnClientConnectedCallback;
@@ -65,8 +69,11 @@ namespace Atom{
         ISteamNetworkingSockets* m_Interface = nullptr;
         SteamNetworkingIPAddr m_ServerLocalAddr;
         SteamNetworkingConfigValue_t m_Opt;
-        std::map< HSteamNetConnection,ClientName> m_MapOfClients;
+        std::map< HSteamNetConnection,ClientInfo> m_MapOfClients;
 
+
+        std::thread m_NetworkThread;
+        bool m_Running = false;
 
     };
 

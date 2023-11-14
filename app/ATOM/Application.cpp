@@ -43,6 +43,9 @@ namespace Atom {
         PushLayer(m_DrawMap);
 
 
+        m_ImuLayer = new ImuLayer();
+        PushLayer(m_ImuLayer);
+
 
     }
 

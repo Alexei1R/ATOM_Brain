@@ -44,6 +44,8 @@ set(SOURCES
         ATOM/Core/ScreenData/DrawMap.h
         Networking/Networking.cpp
         Networking/Networking.h
+        ATOM/Sensors/ImuLayer.h
+        ATOM/Sensors/ImuLayer.cpp
 
 )
 
