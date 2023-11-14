@@ -6,6 +6,7 @@
 #define ATOM_IMULAYER_H
 
 #include "ATOM/atompch.h"
+#include "Networking/Networking.h"
 
 namespace Atom {
     class ImuLayer : public Layer {
@@ -24,6 +25,8 @@ namespace Atom {
 
 
     private:
+
+        Server* m_Server;
     };
 
 

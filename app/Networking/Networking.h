@@ -9,15 +9,8 @@
 #include "ATOM/atompch.h"
 
 
+namespace Atom {
 
-namespace Atom{
-
-    struct NetSpecs{
-        std::string IP;
-        unsigned int Port;
-        NetSpecs(const std::string& ip = "localhost", unsigned int port = 12345)
-                :IP(ip), Port(port) {}
-    };
 
     using ClientID = HSteamNetConnection;
 
@@ -26,57 +19,83 @@ namespace Atom{
         ClientID ID;
         std::string ConnectionDesc;
     };
-    struct ClientName
-    {
-        std::string m_Name;
-    };
 
-    class Server {
+    class Server
+    {
     public:
-        explicit Server(NetSpecs specs = NetSpecs());
+        using DataReceivedCallback = std::function<void(const ClientInfo&, const void* data,unsigned  int size)>;
+        using ClientConnectedCallback = std::function<void(const ClientInfo&)>;
+        using ClientDisconnectedCallback = std::function<void(const ClientInfo&)>;
+    public:
+        Server(int port);
         ~Server();
 
-        [[noreturn]] void ServerStart();
-        void ServerStop();
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Start and Stop the server
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void Start();
+        void Stop();
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Set callbacks for server events
+        // These callbacks will be called from the server thread
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        void SetDataReceivedCallback(const DataReceivedCallback& function);
+        void SetClientConnectedCallback(const ClientConnectedCallback& function);
+        void SetClientDisconnectedCallback(const ClientDisconnectedCallback& function);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Send Data
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        template<typename T>
+        void SendDataToClient(ClientID clientID, const T& data, bool reliable = true) {
+            m_Interface->SendMessageToConnection((HSteamNetConnection)clientID, &data, sizeof(T), reliable ? k_nSteamNetworkingSend_Reliable : k_nSteamNetworkingSend_Unreliable, nullptr);
+        }
 
         template<typename T>
-        void SendDataToClient(ClientID clientID, const T& data, bool reliable = true);
+        void SendDataToAllClients(const T& data, ClientID excludeClientID, bool reliable = true) {
+            for (const auto& [clientID, clientInfo] : m_ConnectedClients) {
+                if (clientID != excludeClientID)
+                    SendDataToClient(clientID, data, reliable);
+            }
+        }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        template<typename T>
-        void SendDataToAllClient( const T& data,HSteamNetConnection except = k_HSteamNetConnection_Invalid,  bool reliable = true);
+        void KickClient(ClientID clientID);
 
-
-        void AttachOnMessageReceivedCallback(std::function<void(ClientID,const void* data)> callback) {m_OnMessageReceivedCallback = callback;};
-
-        void AttachOnClientConnectedCallback(std::function<void(ClientID)> callback) {m_OnClientConnectedCallback = callback;}
-        void AttachOnClientDisconnectedCallback(std::function<void(ClientID)> callback) {m_OnClientDisconnectedCallback = callback;}
-
+        bool IsRunning() const { return m_Running; }
+        const std::map<HSteamNetConnection, ClientInfo>& GetConnectedClients() const { return m_ConnectedClients; }
     private:
-        static void SteamNetConnectionStatusChangedCallback( SteamNetConnectionStatusChangedCallback_t *pInfo );
-        void OnConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* status);
+        void NetworkThreadFunc(); // Server thread
+
+        static void ConnectionStatusChangedCallback(SteamNetConnectionStatusChangedCallback_t* info);
+        void OnConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* info);
+
+        // Server functionality
         void PollIncomingMessages();
+        void SetClientNick(HSteamNetConnection hConn, const char* nick);
         void PollConnectionStateChanges();
+
+        void OnFatalError(const std::string& message);
     private:
-        NetSpecs m_Specs;
-        std::function<void(ClientID)> m_OnClientConnectedCallback;
-        std::function<void(ClientID)> m_OnClientDisconnectedCallback;
-        std::function<void(ClientID,const void* data)> m_OnMessageReceivedCallback;
-
-
-        HSteamListenSocket m_ListenSocket;
-        HSteamNetPollGroup m_PollGroup;
-        ISteamNetworkingSockets* m_Interface = nullptr;
-        SteamNetworkingIPAddr m_ServerLocalAddr;
-        SteamNetworkingConfigValue_t m_Opt;
-        std::map< HSteamNetConnection,ClientInfo> m_MapOfClients;
-
-
         std::thread m_NetworkThread;
-        bool m_Running = false;
+        DataReceivedCallback m_DataReceivedCallback;
+        ClientConnectedCallback m_ClientConnectedCallback;
+        ClientDisconnectedCallback m_ClientDisconnectedCallback;
 
+        int m_Port = 0;
+        bool m_Running = false;
+        std::map<HSteamNetConnection, ClientInfo> m_ConnectedClients;
+
+        ISteamNetworkingSockets* m_Interface = nullptr;
+        HSteamListenSocket m_ListenSocket = 0u;
+        HSteamNetPollGroup m_PollGroup = 0u;
     };
 
 }
+
+
+
+
 
 #endif //ATOM_NETWORKING_H

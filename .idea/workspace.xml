@@ -34,17 +34,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="41aa6802-78f6-4587-8a38-2f2f4a181297" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ATOM_Brain.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Networking/Networking.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/Networking/Networking.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Networking/Networking.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/Networking/Networking.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
@@ -57,7 +49,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -202,7 +194,7 @@
       <workItem from="1699907096718" duration="9000" />
       <workItem from="1699955349480" duration="20000" />
       <workItem from="1699957244118" duration="631000" />
-      <workItem from="1699963208758" duration="13928000" />
+      <workItem from="1699963208758" duration="17277000" />
     </task>
     <servers />
   </component>
