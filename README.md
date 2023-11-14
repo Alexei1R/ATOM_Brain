@@ -20,6 +20,10 @@ git clone --recursive https://github.com/Alexei1R/ATOM_Brain
 
 Before build install
 ```bash
+# Valve GNS libs
+sudo apt-get install libssl-dev
+sudo apt-get install libprotobuf-dev protobuf-compiler
+# Opengl related libs
 sudo apt-get install libx11-dev
 sudo apt-get install libglfw3 libglfw3-dev
 sudo apt-get install libgl1-mesa-dev
