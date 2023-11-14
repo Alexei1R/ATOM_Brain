@@ -56,6 +56,7 @@ target_link_libraries(executable
     glfw
     glm
     spdlog
+    GameNetworkingSockets
  )
 
 
