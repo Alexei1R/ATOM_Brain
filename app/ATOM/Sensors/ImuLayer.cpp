@@ -21,7 +21,7 @@ namespace Atom {
             ATLOG_INFO("Data Received from {0}: {1} bytes", info.ConnectionDesc, size);
 //            also print message as string
             ATLOG_INFO("Data Received from {0}: {1} bytes", info.ConnectionDesc, (char*)data);
-            m_Server->SendDataToClient(info.ID, data, size);
+            m_Server->SendDataToClient(info.ID, "Some data", 9);
         });
 
     }
