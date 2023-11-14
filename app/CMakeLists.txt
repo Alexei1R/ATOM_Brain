@@ -42,6 +42,8 @@ set(SOURCES
         ATOM/Core/Renderer/Transform.h
         ATOM/Core/ScreenData/DrawMap.cpp
         ATOM/Core/ScreenData/DrawMap.h
+        Networking/Networking.cpp
+        Networking/Networking.h
 
 )
 
