@@ -46,7 +46,6 @@ namespace Atom {
                 ImGui::EndMenu();
             }
 
-
             if (ImGui::BeginMenu("Script"))
             {
                 if (ImGui::MenuItem("New Script", "Ctrl+Shift+n")) {
@@ -189,8 +188,6 @@ namespace Atom {
             {
                 func();
             }
-
-
 
 
 

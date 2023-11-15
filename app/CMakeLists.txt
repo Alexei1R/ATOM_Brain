@@ -46,6 +46,12 @@ set(SOURCES
         Networking/Networking.h
         ATOM/Sensors/ImuLayer.h
         ATOM/Sensors/ImuLayer.cpp
+        Networking/Client.h
+        Networking/Client.cpp
+        Networking/Server.h
+        Networking/Server.cpp
+        ATOM/Sensors/Lidar.cpp
+        ATOM/Sensors/Lidar.h
 
 )
 

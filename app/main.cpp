@@ -18,7 +18,6 @@ int main(){
         ATLOG_ERROR("Error setting current path:  {0}", ex.what());
     }
 
-
     Atom::Application* app = new Atom::Application();
     app->Run();
     delete app;

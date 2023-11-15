@@ -12,7 +12,7 @@ namespace Atom {
         s_Instance = (Application*)this;
 
         m_Window = Window::Create();
-        m_Window->SetVSync(true);
+        m_Window->SetVSync(false);
         m_Window->SetWindowCloseCallback(BIND_EVENT_FN(WindowClose));
 
         m_ImGuiLayer = new ImGuiLayer();
