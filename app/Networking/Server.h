@@ -60,6 +60,13 @@ namespace Atom {
                     SendDataToClient(clientID, data, reliable);
             }
         }
+        template<typename T>
+        void SendDataToAllClientsSize(const T& data,unsigned  int size, ClientID excludeClientID, bool reliable = true) {
+            for (const auto& [clientID, clientInfo] : m_ConnectedClients) {
+                if (clientID != excludeClientID)
+                    m_Interface->SendMessageToConnection((HSteamNetConnection)clientID, &data, size, reliable ? k_nSteamNetworkingSend_Reliable : k_nSteamNetworkingSend_Unreliable, nullptr);
+            }
+        }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         void KickClient(ClientID clientID);

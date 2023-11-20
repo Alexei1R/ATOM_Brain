@@ -42,6 +42,9 @@ namespace Atom {
         m_EditorLayer->AddDrawCallback(imdraw);
 
 
+
+
+
         m_DrawMap = new DrawMap();
         PushLayer(m_DrawMap);
 

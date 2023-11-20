@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(ATOM)
+find_package(OpenCV REQUIRED )
 
 
 message(==============${CMAKE_CURRENT_SOURCE_DIR})
@@ -62,14 +63,15 @@ set(SOURCES
 add_executable(executable ${SOURCES})
 
 target_link_libraries(executable
-    assimp
-    imgui
-    glad
-    glfw
-    glm
-    spdlog
-    GameNetworkingSockets
- )
+        assimp
+        imgui
+        glad
+        glfw
+        glm
+        spdlog
+        GameNetworkingSockets
+        ${OpenCV_LIBS}
+)
 
 
 
