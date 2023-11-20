@@ -1,19 +1,23 @@
 //
-// Created by toor on 11/14/23.
+// Created by toor on 11/20/23.
 //
 
-#ifndef ATOM_IMULAYER_H
-#define ATOM_IMULAYER_H
+#ifndef ATOM_FRAME_H
+#define ATOM_FRAME_H
+
+
+
 
 #include "ATOM/atompch.h"
-#include "Networking/Networking.h"
+#include "Networking/Client.h"
+
 
 namespace Atom {
-    class ImuLayer : public Layer {
+    class Frame : public Layer {
     public:
-        ImuLayer();
+        Frame();
 
-        ~ImuLayer();
+        ~Frame();
 
         virtual void OnAttach() override;
 
@@ -25,7 +29,7 @@ namespace Atom {
 
 
     private:
-
+        Client* m_Client;
 
     };
 
@@ -33,4 +37,4 @@ namespace Atom {
 }
 
 
-#endif //ATOM_IMULAYER_H
+#endif //ATOM_FRAME_H

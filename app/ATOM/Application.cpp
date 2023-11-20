@@ -25,6 +25,9 @@ namespace Atom {
         PushLayer(m_EditorLayer);
 
 
+        m_Frame = new Frame();
+        PushLayer(m_Frame);
+
 
         std::function<void()> imdraw = [&]() {
 
@@ -43,8 +46,6 @@ namespace Atom {
         PushLayer(m_DrawMap);
 
 
-        m_ImuLayer = new ImuLayer();
-        PushLayer(m_ImuLayer);
 
 
     }

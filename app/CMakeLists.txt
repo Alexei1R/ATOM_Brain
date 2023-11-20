@@ -52,6 +52,8 @@ set(SOURCES
         Networking/Server.cpp
         ATOM/Sensors/Lidar.cpp
         ATOM/Sensors/Lidar.h
+        ATOM/Sensors/Frame.cpp
+        ATOM/Sensors/Frame.h
 
 )
 
