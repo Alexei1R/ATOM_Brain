@@ -15,6 +15,3 @@
 [submodule "libs/assimp"]
 	path = libs/assimp
 	url = https://github.com/assimp/assimp
-[submodule "libs/GameNetworkingSockets"]
-	path = libs/GameNetworkingSockets
-	url = https://github.com/ValveSoftware/GameNetworkingSockets

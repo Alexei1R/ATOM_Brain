@@ -3,9 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader">{
-  &quot;useNewFormat&quot;: true
-}</component>
+  <component name="CMakePresetLoader"><![CDATA[{
+  "useNewFormat": true
+}]]></component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -33,24 +33,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ce18554-17db-49a6-af03-cdc4dd8c2d1b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Sensors/Lidar.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Sensors/Lidar.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Networking/Client.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Networking/Client.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Networking/Server.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Networking/Server.h" afterDir="false" />
+    <list default="true" id="c5a242f9-9e22-4914-82a0-fed4d5239fe2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/ImuLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/atompch.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/atompch.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Networking/Networking.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/Networking/Networking.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Networking/Networking.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/Networking/Networking.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/ogre" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,36 +57,37 @@
     <option name="majorVersion" value="2023" />
     <option name="minorVersion" value="2.2" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2YB51Pfsamfs6eXT1T0XFix5dUV" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2YRTPwvIzoRvjZjzXVu6TyK0IpD" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="CMake Application.executable">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameNetworkingSockets" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="GameNetworkingSockets" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -186,19 +172,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2ce18554-17db-49a6-af03-cdc4dd8c2d1b" name="Changes" comment="" />
-      <created>1699985917692</created>
+      <changelist id="c5a242f9-9e22-4914-82a0-fed4d5239fe2" name="Changes" comment="" />
+      <created>1700487371822</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1699985917692</updated>
-      <workItem from="1699985919027" duration="2124000" />
-      <workItem from="1699990409767" duration="755000" />
-      <workItem from="1700033956826" duration="4600000" />
-      <workItem from="1700041409253" duration="204000" />
-      <workItem from="1700043202584" duration="1000" />
-      <workItem from="1700049070698" duration="1000" />
-      <workItem from="1700057777073" duration="1000" />
-      <workItem from="1700057892147" duration="1000" />
+      <updated>1700487371822</updated>
+      <workItem from="1700487372889" duration="631000" />
     </task>
     <servers />
   </component>
