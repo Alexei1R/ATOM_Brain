@@ -10,6 +10,7 @@
 
 #include "ATOM/atompch.h"
 #include "Networking/Client.h"
+#include <opencv2/opencv.hpp>
 
 
 namespace Atom {
@@ -29,8 +30,9 @@ namespace Atom {
 
 
     private:
-        Client* m_Client;
-
+        cv::VideoCapture m_VideoCapture;
+        cv::Mat m_Frame;
+        GLuint textureID;
     };
 
 

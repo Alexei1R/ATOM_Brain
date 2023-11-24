@@ -1,65 +1,57 @@
-//
-// Created by toor on 11/20/23.
-//
-
 #include "Frame.h"
 #include "opencv2/opencv.hpp"
 
-
-
 namespace Atom {
+
+    void MatToTexture(const cv::Mat& mat, GLuint& texture) {
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mat.cols, mat.rows, 0, GL_BGR, GL_UNSIGNED_BYTE, mat.ptr());
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
     Frame::Frame()
-            : Layer("Lidar") {
+            : Layer("Frame") {
+        cv::namedWindow("Received Video", cv::WINDOW_NORMAL);
+        cv::resizeWindow("Received Video", 640, 480);
 
-        m_Client = new Client();
-        m_Client->ConnectToServer("192.168.1.103:27020");
-        m_Client->SetDataReceivedCallback([&](const void* data, unsigned int size) {
-            // Assuming 'data' contains image bytes received from the server
-            std::vector<uchar> imageBytes(static_cast<const uchar*>(data), static_cast<const uchar*>(data) + size);
+        m_VideoCapture.open("udpsrc port=5000 ! application/x-rtp, payload=96 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink", cv::CAP_GSTREAMER);
 
-            // Convert the received byte data back into an OpenCV Mat
-            cv::Mat img = cv::imdecode(imageBytes, cv::IMREAD_COLOR);
+        if (!m_VideoCapture.isOpened()) {
+            std::cout << "Error opening video stream" << std::endl;
+        }
 
-            if (!img.empty()) {
-                // Display the image using OpenCV
-                cv::imshow("Received Image", img);
-                cv::waitKey(1); // Add a small delay to allow window rendering and event processing
-            } else {
-                ATLOG_ERROR("Failed to decode the received image data");
-            }
-        });
-        m_Client->SetServerConnectedCallback([&]() {
-            ATLOG_INFO("Connected to server");
-        });
-        m_Client->SetServerDisconnectedCallback([&]() {
-            ATLOG_INFO("Disconnected from server");
-        });
-
-
-
-
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    Frame::~Frame() {
-    }
+    Frame::~Frame() {}
 
+    void Frame::OnAttach() {}
 
-    void Frame::OnAttach() {
-
-    }
-
-    void Frame::OnDetach() {
-    }
+    void Frame::OnDetach() {}
 
     void Frame::OnUpdate() {
-
 
 
     }
 
     void Frame::OnImGuiRender() {
 
+        m_VideoCapture >> m_Frame;
+
+        if (m_Frame.empty()) {
+            std::cout << "End of video stream" << std::endl;
+        }
+        MatToTexture(m_Frame, textureID);
+
+        ImGui::Begin("Received Video");
+
+        ImVec2 size(m_Frame.cols, m_Frame.rows);
+        ImGui::Image((void*)(intptr_t)textureID, size);
+
+        ImGui::End();
     }
-
-
 }
