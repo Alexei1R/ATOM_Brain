@@ -28,12 +28,13 @@ mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-4.x/modules ../opencv-4.x
 make -j$(nproc)
 # or specify the number of cores yourself ex (make -j8)
-
+sudo make install
 
 #Debug 
 cmake -DCMAKE_BUILD_TYPE=Debug -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-4.x/modules ../opencv-4.x
 make -j$(nproc)
 # or specify the number of cores yourself ex (make -j8)
+sudo make install
 
 ```
 
