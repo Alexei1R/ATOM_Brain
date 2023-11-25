@@ -30,12 +30,11 @@ git submodule update --init
 ```
 to clone the necessary submodules.
 
-<ins>**2. Configuring the dependencies:**</ins>
 
 ## Usage
 The preferred way to work on the project is in clion or
 
-Create the `build` directory and configure the build system and run make:
+Create the `build` directory, configure the build system and run make:
 
 ```bash
 mkdir build & cd build & cmake .. & make -j$(nproc)
