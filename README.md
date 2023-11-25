@@ -9,13 +9,7 @@ Components:
 
 
 ## Getting Started
-<ins>**1. Downloading the repository:**</ins>
 
-Start by cloning the repository with 
-
-```bash
-git clone --recursive https://github.com/Alexei1R/ATOM_Brain
-```
 Install necesar tools
 ```bash
 # Install minimal prerequisites 
@@ -66,7 +60,13 @@ sudo apt-get install libxi-dev
 ```
 
 
+<ins>**1. Downloading the repository:**</ins>
 
+Start by cloning the repository with 
+
+```bash
+git clone --recursive https://github.com/Alexei1R/ATOM_Brain
+```
 
 
 If the repository was cloned non-recursively previously, use 
