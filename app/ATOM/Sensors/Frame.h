@@ -11,6 +11,7 @@
 #include "ATOM/atompch.h"
 #include "Networking/Client.h"
 #include <opencv2/opencv.hpp>
+#include "VideoCapture/VideoCapture.h"
 
 
 namespace Atom {
@@ -30,7 +31,7 @@ namespace Atom {
 
 
     private:
-        cv::VideoCapture m_VideoCapture;
+        Atom::VideoCapture m_VideoCapture;
         cv::Mat m_Frame;
         GLuint textureID;
     };

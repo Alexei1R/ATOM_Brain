@@ -34,9 +34,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8a8527b-8d63-41e3-96b4-55ab05b2afbb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/VideoCapture/VideoCapture.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/VideoCapture/VideoCapture.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/Frame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/Frame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/Frame.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/Frame.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,17 +91,17 @@
   }
 }</component>
   <component name="RunManager" selected="CMake Application.executable">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameNetworkingSockets" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="GameNetworkingSockets" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="GameNetworkingSockets_s" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="GameNetworkingSockets_s" CONFIG_NAME="Debug">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>

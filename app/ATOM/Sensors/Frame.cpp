@@ -14,11 +14,15 @@ namespace Atom {
         cv::namedWindow("Received Video", cv::WINDOW_NORMAL);
         cv::resizeWindow("Received Video", 640, 480);
 
-        m_VideoCapture.open("udpsrc port=5000 ! application/x-rtp, payload=96 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink", cv::CAP_GSTREAMER);
+        m_VideoCapture.Open("udpsrc port=5000 ! application/x-rtp, payload=96 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink");
 
         if (!m_VideoCapture.isOpened()) {
             std::cout << "Error opening video stream" << std::endl;
         }
+
+        m_VideoCapture.SetFrameRecivedCallback([&](cv::Mat& frame) {
+            m_Frame = frame;
+        });
 
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
@@ -40,18 +44,20 @@ namespace Atom {
 
     void Frame::OnImGuiRender() {
 
-        m_VideoCapture >> m_Frame;
+//        m_Frame = m_VideoCapture.GetFrame();
 
-        if (m_Frame.empty()) {
-            std::cout << "End of video stream" << std::endl;
+        if(m_VideoCapture.isOpened()){
+            if (m_Frame.empty()) {
+                std::cout << "End of video stream" << std::endl;
+            }
+            MatToTexture(m_Frame, textureID);
+
+            ImGui::Begin("Received Video");
+
+            ImVec2 size(m_Frame.cols, m_Frame.rows);
+            ImGui::Image((void*)(intptr_t)textureID, size);
+
+            ImGui::End();
         }
-        MatToTexture(m_Frame, textureID);
-
-        ImGui::Begin("Received Video");
-
-        ImVec2 size(m_Frame.cols, m_Frame.rows);
-        ImGui::Image((void*)(intptr_t)textureID, size);
-
-        ImGui::End();
     }
 }

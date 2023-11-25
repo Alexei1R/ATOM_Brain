@@ -55,6 +55,8 @@ set(SOURCES
         ATOM/Sensors/Lidar.h
         ATOM/Sensors/Frame.cpp
         ATOM/Sensors/Frame.h
+        VideoCapture/VideoCapture.cpp
+        VideoCapture/VideoCapture.h
 
 )
 
