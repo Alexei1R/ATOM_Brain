@@ -31,6 +31,12 @@ namespace Atom {
         inline static Application& GetApp() { return *s_Instance; }
         inline  Window& GetWindow() { return *m_Window; }
         void WindowClose();
+
+
+        void Init();
+        void InitClient();
+
+        void SelectIPPopUpWindow();
     private:
         bool m_IsRuning = true;
         Window* m_Window;
@@ -41,6 +47,10 @@ namespace Atom {
 
         DrawMap* m_DrawMap;
         Frame* m_Frame;
+        bool isConnected = false;
+
+        Client* m_Client;
+
     };
 }
 
