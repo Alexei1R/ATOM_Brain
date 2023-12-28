@@ -55,6 +55,14 @@ namespace Atom {
             EResult result = m_Interface->SendMessageToConnection(m_Connection,data, sizeof(data),reliable ? k_nSteamNetworkingSend_Reliable : k_nSteamNetworkingSend_Unreliable, nullptr);
         }
 
+        void SendDataPointer(const void* data, size_t dataSize, bool reliable = true)
+        {
+            EResult result = m_Interface->SendMessageToConnection(
+                m_Connection, data, dataSize,
+                reliable ? k_nSteamNetworkingSend_Reliable : k_nSteamNetworkingSend_Unreliable, nullptr
+            );
+        }
+
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Connection Status & Debugging
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

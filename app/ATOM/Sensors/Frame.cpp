@@ -14,7 +14,7 @@ namespace Atom {
         cv::namedWindow("Received Video", cv::WINDOW_NORMAL);
         cv::resizeWindow("Received Video", 640, 480);
 
-        m_VideoCapture.Open("udpsrc port=5000 ! application/x-rtp, payload=96 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink");
+        m_VideoCapture.Open("udpsrc port=5000 ! application/x-rtp,encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink sync=false");
 
         if (!m_VideoCapture.isOpened()) {
             std::cout << "Error opening video stream" << std::endl;

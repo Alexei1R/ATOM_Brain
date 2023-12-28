@@ -37,11 +37,7 @@ namespace Atom {
         unsigned int m_FBO;
         unsigned int m_FramebufferTexture;
         unsigned int m_DepthAttachment;
-
-
     };
-
-
 }
 
 

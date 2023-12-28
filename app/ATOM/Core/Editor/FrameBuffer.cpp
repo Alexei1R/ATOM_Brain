@@ -7,9 +7,7 @@
 
 namespace Atom {
     Framebuffer::Framebuffer()
-            : Layer("Framebuffer") {
-
-
+        : Layer("Framebuffer") {
     }
 
     Framebuffer::~Framebuffer() {
@@ -17,8 +15,8 @@ namespace Atom {
 
 
     void Framebuffer::OnAttach() {
-        Application &m_App = Application::GetApp();
-        Window *m_Window = static_cast<Window *>(&m_App.GetWindow());
+        Application& m_App = Application::GetApp();
+        Window* m_Window = static_cast<Window *>(&m_App.GetWindow());
 
         // Create and bind the framebuffer
         glGenFramebuffers(1, &m_FBO);
@@ -48,7 +46,6 @@ namespace Atom {
 
         // Unbind the framebuffer
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
     }
 
     void Framebuffer::Bind() {
@@ -82,11 +79,8 @@ namespace Atom {
     }
 
     void Framebuffer::OnUpdate() {
-
     }
 
     void Framebuffer::OnImGuiRender() {
     }
-
-
 }

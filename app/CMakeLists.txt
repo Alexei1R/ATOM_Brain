@@ -57,6 +57,8 @@ set(SOURCES
         ATOM/Sensors/Frame.h
         VideoCapture/VideoCapture.cpp
         VideoCapture/VideoCapture.h
+        ATOM/Core/ClientLayer.cpp
+        ATOM/Core/ClientLayer.h
 
 )
 

@@ -75,6 +75,18 @@ namespace Atom {
         //glfwDestroyWindow(m_Window);
     }
 
+    std::pair<int, int> OpenGLWindow::GetSize() const {
+        int width, height;
+        glfwGetWindowSize(m_Window, &width, &height);
+        return {width, height};
+    }
+
+    std::pair<int, int> OpenGLWindow::GetPosition() const {
+        int xpos, ypos;
+        glfwGetWindowPos(m_Window, &xpos, &ypos);
+        return {xpos, ypos};
+    }
+
 
 
     void OpenGLWindow::OnUpdate()

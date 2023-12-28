@@ -17,9 +17,14 @@
 #include "ATOM/Core/ScreenData/DrawMap.h"
 #include "ATOM/Sensors/ImuLayer.h"
 #include "ATOM/Sensors/Frame.h"
+#include "ATOM/Core/ClientLayer.h"
 
 
 namespace Atom {
+
+
+
+
     class Application {
     public:
         Application();
@@ -33,8 +38,6 @@ namespace Atom {
         void WindowClose();
 
 
-        void Init();
-        void InitClient();
 
         void SelectIPPopUpWindow();
     private:
@@ -49,7 +52,8 @@ namespace Atom {
         Frame* m_Frame;
         bool isConnected = false;
 
-        Client* m_Client;
+        ClientLayer* m_ClientLayer;
+
 
     };
 }

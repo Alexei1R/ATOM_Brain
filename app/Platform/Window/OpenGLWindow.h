@@ -25,6 +25,11 @@ namespace Atom {
         inline  unsigned int GetWidth()const override {return m_Data.Width;};
         inline unsigned int GetHeight()const override { return m_Data.Height; };
 
+
+        std::pair<int, int> GetSize() const override;
+        std::pair<int, int> GetPosition() const override;
+
+
         // Window attributes
         void SetWindowCloseCallback(const EventCallbackFn& callback) override { m_Data.m_EventCallback = callback; }
         void SetVSync(bool enabled) override;

@@ -14,10 +14,89 @@ namespace Atom {
         s_Instance = (Application *) this;
 
         m_Window = Window::Create();
-        m_Window->SetVSync(true);
+        m_Window->SetVSync(false);
         m_Window->SetWindowCloseCallback(BIND_EVENT_FN(WindowClose));
 
-        Init();
+
+        m_ImGuiLayer = new ImGuiLayer();
+        PushOverlay(m_ImGuiLayer);
+        m_Framebuffer = new Framebuffer();
+        PushLayer(m_Framebuffer);
+        m_EditorLayer = new EditorLayer(m_Framebuffer);
+        PushOverlay(m_EditorLayer);
+        m_Frame = new Frame();
+        PushLayer(m_Frame);
+        m_ClientLayer = new ClientLayer();
+        PushLayer(m_ClientLayer);
+
+        m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
+            ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
+        });
+
+
+
+
+
+        std::function<void()> drawPopUp = [&]() {
+            SelectIPPopUpWindow();
+        };
+        m_EditorLayer->AddDrawCallback(drawPopUp);
+
+        std::function<void()> test = [&]() {
+            // SelectIPPopUpWindow();
+            ImGui::Begin("Test");
+            ImGui::Text("Hello World");
+
+
+            //text imput
+            static char inputBuffer[256] = "Default Text";
+            ImGui::InputText("Enter Text", inputBuffer, IM_ARRAYSIZE(inputBuffer));
+
+            if (ImGui::Button("Send Data")) {
+                if (m_ClientLayer->IsRunning()) {
+                    std::string data = inputBuffer;
+                    Message message;
+                    message.id = 1;  // Set message ID
+                    message.payloadSize = data.size();  // Set the size of the payload
+                    message.payload = static_cast<void*>(const_cast<char*>(data.c_str())); // Set the payload
+                    m_ClientLayer->SendMessage(message);
+
+                    int data2 = 123;
+                    Message message2;
+                    message2.id = 2;  // Set message ID
+                    message2.payloadSize = sizeof(data2);  // Set the size of the payload
+                    message2.payload = static_cast<void*>(&data2); // Set the payload
+                    m_ClientLayer->SendMessage(message2);
+
+                    //id 3 , glm::vec3
+                    glm::vec3 data3 = glm::vec3(1, 2, 3);
+                    Message message3;
+                    message3.id = 3;  // Set message ID
+                    message3.payloadSize = sizeof(data3);  // Set the size of the payload
+                    message3.payload = static_cast<void*>(&data3); // Set the payload
+                    m_ClientLayer->SendMessage(message3);
+
+                }
+            }
+
+
+
+
+
+            ImGui::End();
+        };
+        m_EditorLayer->AddDrawCallback(test);
+
+
+
+
+
+
+
+        m_DrawMap = new DrawMap();
+        PushLayer(m_DrawMap);
+
+
 
     }
 
@@ -54,16 +133,17 @@ namespace Atom {
             m_Framebuffer->UnBind();
 
 
+
             for (Layer *layer: m_LayerStack) {
                 layer->OnUpdate();
             }
-
             m_ImGuiLayer->Begin();
             {
                 for (Layer *layer: m_LayerStack)
                     layer->OnImGuiRender();
             }
             m_ImGuiLayer->End();
+
 
 
             m_Window->OnUpdate();
@@ -77,98 +157,24 @@ namespace Atom {
 
 
 
-    void Application::Init() {
-        m_ImGuiLayer = new ImGuiLayer();
-        PushOverlay(m_ImGuiLayer);
-        m_Framebuffer = new Framebuffer();
-        PushLayer(m_Framebuffer);
-        m_EditorLayer = new EditorLayer(m_Framebuffer);
-        PushLayer(m_EditorLayer);
-        m_Frame = new Frame();
-        PushLayer(m_Frame);
-
-        InitClient();
-
-        std::function<void()> drawPopUp = [&]() {
-            SelectIPPopUpWindow();
-        };
-        m_EditorLayer->AddDrawCallback(drawPopUp);
-
-        std::function<void()> imdraw = [&]() {
-
-
-            ImGui::Begin("Settings");
-
-            ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
-
-            //text imput for message
-            static char inputBuffer[256] = "Default message";
-            ImGui::InputText("Enter Message", inputBuffer, IM_ARRAYSIZE(inputBuffer));
-
-            if(isConnected){
-                ImGui::Text("Connected to server");
-                //create a button and sent a hi to server
-                if (ImGui::Button("Send")) {
-                    if(m_Client->IsRunning()){
-                        m_Client->SendData(inputBuffer, strlen(inputBuffer));
-
-                    } else {
-                        ATLOG_INFO("Client is not running");
-                        isConnected = false;
-                    }
-                }
-                if (ImGui::Button("Echo")) {
-                    if(m_Client->IsRunning()){
-                        m_Client->SendData("echo", 4);
-
-                    } else {
-                        ATLOG_INFO("Client is not running");
-                        isConnected = false;
-                    }
-                }
-            }
-
-            ImGui::Text("Settins test");
-            ImGui::End();
-
-        };
-        m_EditorLayer->AddDrawCallback(imdraw);
-
-        m_DrawMap = new DrawMap();
-        PushLayer(m_DrawMap);
-
-
-
-    }
-    void Application::InitClient() {
-        m_Client = new Client();
-
-        m_Client->SetDataReceivedCallback([&](const void* data, unsigned int size) {
-            ATLOG_WARN("[SERVER] : {0} ,size {1} bytes", (char*)data, size);
-        });
-        m_Client->SetServerConnectedCallback([&]() {
-            ATLOG_INFO("Connected to server");
-            m_Client->SendData("Hello from client", 17);
-        });
-        m_Client->SetServerDisconnectedCallback([&]() {
-            ATLOG_INFO("Disconnected from server");
-        });
-
-
-    }
-
 
     void Application::SelectIPPopUpWindow() {
         if (!isConnected) {
 
+            auto mainWindowSizePair = m_Window->GetSize();
+            ImVec2 mainWindowSize = ImVec2(static_cast<float>(mainWindowSizePair.first), static_cast<float>(mainWindowSizePair.second));
 
-            ImGuiIO &io = ImGui::GetIO();
-            ImVec2 windowSize = ImVec2(400, 200);
-            ImVec2 windowPos = ImVec2((io.DisplaySize.x - windowSize.x) * 0.5f,
-                                      (io.DisplaySize.y - windowSize.y) * 0.5f);
+            auto mainWindowPositionPair = m_Window->GetPosition();
+            ImVec2 mainWindowPosition = ImVec2(static_cast<float>(mainWindowPositionPair.first), static_cast<float>(mainWindowPositionPair.second));
 
-            ImGui::SetNextWindowPos(windowPos);
-            ImGui::SetNextWindowSize(windowSize);
+            ImVec2 popupSize = ImVec2(300, 200);
+            ImVec2 popupPos = ImVec2(mainWindowPosition.x + (mainWindowSize.x - popupSize.x) * 0.5f,
+                                     mainWindowPosition.y + (mainWindowSize.y - popupSize.y) * 0.5f);
+
+            ImGui::SetNextWindowPos(popupPos);
+            ImGui::SetNextWindowSize(popupSize);
+
+
 
             ImGui::OpenPopup("Select IP");
             if (ImGui::BeginPopupModal("Select IP", nullptr, 0)) {
@@ -184,19 +190,20 @@ namespace Atom {
                 ImGui::Combo("IP", &m_IPIndex, menuItems, IM_ARRAYSIZE(menuItems));
 
                 if (m_IPIndex == SelectIP) {
-                    static char inputBuffer[256] = "192.168.1.1";
+                    static char inputBuffer[256] = "192.168.100.119";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
                     if (ImGui::Button("Connect")) {
                         isConnected = true;
                         std::string ip = inputBuffer;
                         ip.append(":27020");
-                        m_Client->ConnectToServer(ip);
+                        m_ClientLayer->ConnectToServer(ip);
+
 
                     }
                 } else if (m_IPIndex == DefaultIP) {
                     if (ImGui::Button("Connect with Default IP")) {
                         isConnected = true;
-                        m_Client->ConnectToServer("192.168.1.8:27020");
+                        m_ClientLayer->ConnectToServer("192.168.100.119:27020");
 
                     }
                 }

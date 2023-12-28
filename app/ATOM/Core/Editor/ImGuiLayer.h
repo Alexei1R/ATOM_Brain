@@ -7,16 +7,18 @@
 #include "ATOM/atompch.h"
 
 namespace Atom {
-    class ImGuiLayer : public Layer
-    {
+    class ImGuiLayer : public Layer {
     public:
         ImGuiLayer();
+
         ~ImGuiLayer() = default;
 
         void OnAttach() override;
+
         void OnDetach() override;
 
         void Begin();
+
         void End();
 
 
