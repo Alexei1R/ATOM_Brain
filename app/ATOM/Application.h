@@ -53,7 +53,15 @@ namespace Atom {
         bool isConnected = false;
 
         ClientLayer* m_ClientLayer;
+        int counter = 0;
+        float sliderValue = 0;
+        float lastsliderValue = 0;
 
+        float angle = 0;
+        float lastAngle = 0;
+
+        float speed = 0;
+        float steering = 0;
 
     };
 }

@@ -61,7 +61,7 @@ void Atom::ClientLayer::ConnectToServer(std::string ip) {
     m_Client->ConnectToServer(ip);
 }
 
-void Atom::ClientLayer::SendMessage(const Message& message) {
+void Atom::ClientLayer::SendMessage(const Message& message, bool isReliable) {
     size_t totalSize = sizeof(message.id) + sizeof(message.payloadSize) + message.payloadSize;
     char* buffer = new char[totalSize];
     std::memcpy(buffer, &message.id, sizeof(message.id));

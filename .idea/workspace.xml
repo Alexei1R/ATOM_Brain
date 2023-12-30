@@ -34,25 +34,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e74b5d1a-a061-47cc-8782-008ffa006dfb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/ClientLayer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ATOM/Core/ClientLayer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/ATOM/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/EditorLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/FrameBuffer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/ImGuiLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/ImGuiLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Editor/ImGuiLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Editor/ImGuiLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/Window.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/Frame.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/Frame.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/Sensors/Lidar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Sensors/Lidar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/ATOM/atompch.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/atompch.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Networking/Client.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/Networking/Client.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/Platform/Window/OpenGLWindow.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/ClientLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/ClientLayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ATOM/Core/ClientLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/ATOM/Core/ClientLayer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/app/imgui.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,11 +91,6 @@
   }
 }</component>
   <component name="RunManager" selected="CMake Application.executable">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="unit" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ATOM" TARGET_NAME="unit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ATOM" RUN_TARGET_NAME="unit" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -177,19 +158,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.executable" />
-      <item itemvalue="CMake Application.uninstall" />
-      <item itemvalue="CMake Application.assimp" />
-      <item itemvalue="CMake Application.zlibstatic" />
+      <item itemvalue="Google Test.unit" />
       <item itemvalue="CMake Application.GameNetworkingSockets" />
       <item itemvalue="CMake Application.GameNetworkingSockets_s" />
+      <item itemvalue="CMake Application.assimp" />
+      <item itemvalue="CMake Application.executable" />
       <item itemvalue="CMake Application.glad" />
       <item itemvalue="CMake Application.glfw" />
-      <item itemvalue="CMake Application.update_mappings" />
       <item itemvalue="CMake Application.glm_shared" />
       <item itemvalue="CMake Application.imgui" />
       <item itemvalue="CMake Application.spdlog" />
-      <item itemvalue="Google Test.unit" />
+      <item itemvalue="CMake Application.uninstall" />
+      <item itemvalue="CMake Application.update_mappings" />
+      <item itemvalue="CMake Application.zlibstatic" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -206,7 +187,12 @@
       <workItem from="1703777466329" duration="1469000" />
       <workItem from="1703779006913" duration="376000" />
       <workItem from="1703779529378" duration="1609000" />
-      <workItem from="1703789964579" duration="2750000" />
+      <workItem from="1703789964579" duration="4382000" />
+      <workItem from="1703841640750" duration="3126000" />
+      <workItem from="1703847924564" duration="2270000" />
+      <workItem from="1703852310184" duration="1023000" />
+      <workItem from="1703853592721" duration="3381000" />
+      <workItem from="1703940210542" duration="1000" />
     </task>
     <servers />
   </component>

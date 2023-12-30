@@ -48,37 +48,82 @@ namespace Atom {
             ImGui::Text("Hello World");
 
 
-            //text imput
-            static char inputBuffer[256] = "Default Text";
-            ImGui::InputText("Enter Text", inputBuffer, IM_ARRAYSIZE(inputBuffer));
+            if(Keyboard::key(GLFW_KEY_W)){
+                speed = 50;
+                Message message;
+                message.id = 1;  // Set message ID
+                message.payloadSize = sizeof(speed);  // Set the size of the payload
+                message.payload = static_cast<void *>(&speed); // Set the payload
+                m_ClientLayer->SendMessage(message);
 
-            if (ImGui::Button("Send Data")) {
-                if (m_ClientLayer->IsRunning()) {
-                    std::string data = inputBuffer;
-                    Message message;
-                    message.id = 1;  // Set message ID
-                    message.payloadSize = data.size();  // Set the size of the payload
-                    message.payload = static_cast<void*>(const_cast<char*>(data.c_str())); // Set the payload
-                    m_ClientLayer->SendMessage(message);
+            }
+            if(Keyboard::key(GLFW_KEY_S)){
+                speed = -50;
+                Message message;
+                message.id = 1;  // Set message ID
+                message.payloadSize = sizeof(speed);  // Set the size of the payload
+                message.payload = static_cast<void *>(&speed); // Set the payload
+                m_ClientLayer->SendMessage(message);
 
-                    int data2 = 123;
-                    Message message2;
-                    message2.id = 2;  // Set message ID
-                    message2.payloadSize = sizeof(data2);  // Set the size of the payload
-                    message2.payload = static_cast<void*>(&data2); // Set the payload
-                    m_ClientLayer->SendMessage(message2);
+            }
+            if(Keyboard::key(GLFW_KEY_A)){
+                steering = -25;
+                Message message;
+                message.id = 2;  // Set message ID
+                message.payloadSize = sizeof(steering);  // Set the size of the payload
+                message.payload = static_cast<void *>(&steering); // Set the payload
+                m_ClientLayer->SendMessage(message);
 
-                    //id 3 , glm::vec3
-                    glm::vec3 data3 = glm::vec3(1, 2, 3);
-                    Message message3;
-                    message3.id = 3;  // Set message ID
-                    message3.payloadSize = sizeof(data3);  // Set the size of the payload
-                    message3.payload = static_cast<void*>(&data3); // Set the payload
-                    m_ClientLayer->SendMessage(message3);
+            }
+            if(Keyboard::key(GLFW_KEY_D)){
+                steering = 25;
+                Message message;
+                message.id = 2;  // Set message ID
+                message.payloadSize = sizeof(steering);  // Set the size of the payload
+                message.payload = static_cast<void *>(&steering); // Set the payload
+                m_ClientLayer->SendMessage(message);
 
-                }
+            }
+            if(Keyboard::key(GLFW_KEY_SPACE)){
+                steering = 0;
+                Message message;
+                message.id = 2;  // Set message ID
+                message.payloadSize = sizeof(steering);  // Set the size of the payload
+                message.payload = static_cast<void *>(&steering); // Set the payload
+                m_ClientLayer->SendMessage(message);
+
+                speed = 0;
+                message.id = 1;  // Set message ID
+                message.payloadSize = sizeof(speed);  // Set the size of the payload
+                message.payload = static_cast<void *>(&speed); // Set the payload
+                m_ClientLayer->SendMessage(message);
+
             }
 
+
+            ImGui::SliderFloat("Slider", &sliderValue, -50.0, 50.0);
+            if(lastsliderValue != sliderValue){
+                lastsliderValue = sliderValue;
+                    if (m_ClientLayer->IsRunning()) {
+                        Message message;
+                        message.id = 1;  // Set message ID
+                        message.payloadSize = sizeof(sliderValue);  // Set the size of the payload
+                        message.payload = static_cast<void *>(&sliderValue); // Set the payload
+                        m_ClientLayer->SendMessage(message);
+                    }
+            }
+
+            ImGui::SliderFloat("Angle", &angle, -25.0, 25.0);
+            if(lastAngle != angle){
+                lastAngle = angle;
+                if (m_ClientLayer->IsRunning()) {
+                    Message message;
+                    message.id = 2;  // Set message ID
+                    message.payloadSize = sizeof(angle);  // Set the size of the payload
+                    message.payload = static_cast<void *>(&angle); // Set the payload
+                    m_ClientLayer->SendMessage(message);
+                }
+            }
 
 
 
@@ -190,7 +235,7 @@ namespace Atom {
                 ImGui::Combo("IP", &m_IPIndex, menuItems, IM_ARRAYSIZE(menuItems));
 
                 if (m_IPIndex == SelectIP) {
-                    static char inputBuffer[256] = "192.168.100.119";
+                    static char inputBuffer[256] = "192.168.100.100";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
                     if (ImGui::Button("Connect")) {
                         isConnected = true;
