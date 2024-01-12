@@ -35,14 +35,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94d2470d-a41a-4557-8384-06f82069650d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/libs/SDL" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/imgui-cmake/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/imgui-cmake/CMakeLists.txt" afterDir="false" />
-    </list>
+    <list default="true" id="94d2470d-a41a-4557-8384-06f82069650d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -212,7 +205,7 @@
       <workItem from="1705058106383" duration="36000" />
       <workItem from="1705058465791" duration="8000" />
       <workItem from="1705092780634" duration="6000" />
-      <workItem from="1705092794921" duration="783000" />
+      <workItem from="1705092794921" duration="852000" />
     </task>
     <servers />
   </component>
