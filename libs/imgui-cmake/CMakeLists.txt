@@ -7,13 +7,11 @@ message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
 
-# # Include the directories where OpenGL and GLEW headers are located
-include_directories(${CMAKE_SOURCE_DIR}/libs/glfw/include)
-include_directories(${CMAKE_SOURCE_DIR}/libs/glad/include)
+include_directories(${CMAKE_SOURCE_DIR}/SDL)
+include_directories(${CMAKE_SOURCE_DIR}/SDL/include)
 
 
-
-set(IMGUI_DIR ${CMAKE_SOURCE_DIR}/libs/imgui-cmake/imgui)
+set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui)
 
 
 set(CMAKE_DEBUG_POSTFIX d)
@@ -24,6 +22,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED)
 set(ROOT ${IMGUI_DIR})
 
 add_library(imgui STATIC
+
+
 
 	${ROOT}/imgui.cpp
 	${ROOT}/imgui.h
@@ -36,14 +36,13 @@ add_library(imgui STATIC
     ${ROOT}/imgui_tables.cpp
     ${ROOT}/imgui_widgets.cpp
 
-	
 
 
-	${ROOT}/backends/imgui_impl_glfw.cpp 
-	${ROOT}/backends/imgui_impl_glfw.h 
-	${ROOT}/backends/imgui_impl_opengl3.cpp 
-	${ROOT}/backends/imgui_impl_opengl3.h 
-	${ROOT}/backends/imgui_impl_opengl3_loader.h
+
+		${ROOT}/backends/imgui_impl_sdl3.h
+		${ROOT}/backends/imgui_impl_sdl3.cpp
+		${ROOT}/backends/imgui_impl_sdlrenderer3.h
+		${ROOT}/backends/imgui_impl_sdlrenderer3.cpp
 
 )
 
@@ -56,6 +55,5 @@ target_include_directories(imgui
 
 # Link against the OpenGL and GLEW libraries
 target_link_libraries(imgui
-	glfw
-	# libglew_static
+	SDL3::SDL3
 )
