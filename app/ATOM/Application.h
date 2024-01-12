@@ -63,6 +63,15 @@ namespace Atom {
         float speed = 0;
         float steering = 0;
 
+        int joy = GLFW_JOYSTICK_1;
+        int axesCount;
+        const float* axes = glfwGetJoystickAxes(joy, &axesCount);
+
+        float xAxisRightLast = 0;
+        float xAxisLeftLast = 0;
+
+        float xAxisRightMaxValue = 0;
+        float xAxisLeftMaxValue = 0;
     };
 }
 

@@ -37,6 +37,67 @@ namespace Atom {
 
 
 
+        std::function<void()> joystick = [&]() {
+            ImGui::Begin("Joystick Data");
+
+            if (glfwJoystickPresent(joy)) {
+                if (axesCount >= 4) { // Check if at least two axes are available
+                    float xAxisLeft = axes[0]; // X position
+                    float yAxisLeft = axes[1]; // Y position
+                    float xAxisRight = axes[2]; // X position
+                    float yAxisRight = axes[3]; // Y position
+                    if(xAxisLeftMaxValue < xAxisLeft){
+                        xAxisLeftMaxValue = xAxisLeft;
+                    }
+                    if(xAxisRightMaxValue < xAxisRight){
+                        xAxisRightMaxValue = xAxisRight;
+                    }
+
+                    ImGui::Text("Left Joystick");
+                    ImGui::Text("X: %f", xAxisLeft);
+                    ImGui::Text("Y: %f", yAxisLeft);
+                    ImGui::Text("Right Joystick");
+                    ImGui::Text("X: %f", xAxisRight);
+                    ImGui::Text("Y: %f", yAxisRight);
+
+                    // Send yaxis left as angle and xaxis right as speed
+                    //Send if value is different from last value
+                    if(xAxisLeft != xAxisLeftLast){
+                        xAxisLeftLast = xAxisLeft;
+                        float angle = xAxisLeft * 25;
+                        if (m_ClientLayer->IsRunning()) {
+                            Message message;
+                            message.id = 2;  // Set message ID
+                            message.payloadSize = sizeof(angle);  // Set the size of the payload
+                            message.payload = static_cast<void *>(&angle); // Set the payload
+                            m_ClientLayer->SendMessage(message);
+                        }
+                    }
+
+
+
+                    if(xAxisRight != xAxisRightLast){
+                        xAxisRightLast = xAxisRight;
+                        float speed = xAxisRight * 50;
+                        if (m_ClientLayer->IsRunning()) {
+                            Message message;
+                            message.id = 1;  // Set message ID
+                            message.payloadSize = sizeof(speed);  // Set the size of the payload
+                            message.payload = static_cast<void *>(&speed); // Set the payload
+                            m_ClientLayer->SendMessage(message);
+                        }
+                    }
+                } else {
+                    ImGui::Text("Insufficient axes data available");
+                }
+            } else {
+                ImGui::Text("Joystick not detected");
+            }
+
+            ImGui::End();
+        };
+        m_EditorLayer->AddDrawCallback(joystick);
+
         std::function<void()> drawPopUp = [&]() {
             SelectIPPopUpWindow();
         };
@@ -48,42 +109,6 @@ namespace Atom {
             ImGui::Text("Hello World");
 
 
-            if(Keyboard::key(GLFW_KEY_W)){
-                speed = 50;
-                Message message;
-                message.id = 1;  // Set message ID
-                message.payloadSize = sizeof(speed);  // Set the size of the payload
-                message.payload = static_cast<void *>(&speed); // Set the payload
-                m_ClientLayer->SendMessage(message);
-
-            }
-            if(Keyboard::key(GLFW_KEY_S)){
-                speed = -50;
-                Message message;
-                message.id = 1;  // Set message ID
-                message.payloadSize = sizeof(speed);  // Set the size of the payload
-                message.payload = static_cast<void *>(&speed); // Set the payload
-                m_ClientLayer->SendMessage(message);
-
-            }
-            if(Keyboard::key(GLFW_KEY_A)){
-                steering = -25;
-                Message message;
-                message.id = 2;  // Set message ID
-                message.payloadSize = sizeof(steering);  // Set the size of the payload
-                message.payload = static_cast<void *>(&steering); // Set the payload
-                m_ClientLayer->SendMessage(message);
-
-            }
-            if(Keyboard::key(GLFW_KEY_D)){
-                steering = 25;
-                Message message;
-                message.id = 2;  // Set message ID
-                message.payloadSize = sizeof(steering);  // Set the size of the payload
-                message.payload = static_cast<void *>(&steering); // Set the payload
-                m_ClientLayer->SendMessage(message);
-
-            }
             if(Keyboard::key(GLFW_KEY_SPACE)){
                 steering = 0;
                 Message message;
@@ -168,6 +193,8 @@ namespace Atom {
 
         while (m_IsRuning) {
 
+            axes = glfwGetJoystickAxes(joy, &axesCount);
+
             glClearColor(0.8, 0.8, 0.8, 1.0);
 
 
@@ -235,7 +262,7 @@ namespace Atom {
                 ImGui::Combo("IP", &m_IPIndex, menuItems, IM_ARRAYSIZE(menuItems));
 
                 if (m_IPIndex == SelectIP) {
-                    static char inputBuffer[256] = "192.168.100.100";
+                    static char inputBuffer[256] = "192.168.1.102";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
                     if (ImGui::Button("Connect")) {
                         isConnected = true;
