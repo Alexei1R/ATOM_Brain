@@ -3,11 +3,7 @@
 
 namespace Atom {
 
-    void MatToTexture(const cv::Mat& mat, GLuint& texture) {
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mat.cols, mat.rows, 0, GL_BGR, GL_UNSIGNED_BYTE, mat.ptr());
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
+
 
     Frame::Frame()
             : Layer("Frame") {
@@ -24,11 +20,7 @@ namespace Atom {
             m_Frame = frame;
         });
 
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glBindTexture(GL_TEXTURE_2D, 0);
+
     }
 
     Frame::~Frame() {}
@@ -50,12 +42,11 @@ namespace Atom {
             if (m_Frame.empty()) {
                 std::cout << "End of video stream" << std::endl;
             }
-            MatToTexture(m_Frame, textureID);
-
             ImGui::Begin("Received Video");
 
             ImVec2 size(m_Frame.cols, m_Frame.rows);
-            ImGui::Image((void*)(intptr_t)textureID, size);
+            // ImGui::Image((void*)(intptr_t) , size); // Display image
+            ImGui::Image((void*)(intptr_t) m_Frame.data, size); // Display image
 
             ImGui::End();
         }

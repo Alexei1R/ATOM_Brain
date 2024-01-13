@@ -6,13 +6,11 @@
 #define ATOM_APPLICATION_H
 
 
-
 #include "ATOM/Core/Layers/Layer.h"
 #include "ATOM/Core/Layers/LayerStack.h"
 #include "ATOM/Core/Window.h"
 #include "ATOM/Core/Editor/ImGuiLayer.h"
 #include "ATOM/Core/Editor/EditorLayer.h"
-#include "ATOM/Core/Editor/FrameBuffer.h"
 
 #include "ATOM/Core/ScreenData/DrawMap.h"
 #include "ATOM/Sensors/ImuLayer.h"
@@ -20,12 +18,10 @@
 #include "ATOM/Core/ClientLayer.h"
 
 
-namespace Atom {
-
-
-
-
-    class Application {
+namespace Atom
+{
+    class Application
+    {
     public:
         Application();
         ~Application();
@@ -34,19 +30,18 @@ namespace Atom {
         void PushOverlay(Layer* layer);
         static Application* s_Instance;
         inline static Application& GetApp() { return *s_Instance; }
-        inline  Window& GetWindow() { return *m_Window; }
+        inline Window& GetWindow() { return *m_Window; }
         void WindowClose();
 
 
-
         void SelectIPPopUpWindow();
+
     private:
         bool m_IsRuning = true;
         Window* m_Window;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
         EditorLayer* m_EditorLayer;
-        Framebuffer* m_Framebuffer;
 
         DrawMap* m_DrawMap;
         Frame* m_Frame;
@@ -63,9 +58,7 @@ namespace Atom {
         float speed = 0;
         float steering = 0;
 
-        int joy = GLFW_JOYSTICK_1;
         int axesCount;
-        const float* axes = glfwGetJoystickAxes(joy, &axesCount);
 
         float xAxisRightLast = 0;
         float xAxisLeftLast = 0;
@@ -74,9 +67,6 @@ namespace Atom {
         float xAxisLeftMaxValue = 0;
     };
 }
-
-
-
 
 
 #endif //ATOM_APPLICATION_H

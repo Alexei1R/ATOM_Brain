@@ -19,28 +19,10 @@ set(SOURCES
         ATOM/Application.h
         ATOM/Application.cpp
         ATOM/Core/Window.h
-        Platform/Window/OpenGLWindow.h
-        Platform/Window/OpenGLWindow.cpp
-        ATOM/Core/Event/Mause.cpp
-        ATOM/Core/Event/Keyboard.cpp
         ATOM/Core/Editor/ImGuiLayer.cpp
         ATOM/Core/Editor/ImGuiLayer.h
         ATOM/Core/Editor/EditorLayer.cpp
         ATOM/Core/Editor/EditorLayer.h
-        ATOM/Core/Editor/FrameBuffer.h
-        ATOM/Core/Editor/FrameBuffer.cpp
-        ATOM/Core/Renderer/Shader.cpp
-        ATOM/Core/Renderer/Shader.h
-        ATOM/Core/Renderer/Camera.cpp
-        ATOM/Core/Renderer/Camera.h
-        ATOM/Core/Renderer/stb_image.cpp
-        ATOM/Core/Renderer/stb_image.h
-        ATOM/Core/Renderer/Mesh.cpp
-        ATOM/Core/Renderer/Mesh.h
-        ATOM/Core/Renderer/Model.cpp
-        ATOM/Core/Renderer/Model.h
-        ATOM/Core/Renderer/Transform.cpp
-        ATOM/Core/Renderer/Transform.h
         ATOM/Core/ScreenData/DrawMap.cpp
         ATOM/Core/ScreenData/DrawMap.h
         Networking/Networking.cpp
@@ -59,6 +41,8 @@ set(SOURCES
         VideoCapture/VideoCapture.h
         ATOM/Core/ClientLayer.cpp
         ATOM/Core/ClientLayer.h
+        Platform/Window/SDLWindow.cpp
+        Platform/Window/SDLWindow.h
 
 )
 

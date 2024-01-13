@@ -34,17 +34,14 @@
 #include "ATOM/Core/Layers/Layer.h"
 #include "ATOM/Core/Layers/LayerStack.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include "SDL3/SDL.h"
+
 #include "glm/glm.hpp"
 
 #include "ATOM/Core/Loging/Log.h"
 
-#include "ATOM/Core/Event/Mause.h"
-#include "ATOM/Core/Event/Keyboard.h"
 
 #include "imgui.h"
-
 
 
 #include <steam/steamnetworkingsockets.h>

@@ -1,26 +1,32 @@
 //
-// Created by toor on 11/7/23.
+// Created by toor on 1/13/24.
 //
 
-#ifndef ATOM_OPENGLWINDOW_H
-#define ATOM_OPENGLWINDOW_H
+#ifndef SDLWINDOW_H
+#define SDLWINDOW_H
+
+
 #include "ATOM/atompch.h"
 #include "ATOM/Core/Window.h"
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-#include "ATOM/Core/Event/Mause.h"
-#include "ATOM/Core/Event/Keyboard.h"
+
+
+
+class SDLWindow {
+
+};
+
 
 namespace Atom {
 
-    class OpenGLWindow : public Window {
+    class SDLWindow : public Window {
 
     public:
-        OpenGLWindow(const WindowSpecs& spec);
-        ~OpenGLWindow();
+        SDLWindow(const WindowSpecs& spec);
+        ~SDLWindow();
 
 
         void OnUpdate()override;
+        void ClearDisplay(glm::vec3 color) override;
 
         inline  unsigned int GetWidth()const override {return m_Data.Width;};
         inline unsigned int GetHeight()const override { return m_Data.Height; };
@@ -36,6 +42,7 @@ namespace Atom {
         bool IsVSync() const override;
 
         void* GetNativeWindow() const override { return m_Window; };
+        void* GetRederer() const override { return m_Renderer; };
 
         void SetCallbacks();
     private:
@@ -44,7 +51,8 @@ namespace Atom {
 
     private:
 
-        GLFWwindow* m_Window;
+        SDL_Window* m_Window;
+        SDL_Renderer* m_Renderer;
 
 
 
@@ -64,4 +72,5 @@ namespace Atom {
 
 
 }
-#endif //ATOM_OPENGLWINDOW_H
+
+#endif //SDLWINDOW_H

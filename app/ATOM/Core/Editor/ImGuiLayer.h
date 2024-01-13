@@ -6,8 +6,10 @@
 #define ATOM_IMGUILAYER_H
 #include "ATOM/atompch.h"
 
-namespace Atom {
-    class ImGuiLayer : public Layer {
+namespace Atom
+{
+    class ImGuiLayer : public Layer
+    {
     public:
         ImGuiLayer();
 
@@ -21,8 +23,15 @@ namespace Atom {
 
         void End();
 
+        void ProcesEvent(SDL_Event& event);
+
 
         void SetDarkThemeColors();
+
+    private:
+        void SetThemeColors();
+        SDL_Window* window;
+        SDL_Renderer* renderer;
     };
 }
 

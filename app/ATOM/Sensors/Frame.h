@@ -33,7 +33,7 @@ namespace Atom {
     private:
         Atom::VideoCapture m_VideoCapture;
         cv::Mat m_Frame;
-        GLuint textureID;
+        // GLuint textureID;/**/
     };
 
 

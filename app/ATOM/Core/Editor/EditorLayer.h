@@ -6,12 +6,11 @@
 #define ATOM_EDITORLAYER_H
 #include "ATOM/atompch.h"
 #include "imgui.h"
-#include "FrameBuffer.h"
 
 namespace Atom {
     class EditorLayer : public Layer {
     public:
-        EditorLayer(Framebuffer* framebuffer);
+        EditorLayer();
 
         ~EditorLayer();
 
@@ -36,7 +35,6 @@ namespace Atom {
         std::function<void(int, int)> m_ViewportCallbackFunction;
         ImVec2 previousWindowSize = ImVec2(0, 0);
 
-        Framebuffer* m_FrameBuffer;
     };
 }
 

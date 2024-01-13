@@ -5,20 +5,25 @@
 #include "EditorLayer.h"
 
 
-namespace Atom {
-    EditorLayer::EditorLayer(Framebuffer* framebuffer)
-        : Layer("EditorLayer") {
-        this->m_FrameBuffer = framebuffer;
+namespace Atom
+{
+    EditorLayer::EditorLayer()
+        : Layer("EditorLayer")
+    {
     }
 
-    EditorLayer::~EditorLayer() {
-        delete m_FrameBuffer;
+    EditorLayer::~EditorLayer()
+    {
     }
 
-    void EditorLayer::DrawMenu() {
-        if (ImGui::BeginMenuBar()) {
-            if (ImGui::BeginMenu("File")) {
-                if (ImGui::MenuItem("Open Fille")) {
+    void EditorLayer::DrawMenu()
+    {
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("File"))
+            {
+                if (ImGui::MenuItem("Open Fille"))
+                {
                     ATLOG_INFO("Open Fille");
                 };
                 if (ImGui::MenuItem("Exit"))
@@ -27,19 +32,24 @@ namespace Atom {
             }
 
 
-            if (ImGui::BeginMenu("Settings")) {
-                if (ImGui::MenuItem("Open Settings")) {
+            if (ImGui::BeginMenu("Settings"))
+            {
+                if (ImGui::MenuItem("Open Settings"))
+                {
                     ATLOG_INFO("Settings Open")
                 };
                 ImGui::EndMenu();
             }
 
-            if (ImGui::BeginMenu("Script")) {
-                if (ImGui::MenuItem("New Script", "Ctrl+Shift+n")) {
+            if (ImGui::BeginMenu("Script"))
+            {
+                if (ImGui::MenuItem("New Script", "Ctrl+Shift+n"))
+                {
                     ATLOG_INFO("New Script");
                 };
 
-                if (ImGui::MenuItem("Save Script", "Ctrl+Shift+n")) {
+                if (ImGui::MenuItem("Save Script", "Ctrl+Shift+n"))
+                {
                     ATLOG_INFO("Save Script");
                 };
 
@@ -53,16 +63,20 @@ namespace Atom {
     }
 
 
-    void EditorLayer::OnAttach() {
+    void EditorLayer::OnAttach()
+    {
     }
 
-    void EditorLayer::OnDetach() {
+    void EditorLayer::OnDetach()
+    {
     }
 
-    void EditorLayer::OnUpdate() {
+    void EditorLayer::OnUpdate()
+    {
     }
 
-    void EditorLayer::OnImGuiRender() {
+    void EditorLayer::OnImGuiRender()
+    {
         //**********************************************************************************************
 
         DrawMenu();
@@ -70,26 +84,27 @@ namespace Atom {
         //**********************************************************************************************
 
 
-        for (auto& func: m_FunctionsVenctor) {
+        for (auto& func : m_FunctionsVenctor)
+        {
             func();
         }
 
 
-        ImGui::Begin("Viewport");
-        ImVec2 windowSize = ImGui::GetContentRegionAvail();
-        if (windowSize.x != previousWindowSize.x || windowSize.y != previousWindowSize.y) {
-            previousWindowSize = windowSize;
-            if (m_ViewportCallbackFunction) {
-                m_ViewportCallbackFunction(windowSize.x, windowSize.y);
-                m_FrameBuffer->SetFramebufferTextureSizeCallback(windowSize.x, windowSize.y);
-                glViewport(0, 0, windowSize.x, windowSize.y);
-            }
-        }
-
-        //ImGui::Text("Renderer2D Stats:");
-        m_FrameBuffer->Bind();
-        ImGui::Image((void *) m_FrameBuffer->GetFramebufferTexture(), windowSize);
-        m_FrameBuffer->UnBind();
-        ImGui::End();
+        // ImGui::Begin("Viewport");
+        // ImVec2 windowSize = ImGui::GetContentRegionAvail();
+        // if (windowSize.x != previousWindowSize.x || windowSize.y != previousWindowSize.y) {
+        //     previousWindowSize = windowSize;
+        //     if (m_ViewportCallbackFunction) {
+        //         m_ViewportCallbackFunction(windowSize.x, windowSize.y);
+        //         // m_FrameBuffer->SetFramebufferTextureSizeCallback(windowSize.x, windowSize.y);
+        //         // glViewport(0, 0, windowSize.x, windowSize.y);
+        //     }
+        // }
+        //
+        // //ImGui::Text("Renderer2D Stats:");
+        // m_FrameBuffer->Bind();
+        // ImGui::Image((void *) m_FrameBuffer->GetFramebufferTexture(), windowSize);
+        // m_FrameBuffer->UnBind();
+        // ImGui::End();
     }
 }

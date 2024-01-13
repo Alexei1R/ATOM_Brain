@@ -5,10 +5,7 @@
 #ifndef ATOM_DRAWMAP_H
 #define ATOM_DRAWMAP_H
 #include "ATOM/atompch.h"
-#include "ATOM/Core/Renderer/Shader.h"
-#include "ATOM/Core/Renderer/Model.h"
-#include "ATOM/Core/Renderer/Camera.h"
-#include "ATOM/Core/Renderer/Transform.h"
+
 
 
 namespace Atom {
@@ -24,10 +21,6 @@ namespace Atom {
         void DrawModel(int width, int height);
 
     private:
-        Camera* m_Camera;
-        Shader* m_Shader;
-        Model* m_Model;
-        Transform* m_Transform;
     };
 
 
