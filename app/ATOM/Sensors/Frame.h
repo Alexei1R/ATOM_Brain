@@ -12,7 +12,10 @@
 #include "Networking/Client.h"
 #include <opencv2/opencv.hpp>
 #include "VideoCapture/VideoCapture.h"
+#include "SDL3/SDL.h"
 
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 namespace Atom {
     class Frame : public Layer {
@@ -33,7 +36,7 @@ namespace Atom {
     private:
         Atom::VideoCapture m_VideoCapture;
         cv::Mat m_Frame;
-        // GLuint textureID;/**/
+        GLuint textureID;
     };
 
 

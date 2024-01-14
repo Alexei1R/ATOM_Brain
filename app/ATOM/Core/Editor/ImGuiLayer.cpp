@@ -37,9 +37,6 @@ namespace Atom
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Enable Multi-Viewport / Platform Windows
         io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;
 
-        // float fontSize = 18.0f;// *2.0f;
-        // io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Bold.ttf", fontSize);
-        // io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Regular.ttf", fontSize);
 
         ImGui::StyleColorsClassic();
         SetThemeColors();
@@ -72,8 +69,10 @@ namespace Atom
         if (opt_fullscreen)
         {
             const ImGuiViewport* viewport = ImGui::GetMainViewport();
-            ImGui::SetNextWindowPos(viewport->WorkPos);
-            ImGui::SetNextWindowSize(viewport->WorkSize);
+            // window will dock in 80% of the screen width
+            ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x + viewport->Size.x * 0.2f, viewport->Pos.y));
+            ImGui::SetNextWindowSize(ImVec2(viewport->Size.x * 0.8f, viewport->Size.y));
+
             ImGui::SetNextWindowViewport(viewport->ID);
             ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
             ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);

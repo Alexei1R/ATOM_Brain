@@ -72,7 +72,7 @@ namespace Atom {
 
     std::pair<int, int> SDLWindow::GetSize() const {
         int width, height;
-        SDL_GetWindowSize(m_Window, &width, &height);
+        SDL_GetCurrentRenderOutputSize(m_Renderer, &width, &height);
         return {width, height};
     }
 

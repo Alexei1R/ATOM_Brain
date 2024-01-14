@@ -25,7 +25,25 @@ namespace Atom
                 if (ImGui::MenuItem("Open Fille"))
                 {
                     ATLOG_INFO("Open Fille");
+                    char path[1024];
+                    FILE *f = popen("zenity --file-selection --width=720 --height=480 --modal --center", "r");
+                    fgets(path, 1024, f);
+                    // print filename and path
+                    ATLOG_INFO("path: {0}", path);
+
                 };
+
+                if(ImGui::MenuItem("Save File"))
+                {
+                    ATLOG_INFO("Save File");
+                    char path[1024];
+                    FILE *f = popen("zenity --file-selection --save", "r");
+                    fgets(path, 1024, f);
+                    // print filename and path
+                    ATLOG_INFO("path: {0}", path);
+                }
+
+
                 if (ImGui::MenuItem("Exit"))
                     ATLOG_INFO("Close");
                 ImGui::EndMenu();
@@ -77,12 +95,8 @@ namespace Atom
 
     void EditorLayer::OnImGuiRender()
     {
-        //**********************************************************************************************
 
         DrawMenu();
-
-        //**********************************************************************************************
-
 
         for (auto& func : m_FunctionsVenctor)
         {

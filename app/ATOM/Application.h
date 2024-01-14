@@ -13,7 +13,6 @@
 #include "ATOM/Core/Editor/EditorLayer.h"
 
 #include "ATOM/Core/ScreenData/DrawMap.h"
-#include "ATOM/Sensors/ImuLayer.h"
 #include "ATOM/Sensors/Frame.h"
 #include "ATOM/Core/ClientLayer.h"
 

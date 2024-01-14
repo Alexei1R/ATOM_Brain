@@ -4,9 +4,11 @@
 #include "atompch.h"
 #include "Application.h"
 #include "imgui.h"
+#include "SDL3/SDL_filesystem.h"
 
 namespace Atom
 {
+    char inputBuffer[256] = "/home/toor/Downloads/pc.mp4";
     Application* Application::s_Instance = nullptr;
 
     Application::Application()
@@ -29,15 +31,113 @@ namespace Atom
         {
             ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
         });
+
+        m_ClientLayer->RegisterMessageWithID(50, [&](Message message)
+        {
+            //string if equal to OK
+            std::string data = static_cast<char*>(message.payload);
+            if (data == "OK")
+            {
+                m_Frame = new Frame();
+                PushLayer(m_Frame);
+            }
+            else
+            {
+                ATLOG_CRITICAL("Error to open camera")
+            }
+        });
+
         std::function<void()> drawPopUp = [&]()
         {
             SelectIPPopUpWindow();
         };
         m_EditorLayer->AddDrawCallback(drawPopUp);
 
+        std::function<void()> draw = [&]()
+        {
+            //the panel is 20% of the screen
+            auto mainWindowSizePair = m_Window->GetSize();
+            ImVec2 mainWindowSize = ImVec2(static_cast<float>(mainWindowSizePair.first),
+                                           static_cast<float>(mainWindowSizePair.second));
+            ImGui::SetNextWindowPos(ImVec2(0, 0));
+            ImGui::SetNextWindowSize(ImVec2(mainWindowSize.x * 0.2f, mainWindowSize.y));
+            //hide tab bar and menu bar
+            ImGui::Begin("##Control Panel", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove |
+                                                       ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
+                                                       ImGuiWindowFlags_NoSavedSettings);
 
-        // m_Frame = new Frame();
-        // PushLayer(m_Frame);
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("Control Panel").x) * 0.5f);
+            ImGui::TextColored(ImVec4(0, 255, 255, 255), "Control Panel");
+            ImGui::Separator();
+
+
+            ImGui::Spacing();
+            ImGui::Text("Open Camera");
+
+            ImGui::BeginTabBar("##TabBar", ImGuiTabBarFlags_None);
+            if (ImGui::BeginTabItem(" Custom "))
+            {
+
+                // ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("Enter Pipeline").x) * 0.5f);
+                ImGui::Text("Enter Pipeline");
+                ImGui::InputText("##InputText", inputBuffer, IM_ARRAYSIZE(inputBuffer));
+                ImGui::EndTabItem();
+                if(ImGui::Button("Open Camera"))
+                {
+                    if (m_ClientLayer->IsRunning()) {
+                        std::string data = inputBuffer;
+                        Message message;
+                        message.id = 50;
+                        message.payloadSize = data.size();
+                        message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
+                        m_ClientLayer->SendMessage(message);
+                    }
+
+                }
+            }
+            if (ImGui::BeginTabItem(" Default "))
+            {
+                static int m_ComboIndex = 0;
+                static const char* comboItems[] = {
+                    "0",
+                    "1",
+                };
+                ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
+                if(ImGui::Button("Open Camera"))
+                {
+                    if (m_ClientLayer->IsRunning()) {
+                        std::string data = comboItems[m_ComboIndex];
+                        Message message;
+                        message.id = 50;
+                        message.payloadSize = data.size();
+                        message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
+                        m_ClientLayer->SendMessage(message);
+                    }
+
+                }
+
+                ImGui::EndTabItem();
+            }
+
+            ImGui::EndTabBar();
+
+
+            ImGui::Separator();
+
+
+
+
+            ImGui::End();
+
+
+
+
+
+        };
+        m_EditorLayer->AddDrawCallback(draw);
+
+
+
     }
 
 
@@ -46,6 +146,8 @@ namespace Atom
         delete m_Window;
         delete m_ImGuiLayer;
         delete m_EditorLayer;
+        delete m_ClientLayer;
+        delete m_Frame;
     }
 
 
@@ -65,6 +167,7 @@ namespace Atom
         ATLOG_WARN("Begin Runing");
         while (m_IsRuning)
         {
+            m_Window->ClearDisplay(glm::vec3(0, 255, 255));
             SDL_Event event;
             while (SDL_PollEvent(&event))
             {
@@ -73,19 +176,8 @@ namespace Atom
                 {
                     WindowClose();
                 }
-
-                if (event.type == SDL_EVENT_WINDOW_RESIZED)
-                {
-                    SDL_Log("Window %d resized to %dx%d",
-                            event.window.windowID, event.window.data1,
-                            event.window.data2);
-                }
             }
-            auto time = SDL_GetTicks() / 10000.f;
-            auto red = (std::sin(time) + 1) / 2.0 * 255;
-            auto green = (std::sin(time / 2) + 1) / 2.0 * 255;
-            auto blue = (std::sin(time) * 2 + 1) / 2.0 * 255;
-            m_Window->ClearDisplay(glm::vec3(red, green, blue));
+
 
             for (Layer* layer : m_LayerStack)
             {
@@ -145,7 +237,7 @@ namespace Atom
 
                 if (m_IPIndex == SelectIP)
                 {
-                    static char inputBuffer[256] = "192.168.1.102";
+                    static char inputBuffer[256] = "192.168.1.8";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
                     if (ImGui::Button("Connect"))
                     {

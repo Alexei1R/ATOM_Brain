@@ -27,14 +27,10 @@ set(SOURCES
         ATOM/Core/ScreenData/DrawMap.h
         Networking/Networking.cpp
         Networking/Networking.h
-        ATOM/Sensors/ImuLayer.h
-        ATOM/Sensors/ImuLayer.cpp
         Networking/Client.h
         Networking/Client.cpp
         Networking/Server.h
         Networking/Server.cpp
-        ATOM/Sensors/Lidar.cpp
-        ATOM/Sensors/Lidar.h
         ATOM/Sensors/Frame.cpp
         ATOM/Sensors/Frame.h
         VideoCapture/VideoCapture.cpp
@@ -51,8 +47,10 @@ set(SOURCES
 add_executable(executable ${SOURCES})
 
 target_link_libraries(executable
-        imgui
         SDL3::SDL3
+        glfw
+        glad
+        imgui
         glm
         spdlog
         GameNetworkingSockets
