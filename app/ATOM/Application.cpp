@@ -26,6 +26,8 @@ namespace Atom
         PushOverlay(m_EditorLayer);
         m_ClientLayer = new ClientLayer();
         PushLayer(m_ClientLayer);
+        m_Frame = new Frame();
+        PushLayer(m_Frame);
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message)
         {
@@ -38,8 +40,8 @@ namespace Atom
             std::string data = static_cast<char*>(message.payload);
             if (data == "OK")
             {
-                m_Frame = new Frame();
-                PushLayer(m_Frame);
+                // m_Frame = new Frame();
+                // PushLayer(m_Frame);
             }
             else
             {

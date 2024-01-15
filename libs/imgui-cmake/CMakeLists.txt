@@ -9,10 +9,6 @@ message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 
 include_directories(${CMAKE_SOURCE_DIR}/SDL)
 include_directories(${CMAKE_SOURCE_DIR}/SDL/include)
-# # Include the directories where OpenGL and GLEW headers are located
-include_directories(${CMAKE_SOURCE_DIR}/libs/glfw/include)
-include_directories(${CMAKE_SOURCE_DIR}/libs/glad/include)
-
 
 
 set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/imgui)
@@ -59,7 +55,5 @@ target_include_directories(imgui
 
 # Link against the OpenGL and GLEW libraries
 target_link_libraries(imgui
-		glfw
-		glad
 		SDL3::SDL3
 )
