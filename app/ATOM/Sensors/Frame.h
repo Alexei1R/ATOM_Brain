@@ -35,6 +35,7 @@ namespace Atom {
         cv::Mat m_Frame;
         SDL_Renderer *m_Renderer;
         SDL_Texture* m_Texture;
+        float m_AspectRatio;
     };
 
 

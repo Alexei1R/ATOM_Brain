@@ -12,9 +12,10 @@
 #include "ATOM/Core/Editor/ImGuiLayer.h"
 #include "ATOM/Core/Editor/EditorLayer.h"
 
-#include "ATOM/Core/ScreenData/DrawMap.h"
+// #include "ATOM/Core/ScreenData/DrawMap.h"
 #include "ATOM/Sensors/Frame.h"
 #include "ATOM/Core/ClientLayer.h"
+#include "ATOM/Map/DrawMap.h"
 
 
 namespace Atom
@@ -35,6 +36,7 @@ namespace Atom
 
         void SelectIPPopUpWindow();
         void DrawCameraSettings();
+        void DrawMapSettings();
 
     private:
         bool m_IsRuning = true;
@@ -43,11 +45,13 @@ namespace Atom
         ImGuiLayer* m_ImGuiLayer;
         EditorLayer* m_EditorLayer;
 
-        DrawMap* m_DrawMap;
         Frame* m_Frame;
         bool isConnected = false;
 
         ClientLayer* m_ClientLayer;
+        DrawMap* m_DrawMap;
+
+
         int counter = 0;
         float sliderValue = 0;
         float lastsliderValue = 0;

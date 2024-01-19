@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "SDL3/SDL_filesystem.h"
 
+
 namespace Atom
 {
     char inputBuffer[256] = "/home/toor/Downloads/pc.mp4";
@@ -26,8 +27,10 @@ namespace Atom
         PushOverlay(m_EditorLayer);
         m_ClientLayer = new ClientLayer();
         PushLayer(m_ClientLayer);
-        m_Frame = new Frame();
-        PushLayer(m_Frame);
+        m_DrawMap = new DrawMap();
+        PushLayer(m_DrawMap);
+        // m_Frame = new Frame();
+        // PushLayer(m_Frame);
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message)
         {
@@ -75,11 +78,17 @@ namespace Atom
 
             ImGui::Spacing();
 
-            //combo / draw camera settings
+            //draw camera settings
             if (ImGui::CollapsingHeader("Camera Settings"))
             {
                 DrawCameraSettings();
             }
+            //draw map settings
+            if (ImGui::CollapsingHeader("Map Settings"))
+            {
+                DrawMapSettings();
+            }
+
 
 
 
@@ -227,7 +236,6 @@ namespace Atom
         if (ImGui::BeginTabItem(" Custom "))
         {
 
-            ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("Enter Pipeline").x) * 0.5f);
             ImGui::Text("Enter Pipeline");
             ImGui::PushItemWidth(-1);
             ImGui::InputText("##InputText", inputBuffer, IM_ARRAYSIZE(inputBuffer));
@@ -274,5 +282,26 @@ namespace Atom
 
 
         ImGui::Separator();
+    }
+
+    void Application::DrawMapSettings() {
+        MapSetings* mapSetings = m_DrawMap->GetMapSetings();
+        static int m_ComboIndex = 1;
+        static const char* comboItems[] = {
+            "None",
+            "Track",
+            "ColorTrack",
+            "Intersection",
+            "MainRoad",
+            "SideRoad",
+            "Parking",
+            "PedestrianCrossing",
+        };
+        ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
+        mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
+        ImGui::Separator();
+
+
+
     }
 }

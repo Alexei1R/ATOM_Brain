@@ -23,8 +23,6 @@ set(SOURCES
         ATOM/Core/Editor/ImGuiLayer.h
         ATOM/Core/Editor/EditorLayer.cpp
         ATOM/Core/Editor/EditorLayer.h
-        ATOM/Core/ScreenData/DrawMap.cpp
-        ATOM/Core/ScreenData/DrawMap.h
         Networking/Networking.cpp
         Networking/Networking.h
         Networking/Client.h
@@ -40,6 +38,8 @@ set(SOURCES
         Platform/Window/SDLWindow.cpp
         Platform/Window/SDLWindow.h
         ATOM/Sensors/Frame.cpp
+        ATOM/Map/DrawMap.cpp
+        ATOM/Map/DrawMap.h
 
 )
 
