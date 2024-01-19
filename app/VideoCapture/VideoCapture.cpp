@@ -9,6 +9,7 @@ Atom::VideoCapture::VideoCapture() {
 }
 
 Atom::VideoCapture::~VideoCapture() {
+    m_IsOpen = false;
     if(m_FrameThread.joinable()){
         m_FrameThread.join();
     }
@@ -43,7 +44,15 @@ void Atom::VideoCapture::FrameThreadFunc(const std::string &pipeline) {
         if(m_FrameReceivedCallback){
             m_FrameReceivedCallback(m_Frame);
         }
+        if(m_IsOpen) {
+            ATLOG_INFO("Shutdown Camera")
+        }
     }
+    ATLOG_INFO("Shutdown Camera")
 
 
+}
+
+void Atom::VideoCapture::Close() {
+    m_IsOpen = false;
 }

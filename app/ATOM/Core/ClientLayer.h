@@ -30,6 +30,7 @@ namespace Atom {
 
         void ConnectToServer(std::string ip);
         bool IsRunning() { return m_Client->IsRunning(); }
+        void Shutdown() {m_Client->Shutdown();};
 
         void SendMessage(const Message& message, bool isReliable = true);
         void RegisterMessageWithID(uint8_t id, const std::function<void(Message message)>& function){ m_RegistedMessageCallbacks.push_back({{id,function}}); }

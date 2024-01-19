@@ -14,9 +14,6 @@
 #include "VideoCapture/VideoCapture.h"
 #include "SDL3/SDL.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
 namespace Atom {
     class Frame : public Layer {
     public:
@@ -32,11 +29,12 @@ namespace Atom {
 
         virtual void OnImGuiRender() override;
 
-
+        void Shutdown();
     private:
         Atom::VideoCapture m_VideoCapture;
         cv::Mat m_Frame;
-        GLuint textureID;
+        SDL_Renderer *m_Renderer;
+        SDL_Texture* m_Texture;
     };
 
 

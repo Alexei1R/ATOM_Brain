@@ -74,57 +74,12 @@ namespace Atom
 
 
             ImGui::Spacing();
-            ImGui::Text("Open Camera");
 
-            ImGui::BeginTabBar("##TabBar", ImGuiTabBarFlags_None);
-            if (ImGui::BeginTabItem(" Custom "))
+            //combo / draw camera settings
+            if (ImGui::CollapsingHeader("Camera Settings"))
             {
-
-                // ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("Enter Pipeline").x) * 0.5f);
-                ImGui::Text("Enter Pipeline");
-                ImGui::InputText("##InputText", inputBuffer, IM_ARRAYSIZE(inputBuffer));
-                ImGui::EndTabItem();
-                if(ImGui::Button("Open Camera"))
-                {
-                    if (m_ClientLayer->IsRunning()) {
-                        std::string data = inputBuffer;
-                        Message message;
-                        message.id = 50;
-                        message.payloadSize = data.size();
-                        message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
-                        m_ClientLayer->SendMessage(message);
-                    }
-
-                }
+                DrawCameraSettings();
             }
-            if (ImGui::BeginTabItem(" Default "))
-            {
-                static int m_ComboIndex = 0;
-                static const char* comboItems[] = {
-                    "0",
-                    "1",
-                };
-                ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
-                if(ImGui::Button("Open Camera"))
-                {
-                    if (m_ClientLayer->IsRunning()) {
-                        std::string data = comboItems[m_ComboIndex];
-                        Message message;
-                        message.id = 50;
-                        message.payloadSize = data.size();
-                        message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
-                        m_ClientLayer->SendMessage(message);
-                    }
-
-                }
-
-                ImGui::EndTabItem();
-            }
-
-            ImGui::EndTabBar();
-
-
-            ImGui::Separator();
 
 
 
@@ -198,6 +153,8 @@ namespace Atom
 
     void Application::WindowClose()
     {
+        m_Frame->Shutdown();
+        m_ClientLayer->Shutdown();
         m_IsRuning = false;
     }
 
@@ -260,5 +217,62 @@ namespace Atom
             }
             ImGui::EndPopup();
         }
+    }
+
+    void Application::DrawCameraSettings() {
+
+        ImGui::Text("Open Camera");
+
+        ImGui::BeginTabBar("##TabBar", ImGuiTabBarFlags_None);
+        if (ImGui::BeginTabItem(" Custom "))
+        {
+
+            ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("Enter Pipeline").x) * 0.5f);
+            ImGui::Text("Enter Pipeline");
+            ImGui::PushItemWidth(-1);
+            ImGui::InputText("##InputText", inputBuffer, IM_ARRAYSIZE(inputBuffer));
+            ImGui::PopItemWidth();
+            ImGui::EndTabItem();
+            if(ImGui::Button("Open Camera"))
+            {
+                if (m_ClientLayer->IsRunning()) {
+                    std::string data = inputBuffer;
+                    Message message;
+                    message.id = 50;
+                    message.payloadSize = data.size();
+                    message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
+                    m_ClientLayer->SendMessage(message);
+                }
+
+            }
+        }
+        if (ImGui::BeginTabItem(" Default "))
+        {
+            static int m_ComboIndex = 0;
+            static const char* comboItems[] = {
+                "0",
+                "1",
+            };
+            ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
+            if(ImGui::Button("Open Camera"))
+            {
+                if (m_ClientLayer->IsRunning()) {
+                    std::string data = comboItems[m_ComboIndex];
+                    Message message;
+                    message.id = 50;
+                    message.payloadSize = data.size();
+                    message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
+                    m_ClientLayer->SendMessage(message);
+                }
+
+            }
+
+            ImGui::EndTabItem();
+        }
+
+        ImGui::EndTabBar();
+
+
+        ImGui::Separator();
     }
 }

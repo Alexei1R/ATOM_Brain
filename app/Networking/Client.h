@@ -69,9 +69,12 @@ namespace Atom {
         bool IsRunning() const { return m_Running; }
         ConnectionStatus GetConnectionStatus() const { return m_ConnectionStatus; }
         const std::string& GetConnectionDebugMessage() const { return m_ConnectionDebugMessage; }
+
+        void Shutdown();
+
     private:
         void NetworkThreadFunc();
-        void Shutdown();
+
     private:
         static void ConnectionStatusChangedCallback(SteamNetConnectionStatusChangedCallback_t* info);
         void OnConnectionStatusChanged(SteamNetConnectionStatusChangedCallback_t* info);

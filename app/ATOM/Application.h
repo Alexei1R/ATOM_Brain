@@ -34,6 +34,7 @@ namespace Atom
 
 
         void SelectIPPopUpWindow();
+        void DrawCameraSettings();
 
     private:
         bool m_IsRuning = true;

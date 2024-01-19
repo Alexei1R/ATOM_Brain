@@ -17,8 +17,8 @@ namespace Atom {
         VideoCapture();
         ~VideoCapture();
         void Open( const std::string& pipeline);
-        void Close() {m_IsOpen = false;};
-        [[nodiscard]] bool isOpened() const { return m_IsOpen; }
+        void Close() ;
+        [[nodiscard]] bool isOpened() const { return m_IsOpen; };
 
 
         void SetFrameRecivedCallback(const FrameReceivedCallback& function) { m_FrameReceivedCallback = function;};
