@@ -4,6 +4,7 @@
 
 #include "SDLWindow.h"
 
+#include "SDL3/SDL_render.h"
 
 
 namespace Atom {
@@ -47,11 +48,12 @@ namespace Atom {
             ATLOG_CRITICAL("Error: SDL_CreateWindow(): {0}\n", SDL_GetError());
 
         }
-        m_Renderer = SDL_CreateRenderer(m_Window, nullptr, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+        m_Renderer = SDL_CreateRenderer(m_Window, nullptr, SDL_RENDERER_ACCELERATED);
         if (m_Renderer == nullptr)
         {
             SDL_Log("Error: SDL_CreateRenderer(): {0}\n", SDL_GetError());
         }
+
         SDL_SetWindowPosition(m_Window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         SDL_ShowWindow(m_Window);
         ATLOG_INFO("SDL Info:");
@@ -98,7 +100,7 @@ namespace Atom {
 
     void SDLWindow::SetVSync(bool enabled)
     {
-        if (enabled)
+        SDL_GL_SetSwapInterval(enabled ? 1 : 0);
         m_Data.VSync = enabled;
     }
 

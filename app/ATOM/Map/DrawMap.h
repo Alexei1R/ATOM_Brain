@@ -110,6 +110,8 @@ namespace Atom {
         cv::Mat imgHSV;
         cv::Mat imgThresholded;
         cv::Mat m_OutImg;
+
+        glm::vec2 m_MousePos;
     };
 
 }

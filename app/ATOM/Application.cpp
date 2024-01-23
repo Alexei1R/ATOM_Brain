@@ -17,7 +17,7 @@ namespace Atom
         s_Instance = (Application*)this;
 
         m_Window = Window::Create();
-        m_Window->SetVSync(false);
+        m_Window->SetVSync(m_VSync);
         m_Window->SetWindowCloseCallback(BIND_EVENT_FN(WindowClose));
 
 
@@ -27,10 +27,10 @@ namespace Atom
         PushOverlay(m_EditorLayer);
         m_ClientLayer = new ClientLayer();
         PushLayer(m_ClientLayer);
-        m_DrawMap = new DrawMap();
-        PushLayer(m_DrawMap);
-        // m_Frame = new Frame();
-        // PushLayer(m_Frame);
+        m_Frame = new Frame();
+        PushLayer(m_Frame);
+        // m_DrawMap = new DrawMap();
+        // PushLayer(m_DrawMap);
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message)
         {
@@ -39,12 +39,11 @@ namespace Atom
 
         m_ClientLayer->RegisterMessageWithID(50, [&](Message message)
         {
-            //string if equal to OK
             std::string data = static_cast<char*>(message.payload);
             if (data == "OK")
             {
-                // m_Frame = new Frame();
-                // PushLayer(m_Frame);
+                m_Frame = new Frame();
+                PushLayer(m_Frame);
             }
             else
             {
@@ -76,14 +75,14 @@ namespace Atom
             ImGui::Separator();
 
 
-            ImGui::Spacing();
-
-            //draw camera settings
+            if (ImGui::CollapsingHeader("UI Settings"))
+            {
+                DrawUISetings();
+            }
             if (ImGui::CollapsingHeader("Camera Settings"))
             {
                 DrawCameraSettings();
             }
-            //draw map settings
             if (ImGui::CollapsingHeader("Map Settings"))
             {
                 DrawMapSettings();
@@ -112,7 +111,9 @@ namespace Atom
         delete m_Window;
         delete m_ImGuiLayer;
         delete m_EditorLayer;
+        m_ClientLayer->Shutdown();
         delete m_ClientLayer;
+        m_Frame->Shutdown();
         delete m_Frame;
     }
 
@@ -228,6 +229,20 @@ namespace Atom
         }
     }
 
+    void Application::DrawUISetings() {
+        ImGui::Spacing();
+        ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+        ImGui::Spacing();
+        ImGui::Separator();
+        //set vsync
+        ImGui::Checkbox("VSync", &m_VSync);
+        if (m_VSync != m_Window->IsVSync())
+        {
+            m_Window->SetVSync(m_VSync);
+        }
+        ImGui::Separator();
+    }
+
     void Application::DrawCameraSettings() {
 
         ImGui::Text("Open Camera");
@@ -258,7 +273,7 @@ namespace Atom
         {
             static int m_ComboIndex = 0;
             static const char* comboItems[] = {
-                "0",
+                "v4l2src device=/dev/video0 ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! videoconvert ! appsink",
                 "1",
             };
             ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
@@ -285,21 +300,21 @@ namespace Atom
     }
 
     void Application::DrawMapSettings() {
-        MapSetings* mapSetings = m_DrawMap->GetMapSetings();
-        static int m_ComboIndex = 1;
-        static const char* comboItems[] = {
-            "None",
-            "Track",
-            "ColorTrack",
-            "Intersection",
-            "MainRoad",
-            "SideRoad",
-            "Parking",
-            "PedestrianCrossing",
-        };
-        ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
-        mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
-        ImGui::Separator();
+        // MapSetings* mapSetings = m_DrawMap->GetMapSetings();
+        // static int m_ComboIndex = 1;
+        // static const char* comboItems[] = {
+        //     "None",
+        //     "Track",
+        //     "ColorTrack",
+        //     "Intersection",
+        //     "MainRoad",
+        //     "SideRoad",
+        //     "Parking",
+        //     "PedestrianCrossing",
+        // };
+        // ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
+        // mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
+        // ImGui::Separator();
 
 
 

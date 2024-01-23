@@ -10,21 +10,21 @@ namespace Atom {
         m_Texture = nullptr;
 
 
-        m_VideoCapture.Open("udpsrc port=5000 ! application/x-rtp,encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink sync=false");
-
-        if (!m_VideoCapture.isOpened()) {
-            std::cout << "Error opening video stream" << std::endl;
-        }
-
-        m_VideoCapture.SetFrameRecivedCallback([&](cv::Mat& frame) {
-            m_Frame = frame;
-        });
-
-
-        // m_Frame = cv::imread("ASSETS/bot.jpg");
-        // if (m_Frame.empty()) {
-        //     std::cout << "Could not open or find the image" << std::endl;
+        // m_VideoCapture.Open("udpsrc port=5000 ! application/x-rtp,encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink sync=false");
+        //
+        // if (!m_VideoCapture.isOpened()) {
+        //     std::cout << "Error opening video stream" << std::endl;
         // }
+        //
+        // m_VideoCapture.SetFrameRecivedCallback([&](cv::Mat& frame) {
+        //     m_Frame = frame;
+        // });
+
+
+        m_Frame = cv::imread("ASSETS/track.png");
+        if (m_Frame.empty()) {
+            std::cout << "Could not open or find the image" << std::endl;
+        }
 
 
         // cap = std::make_unique<cv::VideoCapture>("/home/toor/Downloads/pc.mp4");
@@ -47,7 +47,7 @@ namespace Atom {
     void Frame::OnDetach() {}
 
     void Frame::OnUpdate() {
-        // cap->read(m_Frame);
+        // m_Frame.c
 
         if(!m_Frame.empty()){
 
@@ -63,28 +63,9 @@ namespace Atom {
     void Frame::OnImGuiRender() {
         ImGui::Begin("Received Video");
         ImVec2 available = ImGui::GetContentRegionAvail();
-
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + (available.y / 2 - available.x / m_AspectRatio / 2));
+        ImGui::Image((void *) m_Texture, ImVec2(available.x, available.x / m_AspectRatio), ImVec2(1, 0), ImVec2(0, 1));
 
-        ImGui::Image((void *) m_Texture, ImVec2(available.x, available.x / m_AspectRatio), ImVec2(0, 1), ImVec2(1, 0));
-
-        // ImVec2 mousePos = ImGui::GetMousePos();
-        // mousePos.x -= ImGui::GetItemRectMin().x;
-        // mousePos.y -= ImGui::GetItemRectMin().y;
-        // ImGui::Text("Mouse Position: (%.1f  ,  %.1f)", mousePos.x, mousePos.y);
-
-        //calculate width and height using get item rect min and max
-        // ImVec2 min = ImGui::GetItemRectMin();
-        // ImVec2 max = ImGui::GetItemRectMax();
-        // int width = (int) (max.x - min.x);
-        // int height = (int) (max.y - min.y);
-
-        // m_DeltaDashLineX = (int) std::round(width / m_LinesX);
-        // m_DeltaDashLineY = (int) std::round(height / m_LinesY);
-
-        // draw texture in imgui
-
-        ImGui::Image((void*)(intptr_t)m_Texture, ImVec2(640, 480));
         ImGui::End();
     }
 

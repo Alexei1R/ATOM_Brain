@@ -35,12 +35,15 @@ namespace Atom
 
 
         void SelectIPPopUpWindow();
+        void DrawUISetings();
         void DrawCameraSettings();
         void DrawMapSettings();
+
 
     private:
         bool m_IsRuning = true;
         Window* m_Window;
+        bool m_VSync = true;
         LayerStack m_LayerStack;
         ImGuiLayer* m_ImGuiLayer;
         EditorLayer* m_EditorLayer;

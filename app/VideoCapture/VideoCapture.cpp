@@ -34,7 +34,6 @@ void Atom::VideoCapture::FrameThreadFunc(const std::string &pipeline) {
     }
     ATLOG_INFO("Camera is opened");
     m_IsOpen = true;
-
     while(m_IsOpen){
         m_Capture >> m_Frame;
         if(m_Frame.empty()){
@@ -44,8 +43,8 @@ void Atom::VideoCapture::FrameThreadFunc(const std::string &pipeline) {
         if(m_FrameReceivedCallback){
             m_FrameReceivedCallback(m_Frame);
         }
-        if(m_IsOpen) {
-            ATLOG_INFO("Shutdown Camera")
+        if(!m_IsOpen) {
+            break;
         }
     }
     ATLOG_INFO("Shutdown Camera")
