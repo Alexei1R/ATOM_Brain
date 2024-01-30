@@ -19,37 +19,37 @@ namespace Atom {
         SideRoad,
         Parking,
         PedestrianCrossing,
-
     };
+
     typedef struct MapSetings {
         MapBackground background = MapBackground::Track;
     } MapSetings;
 
 
-
     enum class ElementType {
         Empty = 0,
-        Wall ,
+        Wall,
         Start,
-        End ,
-        Path ,
-        Visited ,
-        Current ,
-        Open ,
-        Closed ,
-        ShortestPath ,
-        Car ,
+        End,
+        Path,
+        Visited,
+        Current,
+        Open,
+        Closed,
+        ShortestPath,
+        Car,
         Sign
     };
+
     typedef struct MatrixElement {
         ElementType type;
-
     } MatrixElement;
 
 
-    class DrawMap :public Layer {
+    class DrawMap : public Layer {
     public:
         DrawMap();
+
         ~DrawMap();
 
         virtual void OnAttach() override;
@@ -60,18 +60,17 @@ namespace Atom {
 
         virtual void OnImGuiRender() override;
 
-        MapSetings* GetMapSetings() { return &m_MapSetings; }
+        MapSetings *GetMapSetings() { return &m_MapSetings; }
 
 
-        void DrawDashLine(int x1, int y1, int x2, int y2, int dash, int gap , glm::vec4 color = glm::vec4(0, 255, 255, 255));
+        void DrawDashLine(int x1, int y1, int x2, int y2, int dash, int gap,
+                          glm::vec4 color = glm::vec4(0, 255, 255, 255));
+
         void DrawFilledCircle(int x0, int y0, int radius, glm::vec4 color = glm::vec4(0, 255, 255, 255));
-
 
     private:
         bool IsRunning = true;
-        SDL_Window* m_Window;
-        SDL_Renderer* m_Renderer;
-        SDL_Texture* m_Texture;
+        GLFWwindow *m_Window;
         int m_Width = 640;
         int m_Height = 480;
         int m_LastWidth = 640;
@@ -83,15 +82,13 @@ namespace Atom {
         MapSetings m_MapSetings;
 
 
-
-
-
+        GLuint textureID;
+        bool m_UpdateTexture = false;
+        bool isWindowFocused = false;
 
 
         // matrix 400x400
-        MatrixElement** m_Matrix;
-
-
+        MatrixElement **m_Matrix;
 
 
         //for dash line
@@ -113,7 +110,6 @@ namespace Atom {
 
         glm::vec2 m_MousePos;
     };
-
 }
 
 

@@ -6,32 +6,35 @@
 #define ATOM_IMGUILAYER_H
 #include "ATOM/atompch.h"
 
-namespace Atom
-{
-    class ImGuiLayer : public Layer
-    {
+namespace Atom {
+    class ImGuiLayer : public Layer {
     public:
         ImGuiLayer();
 
         ~ImGuiLayer() = default;
 
-        void OnAttach() override;
+        virtual void OnAttach() override;
 
-        void OnDetach() override;
+        virtual void OnDetach() override;
+
+        virtual void OnUpdate() override;
+
+        virtual void OnImGuiRender() override;
 
         void Begin();
-
         void End();
-
-        void ProcesEvent(SDL_Event& event);
-
-
+    private:
         void SetDarkThemeColors();
 
     private:
-        void SetThemeColors();
-        SDL_Window* window;
-        SDL_Renderer* renderer;
+
+        GLFWwindow *window;
+        ImGuiIO *io;
+        ImGuiWindowFlags window_flags;
+        bool dockspaceOpen = true;
+
+
+
     };
 }
 

@@ -4,7 +4,6 @@
 #include "atompch.h"
 #include "Application.h"
 #include "imgui.h"
-#include "SDL3/SDL_filesystem.h"
 
 
 namespace Atom
@@ -18,7 +17,7 @@ namespace Atom
 
         m_Window = Window::Create();
         m_Window->SetVSync(m_VSync);
-        m_Window->SetWindowCloseCallback(BIND_EVENT_FN(WindowClose));
+        m_Window->SetWindowCloseCallback([this] { WindowClose(); });
 
 
         m_ImGuiLayer = new ImGuiLayer();
@@ -27,29 +26,29 @@ namespace Atom
         PushOverlay(m_EditorLayer);
         m_ClientLayer = new ClientLayer();
         PushLayer(m_ClientLayer);
+        m_DrawMap = new DrawMap();
+        PushLayer(m_DrawMap);
         m_Frame = new Frame();
-        PushLayer(m_Frame);
-        // m_DrawMap = new DrawMap();
-        // PushLayer(m_DrawMap);
 
-        m_ClientLayer->RegisterMessageWithID(2, [&](Message message)
-        {
-            ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
-        });
 
-        m_ClientLayer->RegisterMessageWithID(50, [&](Message message)
-        {
-            std::string data = static_cast<char*>(message.payload);
-            if (data == "OK")
-            {
-                m_Frame = new Frame();
-                PushLayer(m_Frame);
-            }
-            else
-            {
-                ATLOG_CRITICAL("Error to open camera")
-            }
-        });
+         m_ClientLayer->RegisterMessageWithID(2, [&](Message message)
+         {
+             ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
+         });
+
+         m_ClientLayer->RegisterMessageWithID(50, [&](Message message)
+         {
+             std::string data = static_cast<char*>(message.payload);
+             if (data == "OK")
+             {
+
+                 PushLayer(m_Frame);
+             }
+             else
+             {
+                 ATLOG_CRITICAL("Error to open camera")
+             }
+         });
 
         std::function<void()> drawPopUp = [&]()
         {
@@ -108,13 +107,13 @@ namespace Atom
 
     Application::~Application()
     {
-        delete m_Window;
-        delete m_ImGuiLayer;
-        delete m_EditorLayer;
-        m_ClientLayer->Shutdown();
-        delete m_ClientLayer;
-        m_Frame->Shutdown();
-        delete m_Frame;
+         delete m_Window;
+         delete m_ImGuiLayer;
+         delete m_EditorLayer;
+         m_ClientLayer->Shutdown();
+         delete m_ClientLayer;
+         m_Frame->Shutdown();
+         delete m_Frame;
     }
 
 
@@ -134,22 +133,12 @@ namespace Atom
         ATLOG_WARN("Begin Runing");
         while (m_IsRuning)
         {
-            m_Window->ClearDisplay(glm::vec3(0, 255, 255));
-            SDL_Event event;
-            while (SDL_PollEvent(&event))
-            {
-                m_ImGuiLayer->ProcesEvent(event);
-                if (event.type == SDL_EVENT_QUIT)
-                {
-                    WindowClose();
-                }
-            }
-
-
             for (Layer* layer : m_LayerStack)
             {
                 layer->OnUpdate();
             }
+            m_Window->ClearDisplay(glm::vec3(0, 255, 255));
+
             m_ImGuiLayer->Begin();
             for (Layer *layer: m_LayerStack) {
                 layer->OnImGuiRender();
@@ -163,9 +152,9 @@ namespace Atom
 
     void Application::WindowClose()
     {
-        m_Frame->Shutdown();
-        m_ClientLayer->Shutdown();
         m_IsRuning = false;
+        // m_Frame->Shutdown();
+        // m_ClientLayer->Shutdown();
     }
 
 
@@ -173,17 +162,13 @@ namespace Atom
     {
         if (!isConnected)
         {
-            auto mainWindowSizePair = m_Window->GetSize();
-            ImVec2 mainWindowSize = ImVec2(static_cast<float>(mainWindowSizePair.first),
-                                           static_cast<float>(mainWindowSizePair.second));
-
-            auto mainWindowPositionPair = m_Window->GetPosition();
-            ImVec2 mainWindowPosition = ImVec2(static_cast<float>(mainWindowPositionPair.first),
-                                               static_cast<float>(mainWindowPositionPair.second));
-
-            ImVec2 popupSize = ImVec2(300, 200);
-            ImVec2 popupPos = ImVec2(mainWindowPosition.x + (mainWindowSize.x - popupSize.x) * 0.5f,
-                                     mainWindowPosition.y + (mainWindowSize.y - popupSize.y) * 0.5f);
+            //get curent imgui window position and size
+            ImVec2 mainWindowPos = ImGui::GetWindowPos();
+            ImVec2 mainWindowSize = ImGui::GetWindowSize();
+            mainWindowSize.x -= mainWindowSize.x * 0.2f;
+            ImVec2 popupSize = ImVec2(320, 240);
+            ImVec2 popupPos = ImVec2(mainWindowPos.x + (mainWindowSize.x - popupSize.x) * 0.5f,
+                                     mainWindowPos.y + (mainWindowSize.y - popupSize.y) * 0.5f);
 
             ImGui::SetNextWindowPos(popupPos);
             ImGui::SetNextWindowSize(popupSize);
@@ -300,21 +285,21 @@ namespace Atom
     }
 
     void Application::DrawMapSettings() {
-        // MapSetings* mapSetings = m_DrawMap->GetMapSetings();
-        // static int m_ComboIndex = 1;
-        // static const char* comboItems[] = {
-        //     "None",
-        //     "Track",
-        //     "ColorTrack",
-        //     "Intersection",
-        //     "MainRoad",
-        //     "SideRoad",
-        //     "Parking",
-        //     "PedestrianCrossing",
-        // };
-        // ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
-        // mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
-        // ImGui::Separator();
+         MapSetings* mapSetings = m_DrawMap->GetMapSetings();
+         static int m_ComboIndex = 1;
+         static const char* comboItems[] = {
+             "None",
+             "Track",
+             "ColorTrack",
+             "Intersection",
+             "MainRoad",
+             "SideRoad",
+             "Parking",
+             "PedestrianCrossing",
+         };
+         ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
+         mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
+         ImGui::Separator();
 
 
 

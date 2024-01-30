@@ -8,7 +8,14 @@
 
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this)
+
+// if define windows
+#ifdef _WIN32
 #define ATOM_ASSERT(x, ...) { if(!(x)) { ATLOG_CRITICAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+#define ATOM_ASSERT(x, ...) { if(!(x)) { ATLOG_CRITICAL("Assertion Failed: {0}", __VA_ARGS__); raise(SIGTRAP); } }
+#endif
+
 namespace Atom {
 
     template<typename T>
@@ -33,3 +40,5 @@ namespace Atom {
 
 
 #endif //ATOM_MACROS_H
+
+

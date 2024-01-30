@@ -36,6 +36,8 @@ namespace Atom {
         virtual std::pair<int,int > GetSize() const = 0;
         virtual std::pair<int,int > GetPosition() const = 0;
 
+        virtual void MakeFullscreen() = 0;
+
         // Window attributes
         virtual void SetWindowCloseCallback(const EventCallbackFn& callback) = 0;
         virtual void SetVSync(bool enabled) = 0;

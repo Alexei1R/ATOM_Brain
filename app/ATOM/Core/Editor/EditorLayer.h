@@ -8,6 +8,7 @@
 #include "imgui.h"
 
 namespace Atom {
+
     class EditorLayer : public Layer {
     public:
         EditorLayer();

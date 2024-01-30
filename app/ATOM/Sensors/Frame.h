@@ -5,14 +5,13 @@
 #ifndef ATOM_FRAME_H
 #define ATOM_FRAME_H
 
-
-
+#include "glad/gl.h"
 
 #include "ATOM/atompch.h"
 #include "Networking/Client.h"
 #include <opencv2/opencv.hpp>
 #include "VideoCapture/VideoCapture.h"
-#include "SDL3/SDL.h"
+
 
 namespace Atom {
     class Frame : public Layer {
@@ -28,14 +27,14 @@ namespace Atom {
         virtual void OnUpdate() override;
 
         virtual void OnImGuiRender() override;
-
         void Shutdown();
+
+
     private:
         Atom::VideoCapture m_VideoCapture;
         cv::Mat m_Frame;
-        SDL_Renderer *m_Renderer;
-        SDL_Texture* m_Texture;
-        float m_AspectRatio;
+        GLuint m_Texture;
+        float m_AspectRatio = 0;
     };
 
 

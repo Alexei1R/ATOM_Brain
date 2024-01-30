@@ -34,15 +34,17 @@
 #include "ATOM/Core/Layers/Layer.h"
 #include "ATOM/Core/Layers/LayerStack.h"
 
-#include "SDL3/SDL.h"
 
 #include "glm/glm.hpp"
 
+#include "ATOM/Core/macros.h"
 #include "ATOM/Core/Loging/Log.h"
 
 
 #include "imgui.h"
 
+#include <glad/gl.h>
+#include <GLFW/glfw3.h>
 
 #include <steam/steamnetworkingsockets.h>
 #include <steam/isteamnetworkingutils.h>
@@ -56,6 +58,8 @@
 #include <unistd.h>
 #include <signal.h>
 #endif
+
+
 
 
 

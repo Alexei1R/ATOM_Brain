@@ -1,9 +1,9 @@
 //
-// Created by toor on 1/13/24.
+// Created by toor on 1/23/24.
 //
 
-#ifndef SDLWINDOW_H
-#define SDLWINDOW_H
+#ifndef OPENGLWINDOW_H
+#define OPENGLWINDOW_H
 
 
 #include "ATOM/atompch.h"
@@ -11,18 +11,13 @@
 
 
 
-class SDLWindow {
-
-};
-
-
 namespace Atom {
 
-    class SDLWindow : public Window {
+    class OpenGLWindow : public Window {
 
     public:
-        SDLWindow(const WindowSpecs& spec);
-        ~SDLWindow();
+        OpenGLWindow(const WindowSpecs& spec);
+        ~OpenGLWindow();
 
 
         void OnUpdate()override;
@@ -35,6 +30,8 @@ namespace Atom {
         std::pair<int, int> GetSize() const override;
         std::pair<int, int> GetPosition() const override;
 
+        void MakeFullscreen() override;
+
 
         // Window attributes
         void SetWindowCloseCallback(const EventCallbackFn& callback) override { m_Data.m_EventCallback = callback; }
@@ -42,7 +39,7 @@ namespace Atom {
         bool IsVSync() const override;
 
         void* GetNativeWindow() const override { return m_Window; };
-        void* GetRederer() const override { return m_Renderer; };
+        void* GetRederer() const override { return nullptr; };
 
         void SetCallbacks();
     private:
@@ -51,8 +48,7 @@ namespace Atom {
 
     private:
 
-        SDL_Window* m_Window;
-        SDL_Renderer* m_Renderer;
+        GLFWwindow* m_Window;
 
 
 
@@ -60,6 +56,7 @@ namespace Atom {
         {
             std::string Title;
             unsigned int Width, Height;
+            bool Fullscreen = false;
             bool VSync;
             EventCallbackFn m_EventCallback;
         };
@@ -73,4 +70,6 @@ namespace Atom {
 
 }
 
-#endif //SDLWINDOW_H
+
+
+#endif //OPENGLWINDOW_H

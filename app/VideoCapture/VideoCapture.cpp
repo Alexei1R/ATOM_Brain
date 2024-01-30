@@ -19,14 +19,13 @@ void Atom::VideoCapture::Open(const std::string &pipeline) {
     if(m_IsOpen){
         return;
     }
+    ATLOG_INFO("Opening Camera...");
     m_FrameThread = std::thread([&, pipeline]() { FrameThreadFunc(pipeline); });
 
 }
 
 void Atom::VideoCapture::FrameThreadFunc(const std::string &pipeline) {
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-    ATLOG_INFO("Camera is opening...");
     ATLOG_INFO("Pipeline: {0}", pipeline);
     m_Capture.open(pipeline, cv::CAP_GSTREAMER);
     if(!m_Capture.isOpened()){

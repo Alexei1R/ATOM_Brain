@@ -35,11 +35,11 @@ set(SOURCES
         VideoCapture/VideoCapture.h
         ATOM/Core/ClientLayer.cpp
         ATOM/Core/ClientLayer.h
-        Platform/Window/SDLWindow.cpp
-        Platform/Window/SDLWindow.h
         ATOM/Sensors/Frame.cpp
         ATOM/Map/DrawMap.cpp
         ATOM/Map/DrawMap.h
+        Platform/Window/OpenGLWindow.cpp
+        Platform/Window/OpenGLWindow.h
 
 )
 
@@ -48,7 +48,8 @@ set(SOURCES
 add_executable(executable ${SOURCES})
 
 target_link_libraries(executable
-        SDL3::SDL3
+        glad
+        glfw
         imgui
         glm
         spdlog
