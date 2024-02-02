@@ -6,14 +6,12 @@
 #include "imgui.h"
 
 
-namespace Atom
-{
+namespace Atom {
     char inputBuffer[256] = "/home/toor/Downloads/pc.mp4";
-    Application* Application::s_Instance = nullptr;
+    Application *Application::s_Instance = nullptr;
 
-    Application::Application()
-    {
-        s_Instance = (Application*)this;
+    Application::Application() {
+        s_Instance = (Application *) this;
 
         m_Window = Window::Create();
         m_Window->SetVSync(m_VSync);
@@ -31,33 +29,25 @@ namespace Atom
         m_Frame = new Frame();
 
 
-         m_ClientLayer->RegisterMessageWithID(2, [&](Message message)
-         {
-             ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
-         });
+        m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
+            ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
+        });
 
-         m_ClientLayer->RegisterMessageWithID(50, [&](Message message)
-         {
-             std::string data = static_cast<char*>(message.payload);
-             if (data == "OK")
-             {
+        m_ClientLayer->RegisterMessageWithID(50, [&](Message message) {
+            std::string data = static_cast<char *>(message.payload);
+            if (data == "OK") {
+                PushLayer(m_Frame);
+            } else {
+                ATLOG_CRITICAL("Error to open camera")
+            }
+        });
 
-                 PushLayer(m_Frame);
-             }
-             else
-             {
-                 ATLOG_CRITICAL("Error to open camera")
-             }
-         });
-
-        std::function<void()> drawPopUp = [&]()
-        {
+        std::function<void()> drawPopUp = [&]() {
             SelectIPPopUpWindow();
         };
         m_EditorLayer->AddDrawCallback(drawPopUp);
 
-        std::function<void()> draw = [&]()
-        {
+        std::function<void()> draw = [&]() {
             //the panel is 20% of the screen
             auto mainWindowSizePair = m_Window->GetSize();
             ImVec2 mainWindowSize = ImVec2(static_cast<float>(mainWindowSizePair.first),
@@ -66,75 +56,55 @@ namespace Atom
             ImGui::SetNextWindowSize(ImVec2(mainWindowSize.x * 0.2f, mainWindowSize.y));
             //hide tab bar and menu bar
             ImGui::Begin("##Control Panel", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove |
-                                                       ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
-                                                       ImGuiWindowFlags_NoSavedSettings);
+                                                     ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
+                                                     ImGuiWindowFlags_NoSavedSettings);
 
             ImGui::SetCursorPosX((ImGui::GetWindowSize().x - ImGui::CalcTextSize("Control Panel").x) * 0.5f);
             ImGui::TextColored(ImVec4(0, 255, 255, 255), "Control Panel");
             ImGui::Separator();
 
 
-            if (ImGui::CollapsingHeader("UI Settings"))
-            {
+            if (ImGui::CollapsingHeader("UI Settings")) {
                 DrawUISetings();
             }
-            if (ImGui::CollapsingHeader("Camera Settings"))
-            {
+            if (ImGui::CollapsingHeader("Camera Settings")) {
                 DrawCameraSettings();
             }
-            if (ImGui::CollapsingHeader("Map Settings"))
-            {
+            if (ImGui::CollapsingHeader("Map Settings")) {
                 DrawMapSettings();
             }
 
 
-
-
-
             ImGui::End();
-
-
-
-
-
         };
         m_EditorLayer->AddDrawCallback(draw);
-
-
-
     }
 
 
-    Application::~Application()
-    {
-         delete m_Window;
-         delete m_ImGuiLayer;
-         delete m_EditorLayer;
-         m_ClientLayer->Shutdown();
-         delete m_ClientLayer;
-         m_Frame->Shutdown();
-         delete m_Frame;
+    Application::~Application() {
+        delete m_Window;
+        delete m_ImGuiLayer;
+        delete m_EditorLayer;
+        m_ClientLayer->Shutdown();
+        delete m_ClientLayer;
+        m_Frame->Shutdown();
+        delete m_Frame;
     }
 
 
-    void Application::PushLayer(Layer* layer)
-    {
+    void Application::PushLayer(Layer *layer) {
         m_LayerStack.PushLayer(layer);
     }
 
-    void Application::PushOverlay(Layer* layer)
-    {
+    void Application::PushOverlay(Layer *layer) {
         m_LayerStack.PushOverlay(layer);
     }
 
 
-    void Application::Run()
-    {
+    void Application::Run() {
         ATLOG_WARN("Begin Runing");
-        while (m_IsRuning)
-        {
-            for (Layer* layer : m_LayerStack)
-            {
+        while (m_IsRuning) {
+            for (Layer *layer: m_LayerStack) {
                 layer->OnUpdate();
             }
             m_Window->ClearDisplay(glm::vec3(0, 255, 255));
@@ -150,18 +120,15 @@ namespace Atom
         }
     }
 
-    void Application::WindowClose()
-    {
+    void Application::WindowClose() {
         m_IsRuning = false;
         // m_Frame->Shutdown();
         // m_ClientLayer->Shutdown();
     }
 
 
-    void Application::SelectIPPopUpWindow()
-    {
-        if (!isConnected)
-        {
+    void Application::SelectIPPopUpWindow() {
+        if (!isConnected) {
             //get curent imgui window position and size
             ImVec2 mainWindowPos = ImGui::GetWindowPos();
             ImVec2 mainWindowSize = ImGui::GetWindowSize();
@@ -175,36 +142,29 @@ namespace Atom
 
 
             ImGui::OpenPopup("Select IP");
-            if (ImGui::BeginPopupModal("Select IP", nullptr, 0))
-            {
-                enum MenuItemsIndex
-                {
+            if (ImGui::BeginPopupModal("Select IP", nullptr, 0)) {
+                enum MenuItemsIndex {
                     SelectIP,
                     DefaultIP,
                 };
-                static const char* menuItems[] = {
+                static const char *menuItems[] = {
                     "Select IP",
                     "Default IP",
                 };
                 static int m_IPIndex = 0;
                 ImGui::Combo("IP", &m_IPIndex, menuItems, IM_ARRAYSIZE(menuItems));
 
-                if (m_IPIndex == SelectIP)
-                {
+                if (m_IPIndex == SelectIP) {
                     static char inputBuffer[256] = "192.168.1.8";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
-                    if (ImGui::Button("Connect"))
-                    {
+                    if (ImGui::Button("Connect")) {
                         isConnected = true;
                         std::string ip = inputBuffer;
                         ip.append(":27020");
                         m_ClientLayer->ConnectToServer(ip);
                     }
-                }
-                else if (m_IPIndex == DefaultIP)
-                {
-                    if (ImGui::Button("Connect with Default IP"))
-                    {
+                } else if (m_IPIndex == DefaultIP) {
+                    if (ImGui::Button("Connect with Default IP")) {
                         isConnected = true;
                         m_ClientLayer->ConnectToServer("192.168.100.119:27020");
                     }
@@ -221,58 +181,49 @@ namespace Atom
         ImGui::Separator();
         //set vsync
         ImGui::Checkbox("VSync", &m_VSync);
-        if (m_VSync != m_Window->IsVSync())
-        {
+        if (m_VSync != m_Window->IsVSync()) {
             m_Window->SetVSync(m_VSync);
         }
         ImGui::Separator();
     }
 
     void Application::DrawCameraSettings() {
-
         ImGui::Text("Open Camera");
 
         ImGui::BeginTabBar("##TabBar", ImGuiTabBarFlags_None);
-        if (ImGui::BeginTabItem(" Custom "))
-        {
-
+        if (ImGui::BeginTabItem(" Custom ")) {
             ImGui::Text("Enter Pipeline");
             ImGui::PushItemWidth(-1);
             ImGui::InputText("##InputText", inputBuffer, IM_ARRAYSIZE(inputBuffer));
             ImGui::PopItemWidth();
             ImGui::EndTabItem();
-            if(ImGui::Button("Open Camera"))
-            {
+            if (ImGui::Button("Open Camera")) {
                 if (m_ClientLayer->IsRunning()) {
                     std::string data = inputBuffer;
                     Message message;
                     message.id = 50;
                     message.payloadSize = data.size();
-                    message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
+                    message.payload = static_cast<void *>(const_cast<char *>(data.c_str()));
                     m_ClientLayer->SendMessage(message);
                 }
-
             }
         }
-        if (ImGui::BeginTabItem(" Default "))
-        {
+        if (ImGui::BeginTabItem(" Default ")) {
             static int m_ComboIndex = 0;
-            static const char* comboItems[] = {
+            static const char *comboItems[] = {
                 "v4l2src device=/dev/video0 ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! videoconvert ! appsink",
                 "1",
             };
             ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
-            if(ImGui::Button("Open Camera"))
-            {
+            if (ImGui::Button("Open Camera")) {
                 if (m_ClientLayer->IsRunning()) {
                     std::string data = comboItems[m_ComboIndex];
                     Message message;
                     message.id = 50;
                     message.payloadSize = data.size();
-                    message.payload = static_cast<void*>(const_cast<char*>(data.c_str()));
+                    message.payload = static_cast<void *>(const_cast<char *>(data.c_str()));
                     m_ClientLayer->SendMessage(message);
                 }
-
             }
 
             ImGui::EndTabItem();
@@ -285,23 +236,26 @@ namespace Atom
     }
 
     void Application::DrawMapSettings() {
-         MapSetings* mapSetings = m_DrawMap->GetMapSetings();
-         static int m_ComboIndex = 1;
-         static const char* comboItems[] = {
-             "None",
-             "Track",
-             "ColorTrack",
-             "Intersection",
-             "MainRoad",
-             "SideRoad",
-             "Parking",
-             "PedestrianCrossing",
-         };
-         ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
-         mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
-         ImGui::Separator();
+        MapSetings *mapSetings = m_DrawMap->GetMapSetings();
+        int bg = static_cast<int>(mapSetings->background);
 
-
-
+        static int m_ComboIndex = 1;
+        static const char *comboItems[] = {
+            "None",
+            "Track",
+            "ColorTrack",
+            "Intersection",
+            "MainRoad",
+            "SideRoad",
+            "Parking",
+            "PedestrianCrossing",
+        };
+        ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
+        if (bg != m_ComboIndex) {
+            mapSetings->background = static_cast<MapBackground>(m_ComboIndex);
+            mapSetings->isChanged = true;
+        }
+        ImGui::Checkbox("Show Points", &mapSetings->showPoints);
+        ImGui::Separator();
     }
 }

@@ -23,28 +23,38 @@ namespace Atom {
 
     typedef struct MapSetings {
         MapBackground background = MapBackground::Track;
+        bool showPoints = false;
+        bool isChanged = true;
     } MapSetings;
 
 
     enum class ElementType {
         Empty = 0,
-        Wall,
-        Start,
-        End,
-        Path,
+        MainRoad,
+        SideRoad,
         Visited,
-        Current,
-        Open,
-        Closed,
         ShortestPath,
         Car,
         Sign
     };
 
+
+
+
+
     typedef struct MatrixElement {
         ElementType type;
     } MatrixElement;
 
+
+    typedef struct StartFinish {
+        bool StartFlagPlaced = false;
+        glm::vec2 StartFlagPos;
+        glm::vec2 GridStartFlagPos;
+        bool FinishFlagPlaced = false;
+        glm::vec2 FinishFlagPos;
+        glm::vec2 GridFinishFlagPos;
+    } StartFinish;
 
     class DrawMap : public Layer {
     public:
@@ -63,52 +73,49 @@ namespace Atom {
         MapSetings *GetMapSetings() { return &m_MapSetings; }
 
 
-        void DrawDashLine(int x1, int y1, int x2, int y2, int dash, int gap,
-                          glm::vec4 color = glm::vec4(0, 255, 255, 255));
 
-        void DrawFilledCircle(int x0, int y0, int radius, glm::vec4 color = glm::vec4(0, 255, 255, 255));
+    private:
+        void GenerateTextures();
 
     private:
         bool IsRunning = true;
         GLFWwindow *m_Window;
-        int m_Width = 640;
-        int m_Height = 480;
-        int m_LastWidth = 640;
-        int m_LastHeight = 480;
+        int m_FrameWidth = 640;
+        int m_FrameHeight = 480;
         float m_AspectRatio = 1.0f;
-        bool m_HasResized = false;
+
 
 
         MapSetings m_MapSetings;
+        StartFinish m_StartFinish;
+        char buffer[100];
 
 
+        cv::Mat m_ImgHSV;
+        cv::Mat imgThresholded;
         GLuint textureID;
-        bool m_UpdateTexture = false;
-        bool isWindowFocused = false;
 
 
         // matrix 400x400
         MatrixElement **m_Matrix;
 
-
-        //for dash line
-        int len;
-        double xa = 0;
-        double ya = 0;
-        double xb = 0;
-        double yb = 0;
-        int m_LinesX = 200;
-        int m_LinesY = 200;
-        int m_DeltaDashLineX = 10;
-        int m_DeltaDashLineY = 10;
+        int m_RoadWidth = 1920;
+        int m_RoadHeight = 1080;
+        int m_LinesX = 100;
+        int m_LinesY = 100;
+        float m_DeltaDashLineX = 1;
+        float m_DeltaDashLineY = 1;
 
         cv::Mat m_ImgBackground;
         cv::Mat m_ImgColorBackground;
-        cv::Mat imgHSV;
-        cv::Mat imgThresholded;
-        cv::Mat m_OutImg;
+
+        cv::Mat m_MainRoad;
+        cv::Mat m_SideRoad;
 
         glm::vec2 m_MousePos;
+        glm::vec3 m_TresholdsMin;
+        glm::vec3 m_TresholdsMax;
+
     };
 }
 

@@ -69,6 +69,9 @@ namespace Atom {
         glDepthFunc(GL_LESS);
         glfwWindowHint(GLFW_DEPTH_BITS, 24);
         SetVSync(true);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         SetCallbacks();
     }
     //close window

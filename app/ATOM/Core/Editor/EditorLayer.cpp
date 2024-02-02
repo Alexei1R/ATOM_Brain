@@ -103,18 +103,18 @@ namespace Atom
         }
 
 
-        ImGui::Begin("Viewport");
-        ImVec2 windowSize = ImGui::GetContentRegionAvail();
-        if (windowSize.x != previousWindowSize.x || windowSize.y != previousWindowSize.y) {
-            previousWindowSize = windowSize;
-            if (m_ViewportCallbackFunction) {
-                m_ViewportCallbackFunction(windowSize.x, windowSize.y);
-                // m_FrameBuffer->SetFramebufferTextureSizeCallback(windowSize.x, windowSize.y);
-                // glViewport(0, 0, windowSize.x, windowSize.y);
-            }
-        }
-
-        ImGui::Text("Renderer2D Stats:");
-        ImGui::End();
+        // ImGui::Begin("Viewport");
+        // ImVec2 windowSize = ImGui::GetContentRegionAvail();
+        // if (windowSize.x != previousWindowSize.x || windowSize.y != previousWindowSize.y) {
+        //     previousWindowSize = windowSize;
+        //     if (m_ViewportCallbackFunction) {
+        //         m_ViewportCallbackFunction(windowSize.x, windowSize.y);
+        //         // m_FrameBuffer->SetFramebufferTextureSizeCallback(windowSize.x, windowSize.y);
+        //         // glViewport(0, 0, windowSize.x, windowSize.y);
+        //     }
+        // }
+        //
+        // ImGui::Text("Renderer2D Stats:");
+        // ImGui::End();
     }
 }
