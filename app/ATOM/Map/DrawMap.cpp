@@ -87,10 +87,9 @@ namespace Atom {
         if(!m_ImgColorBackground.empty()){
 
 
-            // if (m_MapSetings.isChanged) {
+            if (m_MapSetings.isChanged) {
                 m_MapSetings.isChanged = false;
-                // MatToTexture(m_ImgColorBackground, textureID);
-                // m_UpdateTexture = true;
+                MatToTexture(m_ImgColorBackground, textureID);
 
                 switch (m_MapSetings.background) {
                     case MapBackground::Track:
@@ -100,10 +99,6 @@ namespace Atom {
                         MatToTexture(m_ImgColorBackground, textureID);
                         break;
                     case MapBackground::MainRoad:
-                    //     cv::cvtColor(m_ImgColorBackground, m_ImgHSV, cv::COLOR_BGR2HSV);
-                    //
-                    //     cv::inRange(m_ImgHSV, cv::Scalar(m_TresholdsMin.x, m_TresholdsMin.y, m_TresholdsMin.z),
-                    // cv::Scalar(m_TresholdsMax.x, m_TresholdsMax.y, m_TresholdsMax.z), m_MainRoad);
                         //check color format
                         if (m_MainRoad.type() == CV_8UC1) {
                             cv::cvtColor(m_MainRoad, m_MainRoad, cv::COLOR_GRAY2BGR);
@@ -115,7 +110,7 @@ namespace Atom {
                         break;
 
                 }
-            // }
+            }
         }
 
     }
@@ -165,23 +160,6 @@ namespace Atom {
                                ImVec2(canvas_bottom_right.x, canvas_left_top.y + i * m_DeltaDashLineY),
                                IM_COL32(0, 255, 255, 50));
         }
-        if(m_MapSetings.showPoints) {
-            // draw points from matrix that are part of main road
-            for (int i = 0; i < m_LinesX; ++i) {
-                for (int j = 0; j < m_LinesY; ++j) {
-                    if (m_Matrix[i][j].type == ElementType::MainRoad) {
-                        // draw_list->AddRectFilled(ImVec2(canvas_left_top.x + i * m_DeltaDashLineX, canvas_left_top.y + j * m_DeltaDashLineY),
-                        //                         ImVec2(canvas_left_top.x + (i + 1) * m_DeltaDashLineX,
-                        //                                canvas_left_top.y + (j + 1) * m_DeltaDashLineY),
-                        //                         IM_COL32(0, 255, 0, 255));
-                        //draw as circle
-                        draw_list->AddCircleFilled(ImVec2(canvas_left_top.x + i * m_DeltaDashLineX ,
-                                                          canvas_left_top.y + j * m_DeltaDashLineY ),
-                                                  2, IM_COL32(0, 255, 0, 255), 10);
-                    }
-                }
-            }
-        }
 
         ImGui::InvisibleButton("canvas", canvas_size,
                                ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
@@ -209,6 +187,23 @@ namespace Atom {
             }
 
 
+
+
+
+            if(m_MapSetings.showPoints) {
+                // draw points from matrix that are part of main road
+                for (int i = 0; i < m_LinesX; ++i) {
+                    for (int j = 0; j < m_LinesY; ++j) {
+                        if (m_Matrix[i][j].type == ElementType::MainRoad) {
+                            draw_list->AddCircleFilled(ImVec2(canvas_left_top.x + i * m_DeltaDashLineX ,
+                                                              canvas_left_top.y + j * m_DeltaDashLineY ),
+                                                      2, IM_COL32(0, 255, 0, 255), 5);
+                        }
+                    }
+                }
+            }
+
+
         }
 
 
@@ -224,15 +219,34 @@ namespace Atom {
 
 
         if(m_StartFinish.StartFlagPlaced){
-            draw_list->AddCircleFilled(ImVec2(m_StartFinish.StartFlagPos.x , m_StartFinish.StartFlagPos.y), 8,
+            // StartFlagPos
+            // draw_list->AddCircleFilled(ImVec2(m_StartFinish.StartFlagPos.x , m_StartFinish.StartFlagPos.y), 8,
+            //                            IM_COL32(255, 255, 255, 255), 10);
+            // draw_list->AddCircleFilled(ImVec2(m_StartFinish.StartFlagPos.x , m_StartFinish.StartFlagPos.y ), 5,
+            //                            IM_COL32(255, 0, 0, 255), 10);
+
+            //GridStartFlagPos
+            draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridStartFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
+                                              m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 8,
                                        IM_COL32(255, 255, 255, 255), 10);
-            draw_list->AddCircleFilled(ImVec2(m_StartFinish.StartFlagPos.x , m_StartFinish.StartFlagPos.y ), 5,
+            draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridStartFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
+                                              m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 5,
                                        IM_COL32(255, 0, 0, 255), 10);
+
         }
         if(m_StartFinish.FinishFlagPlaced){
-            draw_list->AddCircleFilled(ImVec2(m_StartFinish.FinishFlagPos.x, m_StartFinish.FinishFlagPos.y ), 8,
+            //
+            // draw_list->AddCircleFilled(ImVec2(m_StartFinish.FinishFlagPos.x, m_StartFinish.FinishFlagPos.y ), 8,
+            //                            IM_COL32(255, 255, 255, 255), 10);
+            // draw_list->AddCircleFilled(ImVec2(m_StartFinish.FinishFlagPos.x , m_StartFinish.FinishFlagPos.y ), 5,
+            //                            IM_COL32(0, 0, 255, 255), 10);
+
+            //GridFinishFlagPos
+            draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridFinishFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
+                                              m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 8,
                                        IM_COL32(255, 255, 255, 255), 10);
-            draw_list->AddCircleFilled(ImVec2(m_StartFinish.FinishFlagPos.x , m_StartFinish.FinishFlagPos.y ), 5,
+            draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridFinishFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
+                                              m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 5,
                                        IM_COL32(0, 0, 255, 255), 10);
         }
 

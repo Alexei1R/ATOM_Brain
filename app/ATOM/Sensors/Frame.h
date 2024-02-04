@@ -27,17 +27,22 @@ namespace Atom {
         virtual void OnUpdate() override;
 
         virtual void OnImGuiRender() override;
-        void Shutdown();
 
+        static cv::Mat &GetNativeFrame() { return s_Frame; }
+        bool IsCaptureOpened() { return m_CaptureOpened; }
+
+        void OpenVideoCapture();
+
+        void Shutdown();
 
     private:
         Atom::VideoCapture m_VideoCapture;
         cv::Mat m_Frame;
+        static cv::Mat s_Frame;
         GLuint m_Texture;
         float m_AspectRatio = 0;
+        bool m_CaptureOpened = false;
     };
-
-
 }
 
 

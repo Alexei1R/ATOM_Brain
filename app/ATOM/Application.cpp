@@ -8,7 +8,13 @@
 
 namespace Atom {
     char inputBuffer[256] = "/home/toor/Downloads/pc.mp4";
+    static const char *comboItems[] = {
+        "v4l2src device=/dev/video0 ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! videoconvert ! appsink",
+        "1",
+    };
+
     Application *Application::s_Instance = nullptr;
+
 
     Application::Application() {
         s_Instance = (Application *) this;
@@ -27,8 +33,11 @@ namespace Atom {
         m_DrawMap = new DrawMap();
         PushLayer(m_DrawMap);
         m_Frame = new Frame();
+        PushLayer(m_Frame);
         m_Gamepad = new Gamepad();
         PushLayer(m_Gamepad);
+        m_DetectLines = new DetectLines();
+        PushLayer(m_DetectLines);
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
             ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
@@ -37,7 +46,7 @@ namespace Atom {
         m_ClientLayer->RegisterMessageWithID(50, [&](Message message) {
             std::string data = static_cast<char *>(message.payload);
             if (data == "OK") {
-                PushLayer(m_Frame);
+                m_Frame->OpenVideoCapture();
             } else {
                 ATLOG_CRITICAL("Error to open camera")
             }
@@ -70,6 +79,20 @@ namespace Atom {
             }
             if (ImGui::CollapsingHeader("Camera Settings")) {
                 DrawCameraSettings();
+            }
+            else {
+                if(m_Gamepad->GetJoystickState()->ButtonA && m_Gamepad->GetJoystickState()->ButtonY && isOpenCameraComandSent == false) {
+                    if (m_ClientLayer->IsRunning()) {
+                        ATLOG_WARN("Open Camera using Gamepad");
+                        isOpenCameraComandSent = true;
+                        std::string data = comboItems[0];
+                        Message message;
+                        message.id = 50;
+                        message.payloadSize = data.size();
+                        message.payload = static_cast<void *>(const_cast<char *>(data.c_str()));
+                        m_ClientLayer->SendMessage(message);
+                    }
+                }
             }
             if (ImGui::CollapsingHeader("Map Settings")) {
                 DrawMapSettings();
@@ -158,13 +181,15 @@ namespace Atom {
                 if (m_IPIndex == SelectIP) {
                     static char inputBuffer[256] = "192.168.1.8";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
-                    if (ImGui::Button("Connect")) {
+                    //button or enter key is pressed
+                    if (ImGui::Button("Connect") || ImGui::IsKeyPressed(ImGuiKey_Enter, false) || m_Gamepad->GetJoystickState()->ButtonA) {
                         isConnected = true;
                         std::string ip = inputBuffer;
                         ip.append(":27020");
                         m_ClientLayer->ConnectToServer(ip);
                     }
                 } else if (m_IPIndex == DefaultIP) {
+                    //button or enter key is pressed
                     if (ImGui::Button("Connect with Default IP")) {
                         isConnected = true;
                         m_ClientLayer->ConnectToServer("192.168.100.119:27020");
@@ -189,6 +214,8 @@ namespace Atom {
     }
 
     void Application::DrawCameraSettings() {
+
+
         ImGui::Text("Open Camera");
 
         ImGui::BeginTabBar("##TabBar", ImGuiTabBarFlags_None);
@@ -198,8 +225,9 @@ namespace Atom {
             ImGui::InputText("##InputText", inputBuffer, IM_ARRAYSIZE(inputBuffer));
             ImGui::PopItemWidth();
             ImGui::EndTabItem();
-            if (ImGui::Button("Open Camera")) {
+            if (ImGui::Button("Open Camera") && isOpenCameraComandSent == false) {
                 if (m_ClientLayer->IsRunning()) {
+                    isOpenCameraComandSent = true;
                     std::string data = inputBuffer;
                     Message message;
                     message.id = 50;
@@ -211,13 +239,11 @@ namespace Atom {
         }
         if (ImGui::BeginTabItem(" Default ")) {
             static int m_ComboIndex = 0;
-            static const char *comboItems[] = {
-                "v4l2src device=/dev/video0 ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! videoconvert ! appsink",
-                "1",
-            };
+
             ImGui::Combo("##Combo", &m_ComboIndex, comboItems, IM_ARRAYSIZE(comboItems));
-            if (ImGui::Button("Open Camera")) {
+            if (ImGui::Button("Open Camera") && isOpenCameraComandSent == false) {
                 if (m_ClientLayer->IsRunning()) {
+                    isOpenCameraComandSent = true;
                     std::string data = comboItems[m_ComboIndex];
                     Message message;
                     message.id = 50;
@@ -231,6 +257,7 @@ namespace Atom {
         }
 
         ImGui::EndTabBar();
+
 
 
         ImGui::Separator();

@@ -14,8 +14,8 @@
 #include "ATOM/Sensors/Frame.h"
 #include "ATOM/Core/ClientLayer.h"
 #include "ATOM/Map/DrawMap.h"
-#include "GamePad/Gamepad.h"
-
+#include "ATOM/GamePad/Gamepad.h"
+#include "ATOM/RoadDetect/DetectLines.h"
 
 namespace Atom {
     class Application {
@@ -33,6 +33,8 @@ namespace Atom {
         static Application *s_Instance;
         inline static Application &GetApp() { return *s_Instance; }
         [[nodiscard]] inline Window &GetWindow() const { return *m_Window; }
+        [[nodiscard]] inline Frame &GetFrame() const { return *m_Frame; }
+        [[nodiscard]] inline Gamepad &GetGamepad() const { return *m_Gamepad; }
 
         void WindowClose();
 
@@ -58,6 +60,9 @@ namespace Atom {
         ClientLayer *m_ClientLayer;
         DrawMap *m_DrawMap;
         Gamepad *m_Gamepad;
+        DetectLines *m_DetectLines;
+
+        bool isOpenCameraComandSent = false;
 
         int counter = 0;
         float sliderValue = 0;

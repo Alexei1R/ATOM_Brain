@@ -42,6 +42,10 @@ set(SOURCES
         Platform/Window/OpenGLWindow.h
         ATOM/GamePad/Gamepad.cpp
         ATOM/GamePad/Gamepad.h
+        ATOM/Core/Editor/stb_image.cpp
+        ATOM/Core/Editor/stb_image.h
+        ATOM/RoadDetect/DetectLines.cpp
+        ATOM/RoadDetect/DetectLines.h
 
 )
 

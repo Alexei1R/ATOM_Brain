@@ -31,6 +31,8 @@
 #include <map>
 #include <cctype>
 
+#include "ATOM/Core/Editor/stb_image.h"
+
 #include "ATOM/Core/Layers/Layer.h"
 #include "ATOM/Core/Layers/LayerStack.h"
 
