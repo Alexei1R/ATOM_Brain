@@ -40,6 +40,8 @@ set(SOURCES
         ATOM/Map/DrawMap.h
         Platform/Window/OpenGLWindow.cpp
         Platform/Window/OpenGLWindow.h
+        ATOM/GamePad/Gamepad.cpp
+        ATOM/GamePad/Gamepad.h
 
 )
 

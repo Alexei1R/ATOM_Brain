@@ -14,6 +14,7 @@
 #include "ATOM/Sensors/Frame.h"
 #include "ATOM/Core/ClientLayer.h"
 #include "ATOM/Map/DrawMap.h"
+#include "GamePad/Gamepad.h"
 
 
 namespace Atom {
@@ -56,6 +57,7 @@ namespace Atom {
         Frame *m_Frame;
         ClientLayer *m_ClientLayer;
         DrawMap *m_DrawMap;
+        Gamepad *m_Gamepad;
 
         int counter = 0;
         float sliderValue = 0;

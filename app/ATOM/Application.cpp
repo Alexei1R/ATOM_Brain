@@ -27,7 +27,8 @@ namespace Atom {
         m_DrawMap = new DrawMap();
         PushLayer(m_DrawMap);
         m_Frame = new Frame();
-
+        m_Gamepad = new Gamepad();
+        PushLayer(m_Gamepad);
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
             ATLOG_INFO("Message Received: ID = 2 {0}", *(int *) message.payload);
