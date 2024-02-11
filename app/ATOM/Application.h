@@ -47,8 +47,14 @@ namespace Atom {
 
         void DrawMapSettings();
 
+
+        void ConntrollCarUithGamepad();
+
     private:
         bool m_IsRuning = true;
+        std::chrono::time_point<std::chrono::high_resolution_clock> lastTime =
+                std::chrono::high_resolution_clock::now();
+
         bool isConnected = false;
         bool m_VSync = true;
 

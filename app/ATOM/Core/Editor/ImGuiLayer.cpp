@@ -61,6 +61,10 @@ namespace Atom {
         Layer::OnUpdate();
     }
 
+    void ImGuiLayer::OnFixedUpdate() {
+        Layer::OnFixedUpdate();
+    }
+
     void ImGuiLayer::OnImGuiRender() {
         Layer::OnImGuiRender();
     }

@@ -49,7 +49,6 @@ namespace Atom {
             m_Joystick.PadLeft = false;
             m_Joystick.CenterButton = false;
             m_Joystick.count = 0;
-
         }
     }
 
@@ -111,16 +110,55 @@ namespace Atom {
     }
 
     void Gamepad::OnUpdate() {
+        m_Joystick.isChanged = false;
         if (m_Joystick.IsConnected && glfwJoystickPresent(m_Joystick.Index) == GLFW_TRUE) {
             glfwGetJoystickAxes(m_Joystick.Index, &m_Joystick.count);
             const float *axes = glfwGetJoystickAxes(m_Joystick.Index, &m_Joystick.count);
+
+
             if (m_Joystick.count >= 6) {
-                m_Joystick.LeftStick.x = axes[0];
-                m_Joystick.LeftStick.y = axes[1];
-                m_Joystick.RightStick.x = axes[2];
-                m_Joystick.RightStick.y = axes[3];
-                m_Joystick.RightTrigger = axes[4];
-                m_Joystick.LeftTrigger = axes[5];
+                if (abs(axes[0] - m_Joystick.LeftStick.x) > m_Joystick.treshold) {
+                    if (m_JoystickChangeState) {
+                        m_JoystickChangeState(axes[0], JoystickAxis::LeftX);
+                    }
+                    m_Joystick.isChanged = true;
+                    m_Joystick.LeftStick.x = axes[0];
+                }
+                if (abs(axes[1] - m_Joystick.LeftStick.y) > m_Joystick.treshold) {
+                    if (m_JoystickChangeState) {
+                        m_JoystickChangeState(axes[1], JoystickAxis::LeftY);
+                    }
+                    m_Joystick.isChanged = true;
+                    m_Joystick.LeftStick.y = axes[1];
+                }
+                if (abs(axes[2] - m_Joystick.RightStick.x) > m_Joystick.treshold) {
+                    if (m_JoystickChangeState) {
+                        m_JoystickChangeState(axes[2], JoystickAxis::RightX);
+                    }
+                    m_Joystick.isChanged = true;
+                    m_Joystick.RightStick.x = axes[2];
+                }
+                if (abs(axes[3] - m_Joystick.RightStick.y) > m_Joystick.treshold) {
+                    if (m_JoystickChangeState) {
+                        m_JoystickChangeState(axes[3], JoystickAxis::RightY);
+                    }
+                    m_Joystick.isChanged = true;
+                    m_Joystick.RightStick.y = axes[3];
+                }
+                if (abs(axes[4] - m_Joystick.RightTrigger) > m_Joystick.treshold) {
+                    if (m_JoystickChangeState) {
+                        m_JoystickChangeState(axes[4], JoystickAxis::RightTrigger);
+                    }
+                    m_Joystick.isChanged = true;
+                    m_Joystick.RightTrigger = axes[4];
+                }
+                if (abs(axes[5] - m_Joystick.LeftTrigger) > m_Joystick.treshold) {
+                    if (m_JoystickChangeState) {
+                        m_JoystickChangeState(axes[5], JoystickAxis::LeftTrigger);
+                    }
+                    m_Joystick.isChanged = true;
+                    m_Joystick.LeftTrigger = axes[5];
+                }
             }
             glfwGetJoystickButtons(m_Joystick.Index, &m_Joystick.count);
             const unsigned char *buttons = glfwGetJoystickButtons(m_Joystick.Index, &m_Joystick.count);
@@ -143,6 +181,10 @@ namespace Atom {
             }
             s_Joystick = m_Joystick;
         }
+    }
+
+    void Gamepad::OnFixedUpdate() {
+        Layer::OnFixedUpdate();
     }
 
     void Gamepad::OnImGuiRender() {
@@ -182,7 +224,7 @@ namespace Atom {
 
 
         //if curent window is bigger than 400x400
-        if(available.x > 400 && available.y > 400){
+        if (available.x > 400 && available.y > 400) {
             sprintf(buffer, "%s", m_Joystick.Name.c_str());
             draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 10), IM_COL32(255, 255, 255, 255),
                                buffer);

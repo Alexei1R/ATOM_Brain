@@ -54,6 +54,10 @@ void Atom::ClientLayer::OnDetach() {
 void Atom::ClientLayer::OnUpdate() {
 }
 
+void Atom::ClientLayer::OnFixedUpdate() {
+    Layer::OnFixedUpdate();
+}
+
 void Atom::ClientLayer::OnImGuiRender() {
 }
 

@@ -39,9 +39,6 @@ namespace Atom {
     };
 
 
-
-
-
     typedef struct MatrixElement {
         ElementType type;
     } MatrixElement;
@@ -68,11 +65,11 @@ namespace Atom {
 
         virtual void OnUpdate() override;
 
+        virtual void OnFixedUpdate() override;
+
         virtual void OnImGuiRender() override;
 
         MapSetings *GetMapSetings() { return &m_MapSetings; }
-
-
 
     private:
         void GenerateTextures();
@@ -83,7 +80,6 @@ namespace Atom {
         int m_FrameWidth = 640;
         int m_FrameHeight = 480;
         float m_AspectRatio = 1.0f;
-
 
 
         MapSetings m_MapSetings;
@@ -101,8 +97,8 @@ namespace Atom {
 
         int m_RoadWidth = 1920;
         int m_RoadHeight = 1080;
-        int m_LinesX = 100;
-        int m_LinesY = 100;
+        int m_LinesX = 200;
+        int m_LinesY = 200;
         float m_DeltaDashLineX = 1;
         float m_DeltaDashLineY = 1;
 
@@ -115,7 +111,6 @@ namespace Atom {
         glm::vec2 m_MousePos;
         glm::vec3 m_TresholdsMin;
         glm::vec3 m_TresholdsMax;
-
     };
 }
 

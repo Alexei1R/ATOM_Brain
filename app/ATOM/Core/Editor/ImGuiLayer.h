@@ -19,22 +19,22 @@ namespace Atom {
 
         virtual void OnUpdate() override;
 
+        virtual void OnFixedUpdate() override;
+
         virtual void OnImGuiRender() override;
 
         void Begin();
+
         void End();
+
     private:
         void SetDarkThemeColors();
 
     private:
-
         GLFWwindow *window;
         ImGuiIO *io;
         ImGuiWindowFlags window_flags;
         bool dockspaceOpen = true;
-
-
-
     };
 }
 

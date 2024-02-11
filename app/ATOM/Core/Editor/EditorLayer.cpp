@@ -92,6 +92,10 @@ namespace Atom
     {
     }
 
+    void EditorLayer::OnFixedUpdate() {
+        Layer::OnFixedUpdate();
+    }
+
     void EditorLayer::OnImGuiRender()
     {
 

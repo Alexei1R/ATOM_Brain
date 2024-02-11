@@ -46,6 +46,8 @@ set(SOURCES
         ATOM/Core/Editor/stb_image.h
         ATOM/RoadDetect/DetectLines.cpp
         ATOM/RoadDetect/DetectLines.h
+        ATOM/RoadDetect/FindLines.cpp
+        ATOM/RoadDetect/FindLines.h
 
 )
 

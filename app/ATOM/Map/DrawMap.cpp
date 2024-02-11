@@ -38,7 +38,7 @@ namespace Atom {
 
 
 
-        //side road tresold red color
+        //side road tresold blue color
         cv::inRange(m_ImgHSV, cv::Scalar(0, 200, 100), cv::Scalar(10, 255, 255), m_SideRoad);
 
         //extracting points on matrix that is part of main road
@@ -84,6 +84,11 @@ namespace Atom {
     }
 
     void DrawMap::OnUpdate() {
+
+
+    }
+
+    void DrawMap::OnFixedUpdate() {
         if(!m_ImgColorBackground.empty()){
 
 
@@ -94,25 +99,24 @@ namespace Atom {
                 switch (m_MapSetings.background) {
                     case MapBackground::Track:
                         MatToTexture(m_ImgBackground, textureID);
-                        break;
+                    break;
                     case MapBackground::ColorTrack:
                         MatToTexture(m_ImgColorBackground, textureID);
-                        break;
+                    break;
                     case MapBackground::MainRoad:
                         //check color format
-                        if (m_MainRoad.type() == CV_8UC1) {
-                            cv::cvtColor(m_MainRoad, m_MainRoad, cv::COLOR_GRAY2BGR);
-                        }
-                        MatToTexture(m_MainRoad, textureID);
-                        break;
+                            if (m_MainRoad.type() == CV_8UC1) {
+                                cv::cvtColor(m_MainRoad, m_MainRoad, cv::COLOR_GRAY2BGR);
+                            }
+                    MatToTexture(m_MainRoad, textureID);
+                    break;
                     default:
                         MatToTexture(m_ImgBackground, textureID);
-                        break;
+                    break;
 
                 }
             }
         }
-
     }
 
     void DrawMap::OnImGuiRender() {
@@ -140,7 +144,7 @@ namespace Atom {
 
 
         //draw image to background
-        draw_list->AddImage((void *) textureID, canvas_left_top, canvas_bottom_right);
+        draw_list->AddImage((void *) textureID, canvas_left_top, canvas_bottom_right );
 
 
 
@@ -249,6 +253,7 @@ namespace Atom {
                                               m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 5,
                                        IM_COL32(0, 0, 255, 255), 10);
         }
+
 
 
 

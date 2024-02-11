@@ -21,6 +21,8 @@ namespace Atom {
 
         virtual void OnUpdate() override;
 
+        virtual void OnFixedUpdate() override;
+
         virtual void OnImGuiRender() override;
 
         void AddDrawCallback(std::function<void()>& func) { m_FunctionsVenctor.push_back(func); }

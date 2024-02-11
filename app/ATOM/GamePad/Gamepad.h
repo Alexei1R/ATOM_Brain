@@ -44,12 +44,20 @@ namespace Atom {
         bool ButtonX = false;
         bool ButtonY = false;
 
+        //dead zone
+        float DeadZone = 0.05f;
+        float treshold = 0.1f;
+
+        //change
+        bool isChanged = false;
+
+        // Center button
         bool CenterButton;
     };
 
     typedef struct JoystickPosition {
-        glm::vec2 LeftStickPosition = glm::vec2(323,260);
-        glm::vec2 RightStickPosition = glm::vec2(500,260);
+        glm::vec2 LeftStickPosition = glm::vec2(323, 260);
+        glm::vec2 RightStickPosition = glm::vec2(500, 260);
 
         glm::vec2 ButtonAPosition = glm::vec2(577, 198);
         glm::vec2 ButtonBPosition = glm::vec2(611, 162);
@@ -80,12 +88,21 @@ namespace Atom {
         float ButtonRadiusCenter = 15.0f;
         float JoystickRadius = 15.0f;
         float MaxJoystickRadius = 45.0f;
-
-
-
     } JoystickPosition;
 
+    enum class JoystickAxis {
+        LeftX = 0,
+        LeftY = 1,
+        RightX = 2,
+        RightY = 3,
+        LeftTrigger = 4,
+        RightTrigger = 5
+    };
+
     class Gamepad : public Layer {
+    public:
+        using GamepadChageState = std::function<void(float value,JoystickAxis joyAxis)>;
+
     public:
         Gamepad();
 
@@ -97,12 +114,16 @@ namespace Atom {
 
         virtual void OnUpdate() override;
 
+        virtual void OnFixedUpdate() override;
+
         virtual void OnImGuiRender() override;
 
         Joystick *GetJoystickState() { return &m_Joystick; }
+        void SetChangeState(GamepadChageState state) { m_JoystickChangeState = state; }
 
     private:
         static void joystick_callback(int jid, int event);
+
         void joystick_callback_non_static(int jid, int event);
 
     private:
@@ -110,9 +131,11 @@ namespace Atom {
         static Joystick s_Joystick;
         JoystickPosition m_JoystickPosition;
         unsigned int m_JoystickTexture;
-        unsigned char* m_JoystickImage;
+        unsigned char *m_JoystickImage;
         int m_JoystickImageWidth, m_JoystickImageHeight;
         int m_JoystickImageChannels;
+
+        GamepadChageState m_JoystickChangeState;
 
         float m_AspectRatio;
         float m_WidthMultiplier;

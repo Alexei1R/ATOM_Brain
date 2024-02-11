@@ -33,10 +33,17 @@ namespace Atom {
     void Frame::OnUpdate() {
     }
 
+    void Frame::OnFixedUpdate() {
+        if(m_IsFocused) {
+            FrameTexture(m_Frame, m_Texture);
+        }
+    }
+
     void Frame::OnImGuiRender() {
         if (m_CaptureOpened) {
             ImGui::Begin("Received Video");
-            if (ImGui::IsWindowFocused()) {
+            m_IsFocused = ImGui::IsWindowFocused();
+            if (m_IsFocused) {
                 if (m_VideoCapture.isOpened()) {
                     if (m_Frame.empty()) {
                         std::cout << "End of video stream" << std::endl;
@@ -44,7 +51,6 @@ namespace Atom {
                         return;
                     }
 
-                    FrameTexture(m_Frame, m_Texture);
                     m_AspectRatio = (float) m_Frame.cols / (float) m_Frame.rows;
                     if (ImGui::GetContentRegionAvail().x > ImGui::GetContentRegionAvail().y * m_AspectRatio) {
                         ImVec2 available = ImGui::GetContentRegionAvail();
@@ -76,6 +82,7 @@ namespace Atom {
 
 
         m_VideoCapture.SetFrameRecivedCallback([&](cv::Mat &frame) {
+            cv::flip(frame,frame,0);
             m_Frame = frame;
             s_Frame = frame;
             m_CaptureOpened = true;

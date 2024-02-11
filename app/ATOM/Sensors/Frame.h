@@ -26,6 +26,8 @@ namespace Atom {
 
         virtual void OnUpdate() override;
 
+        virtual void OnFixedUpdate() override;
+
         virtual void OnImGuiRender() override;
 
         static cv::Mat &GetNativeFrame() { return s_Frame; }
@@ -42,6 +44,7 @@ namespace Atom {
         GLuint m_Texture;
         float m_AspectRatio = 0;
         bool m_CaptureOpened = false;
+        bool m_IsFocused = false;
     };
 }
 
