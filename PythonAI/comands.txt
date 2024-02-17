@@ -1,0 +1,2 @@
+yolo detect train data=/home/toor/Code/ATOM_Brain/PythonAI/data.yaml model=yolov8n.pt epochs=100 imgsz=640
+

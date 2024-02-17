@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.15)
 
 project(ATOM
@@ -8,10 +9,10 @@ project(ATOM
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# include(CTest)  # Uncomment if you want to include CTest
+
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)  # Choose Release, Debug, etc.
+    set(CMAKE_BUILD_TYPE Debug)  # Choose Release, Debug, etc.
 endif()
 
 add_compile_options(

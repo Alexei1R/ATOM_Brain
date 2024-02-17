@@ -39,6 +39,9 @@ namespace Atom {
         PushLayer(m_Gamepad);
         m_DetectLines = new DetectLines();
         PushLayer(m_DetectLines);
+        m_TrainEngine = new TrainEngine();
+        PushLayer(m_TrainEngine);
+
 
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
@@ -215,9 +218,9 @@ namespace Atom {
                 if (m_IPIndex == SelectIP) {
                     // static char inputBuffer[256] = "192.168.36.60";
                     // static char inputBuffer[256] = "192.168.1.16";
-                    // static char inputBuffer[256] = "192.168.1.8";
+                    static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";
-                    static char inputBuffer[256] = "192.168.1.102";
+                    // static char inputBuffer[256] = "192.168.8.124";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
                     //button or enter key is pressed
                     if (ImGui::Button("Connect") || ImGui::IsKeyPressed(ImGuiKey_Enter, false) || m_Gamepad->

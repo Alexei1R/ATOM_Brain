@@ -16,6 +16,7 @@
 #include "ATOM/Map/DrawMap.h"
 #include "ATOM/GamePad/Gamepad.h"
 #include "ATOM/RoadDetect/DetectLines.h"
+#include "ATOM/AI/TrainEngine.h"
 
 namespace Atom {
     class Application {
@@ -67,6 +68,7 @@ namespace Atom {
         DrawMap *m_DrawMap;
         Gamepad *m_Gamepad;
         DetectLines *m_DetectLines;
+        TrainEngine *m_TrainEngine;
 
         bool isOpenCameraComandSent = false;
 
