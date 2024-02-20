@@ -15,6 +15,7 @@ namespace Atom {
     }
 
 
+
     DrawMap::DrawMap()
         : Layer("DrawMap") {
         m_Window = (GLFWwindow *) Application::GetApp().GetWindow().GetNativeWindow();
@@ -24,46 +25,9 @@ namespace Atom {
         for (int i = 0; i < m_LinesX; ++i) {
             m_Matrix[i] = new MatrixElement[m_LinesY];
         }
-        // m_ImgHSV
-        cv::cvtColor(m_ImgColorBackground, m_ImgHSV, cv::COLOR_BGR2HSV);
 
-        //copy treshold values for blue color
-        m_TresholdsMin = glm::vec3(119.0, 120.0, 255.0);
-        m_TresholdsMax = glm::vec3(255.0, 255.0, 255.0);
         //main road tresold blue color
-
-        cv::inRange(m_ImgHSV, cv::Scalar(119.0,120.0,255.0), cv::Scalar(255.0,255.0,255.0), m_MainRoad);
-        cv::erode(m_MainRoad, m_MainRoad, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(10, 10)));
-
-
-
-
-        //side road tresold blue color
-        cv::inRange(m_ImgHSV, cv::Scalar(0, 200, 100), cv::Scalar(10, 255, 255), m_SideRoad);
-
-        //extracting points on matrix that is part of main road
-        for (int i = 0; i < m_LinesX; ++i) {
-            for (int j = 0; j < m_LinesY; ++j) {
-                if (m_MainRoad.at<uchar>(j * m_MainRoad.rows / m_LinesY, i * m_MainRoad.cols / m_LinesX) > 50) {
-                    m_Matrix[i][j].type = ElementType::MainRoad;
-                }else {
-                    m_Matrix[i][j].type = ElementType::Empty;
-                }
-
-            }
-        }
-
-
-        for (int i = 0; i < m_LinesX; ++i) {
-            for (int j = 0; j < m_LinesY; ++j) {
-                //detect if point is part of main road
-                if (m_Matrix[i][j].type == ElementType::MainRoad) {
-
-                }
-
-            }
-        }
-
+        ErodeValueChanges();
 
         m_FrameWidth = m_ImgBackground.cols;
         m_FrameHeight = m_ImgBackground.rows;
@@ -89,6 +53,14 @@ namespace Atom {
     }
 
     void DrawMap::OnFixedUpdate() {
+
+        if(m_ErodeValue != m_LastErodeValue)
+        {
+            m_LastErodeValue = m_ErodeValue;
+            ATLOG_TRACE("Erode Value Changed to {0}", m_ErodeValue);
+            ErodeValueChanges();
+        }
+
         if(!m_ImgColorBackground.empty()){
 
 
@@ -293,7 +265,20 @@ namespace Atom {
         draw_list->PopClipRect();
 
 
+        //NEW SHIT #Vitek was here =)
+        if (is_hovered && ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
 
+            if (m_StartFinish.StartFlagPlaced && m_StartFinish.FinishFlagPlaced) {
+
+                ImVec2 start_pos = ImVec2(m_StartFinish.GridStartFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
+                                          m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y);
+                ImVec2 finish_pos = ImVec2(m_StartFinish.GridFinishFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
+                                           m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y);
+
+
+                draw_list->AddLine(start_pos, finish_pos, IM_COL32(255, 255, 255, 255));
+            }
+        }
 
 
 
@@ -315,14 +300,57 @@ namespace Atom {
         if (m_ImgColorBackground.empty()) {
             ATLOG_CRITICAL("Error to open image")
         }
+        m_BlueFilter = cv::imread("ASSETS/MainRoad.png");
+        if (m_BlueFilter.empty()) {
+            ATLOG_CRITICAL("Error to open image")
+        }
         cv::resize(m_ImgBackground, m_ImgBackground, cv::Size(m_RoadWidth, m_RoadHeight));
         cv::resize(m_ImgColorBackground, m_ImgColorBackground, cv::Size(m_RoadWidth, m_RoadHeight));
+        cv::resize(m_BlueFilter, m_BlueFilter, cv::Size(m_RoadWidth, m_RoadHeight));
+
         glGenTextures(1, &textureID);
         glBindTexture(GL_TEXTURE_2D, textureID);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
 
+
+    }
+
+    void DrawMap::ErodeValueChanges() {
+        cv::cvtColor(m_BlueFilter, m_ImgHSV, cv::COLOR_BGR2HSV);
+
+        cv::inRange(m_ImgHSV, cv::Scalar(119.0,120.0,255.0), cv::Scalar(255.0,255.0,255.0), m_MainRoad);
+        cv::erode(m_MainRoad, m_MainRoad, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(m_ErodeValue, m_ErodeValue)));
+
+
+
+
+        //side road tresold blue color
+        cv::inRange(m_ImgHSV, cv::Scalar(0, 200, 100), cv::Scalar(10, 255, 255), m_SideRoad);
+        m_MapSetings.isChanged = true;
+        //extracting points on matrix that is part of main road
+        for (int i = 0; i < m_LinesX; ++i) {
+            for (int j = 0; j < m_LinesY; ++j) {
+                if (m_MainRoad.at<uchar>(j * m_MainRoad.rows / m_LinesY, i * m_MainRoad.cols / m_LinesX) > 50) {
+                    m_Matrix[i][j].type = ElementType::MainRoad;
+                }else {
+                    m_Matrix[i][j].type = ElementType::Empty;
+                }
+
+            }
+        }
+
+
+        for (int i = 0; i < m_LinesX; ++i) {
+            for (int j = 0; j < m_LinesY; ++j) {
+                //detect if point is part of main road
+                if (m_Matrix[i][j].type == ElementType::MainRoad) {
+
+                }
+
+            }
+        }
 
     }
 }

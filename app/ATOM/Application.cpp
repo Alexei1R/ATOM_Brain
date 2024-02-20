@@ -321,6 +321,8 @@ namespace Atom {
         }
         ImGui::Checkbox("Show Points", &mapSetings->showPoints);
         ImGui::Separator();
+
+        ImGui::SliderInt("Erode Value", m_DrawMap->GetErodeValue(), 3, 35);
     }
 
     void Application::ConntrollCarUithGamepad() {

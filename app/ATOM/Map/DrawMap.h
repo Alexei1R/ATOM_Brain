@@ -69,6 +69,10 @@ namespace Atom {
 
         virtual void OnImGuiRender() override;
 
+        void ErodeValueChanges();
+
+        int * GetErodeValue() {return &m_ErodeValue;};
+
         MapSetings *GetMapSetings() { return &m_MapSetings; }
 
     private:
@@ -101,12 +105,15 @@ namespace Atom {
         int m_LinesY = 200;
         float m_DeltaDashLineX = 1;
         float m_DeltaDashLineY = 1;
+        int m_ErodeValue = 20;
+        int m_LastErodeValue = 20;
 
         cv::Mat m_ImgBackground;
         cv::Mat m_ImgColorBackground;
 
         cv::Mat m_MainRoad;
         cv::Mat m_SideRoad;
+        cv::Mat m_BlueFilter;
 
         glm::vec2 m_MousePos;
         glm::vec3 m_TresholdsMin;
