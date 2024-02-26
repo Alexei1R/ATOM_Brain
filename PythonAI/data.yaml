@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['crosswalk-sign', 'parking-sign', 'pedestrian', 'priority-sign', 'stop-sign']
+
+roboflow:
+  workspace: yolodata-kfhrb
+  project: bfmc-6btkg
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/yolodata-kfhrb/bfmc-6btkg/dataset/3

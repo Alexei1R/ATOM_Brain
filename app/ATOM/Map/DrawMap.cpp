@@ -3,8 +3,92 @@
 //
 
 #include "DrawMap.h"
+#include <set>
+#include <unordered_map>
+#include <algorithm>
 
 #include "ATOM/Application.h"
+
+
+struct Node {
+    int x, y;
+
+    bool operator<(const Node& other) const {
+        return std::tie(x, y) < std::tie(other.x, other.y);
+    }
+
+    bool operator==(const Node& other) const {
+        return x == other.x && y == other.y;
+    }
+};
+
+
+namespace std {
+    template <>
+    struct hash<Node> {
+        std::size_t operator()(const Node& node) const {
+            return hash<int>()(node.x) ^ hash<int>()(node.y);
+        }
+    };
+}
+
+int heuristic(const Node& a, const Node& b) {
+    return abs(a.x - b.x) + abs(a.y - b.y);
+}
+
+//A* algorithm || Vitek
+std::vector<Node> astar(const Node& start, const Node& goal, const std::vector<std::vector<int>>& grid) {
+    std::set<Node> open_set;
+    std::unordered_map<Node, Node> came_from;
+    std::unordered_map<Node, int> g_score;
+
+    auto f_score = [&](const Node& node) {
+        return g_score[node] + heuristic(node, goal);
+    };
+
+    open_set.insert(start);
+    g_score[start] = 0;
+
+    while (!open_set.empty()) {
+        auto current = *min_element(open_set.begin(), open_set.end(),
+                                    [&](const Node& a, const Node& b) {
+                                        return f_score(a) < f_score(b);
+                                    });
+
+        if (current == goal) {
+            std::vector<Node> path;
+            while (came_from.find(current) != came_from.end()) {
+                path.push_back(current);
+                current = came_from[current];
+            }
+            path.push_back(start);
+            std::reverse(path.begin(), path.end());
+            return path;
+        }
+
+        open_set.erase(current);
+
+        const std::vector<std::pair<int, int>> neighbors = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (const auto& delta : neighbors) {
+            Node neighbor = {current.x + delta.first, current.y + delta.second};
+
+            if (neighbor.x < 0 || neighbor.x >= grid.size() || neighbor.y < 0 || neighbor.y >= grid[0].size() || grid[neighbor.x][neighbor.y] == 1) {
+                continue;
+            }
+
+            int tentative_g_score = g_score[current] + 1;
+
+            if (g_score.find(neighbor) == g_score.end() || tentative_g_score < g_score[neighbor]) {
+                came_from[neighbor] = current;
+                g_score[neighbor] = tentative_g_score;
+                open_set.insert(neighbor);
+            }
+        }
+    }
+
+    return {};
+}
 
 
 namespace Atom {
