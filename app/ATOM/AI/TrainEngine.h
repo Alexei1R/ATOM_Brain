@@ -10,6 +10,7 @@
 
 namespace Atom {
 
+
     class TrainEngine : public Layer {
     public:
         TrainEngine();
@@ -26,14 +27,19 @@ namespace Atom {
 
         virtual void OnImGuiRender() override;
 
+        std::vector<Sign> GetSigns() { return m_Signs; }
 
         void OpenVideoCapture();
 
         void Shutdown();
 
     private:
+        std::vector<Sign> m_Signs;
 
 #ifdef NDEBUG
+
+
+
         YoloV8Config config;
         YoloV8* m_Model;
         cv::Mat *m_Frame;

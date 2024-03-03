@@ -31,8 +31,7 @@ namespace Atom {
         PushOverlay(m_EditorLayer);
         m_ClientLayer = new ClientLayer();
         PushLayer(m_ClientLayer);
-        m_DrawMap = new DrawMap();
-        PushLayer(m_DrawMap);
+
         m_Frame = new Frame();
         PushLayer(m_Frame);
         m_Gamepad = new Gamepad();
@@ -42,6 +41,8 @@ namespace Atom {
         m_TrainEngine = new TrainEngine();
         PushLayer(m_TrainEngine);
 
+        m_DrawMap = new DrawMap(m_TrainEngine);
+        PushLayer(m_DrawMap);
 
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
@@ -58,9 +59,18 @@ namespace Atom {
         });
 
 
+        m_ClientLayer->RegisterMessageWithID(75, [&](Message message) {
+            m_LidarData.resize(message.payloadSize / sizeof(std::pair<float, float>));
+            memcpy(m_LidarData.data(), message.payload, message.payloadSize);
+            m_NewLidarData = true;
+            m_DrawMap->SetLidarData(m_LidarData);
+        });
+
+
+
         m_Gamepad->SetChangeState([&](float value, JoystickAxis joyAxis) {
             if (joyAxis == JoystickAxis::LeftY) {
-                float speed = value * -50;
+                float speed = value * m_MaxSpeed;
                 if (m_ClientLayer->IsRunning()) {
                     Message message;
                     message.id = 1; // Set message ID
@@ -70,7 +80,9 @@ namespace Atom {
                 }
             }
             if (joyAxis == JoystickAxis::RightX) {
-                float angle = value * 25;
+                float angle = value * m_MaxSteering;
+                angle = std::clamp(angle, -m_MaxSteering, m_MaxSteering);
+                angle += m_OffsetSteering;
                 if (m_ClientLayer->IsRunning()) {
                     Message message;
                     message.id = 2; // Set message ID
@@ -128,6 +140,10 @@ namespace Atom {
                 DrawMapSettings();
             }
 
+            ImGui::Separator();
+            ImGui::SliderFloat("Max Speed", &m_MaxSpeed, 0.0f, 100.0f);
+            ImGui::SliderFloat("Max Steering", &m_MaxSteering, 0.0f, 100.0f);
+            ImGui::Separator();
 
             ImGui::End();
         };
@@ -216,9 +232,10 @@ namespace Atom {
                 ImGui::Combo("IP", &m_IPIndex, menuItems, IM_ARRAYSIZE(menuItems));
 
                 if (m_IPIndex == SelectIP) {
-                    // static char inputBuffer[256] = "192.168.36.60";
+                    // static char inputBuffer[256] = "10.42.0.1";
+                    static char inputBuffer[256] = "192.168.1.100";
                     // static char inputBuffer[256] = "192.168.1.16";
-                    static char inputBuffer[256] = "192.168.1.8";
+                    // static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";
                     // static char inputBuffer[256] = "192.168.8.124";
                     ImGui::InputText("Enter IP", inputBuffer, IM_ARRAYSIZE(inputBuffer));
@@ -323,6 +340,11 @@ namespace Atom {
             mapSetings->isChanged = true;
         }
         ImGui::Checkbox("Show Points", &mapSetings->showPoints);
+        ImGui::Separator();
+
+        //Slider for camera curvature and fov
+        ImGui::SliderFloat("Camera Curvature", &mapSetings->m_CameraCurvature, 0.0f, 2.0f);
+        ImGui::SliderFloat("Camera FOV", &mapSetings->m_Fov, 0.0f, 200.0f);
         ImGui::Separator();
     }
 

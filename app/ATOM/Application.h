@@ -70,6 +70,13 @@ namespace Atom {
         DetectLines *m_DetectLines;
         TrainEngine *m_TrainEngine;
 
+        float m_MaxSpeed = 18;
+        float m_MaxSteering = 45;
+        float m_OffsetSteering = 0;
+
+        std::vector<std::pair<float, float>> m_LidarData;
+        bool m_NewLidarData = false;
+
         bool isOpenCameraComandSent = false;
 
         int counter = 0;

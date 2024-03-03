@@ -50,6 +50,8 @@ YoloV8::YoloV8(const std::string& onnxModelPath, const YoloV8Config& config)
     if (!succ) {
         throw std::runtime_error("Error: Unable to load TensorRT engine weights into memory.");
     }
+
+    m_Labels = CLASS_NAMES;
 }
 
 std::vector<std::vector<cv::cuda::GpuMat>> YoloV8::preprocess(const cv::cuda::GpuMat &gpuImg) {

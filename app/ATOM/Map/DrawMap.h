@@ -7,7 +7,7 @@
 #include <opencv2/core/mat.hpp>
 
 #include "ATOM/atompch.h"
-
+#include "ATOM/AI/TrainEngine.h"
 
 namespace Atom {
     enum class MapBackground {
@@ -25,6 +25,8 @@ namespace Atom {
         MapBackground background = MapBackground::Track;
         bool showPoints = false;
         bool isChanged = true;
+        float m_CameraCurvature = 1.15f;
+        float m_Fov = 90.0f;
     } MapSetings;
 
 
@@ -55,7 +57,7 @@ namespace Atom {
 
     class DrawMap : public Layer {
     public:
-        DrawMap();
+        DrawMap(TrainEngine *trainEngine);
 
         ~DrawMap();
 
@@ -71,10 +73,13 @@ namespace Atom {
 
         MapSetings *GetMapSetings() { return &m_MapSetings; }
 
+        void SetLidarData(std::vector<std::pair<float, float>> &data) { m_LidarData = data; }
     private:
         void GenerateTextures();
 
     private:
+        TrainEngine *m_TrainEngine;
+
         bool IsRunning = true;
         GLFWwindow *m_Window;
         int m_FrameWidth = 640;
@@ -91,6 +96,18 @@ namespace Atom {
         cv::Mat imgThresholded;
         GLuint textureID;
 
+        glm::vec2 m_CarPos;
+
+
+        //Lidar data
+        std::vector<std::pair<float, float>> m_LidarData;
+        float m_LidarScalingFactor = 0.5f;
+
+        //pixel to angle ratio
+        float m_PixelToAngle = 1.0f;
+
+        //Signs
+        std::vector<Sign> m_Signs;
 
         // matrix 400x400
         MatrixElement **m_Matrix;

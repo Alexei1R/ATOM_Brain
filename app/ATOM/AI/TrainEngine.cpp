@@ -30,9 +30,7 @@ namespace Atom {
     void TrainEngine::OnFixedUpdate() {
 #ifdef NDEBUG
         if (!m_Frame->empty()) {
-            if(!isTextureGenerated)
-            {
-
+            if (!isTextureGenerated) {
                 glGenTextures(1, &m_Texture);
                 glBindTexture(GL_TEXTURE_2D, m_Texture);
                 glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -47,25 +45,35 @@ namespace Atom {
             }
 
             if (isTextureGenerated && m_Texture != 0) {
-                cv::copyTo(*m_Frame, m_LocalFrame , cv::noArray());
+                cv::copyTo(*m_Frame, m_LocalFrame, cv::noArray());
                 const auto objects = m_Model->detectObjects(m_LocalFrame);
                 // Draw the bounding boxes on the image
                 m_Model->drawObjectLabels(m_LocalFrame, objects);
-                    glBindTexture(GL_TEXTURE_2D, m_Texture);
-                    //get type of image
-                    if (m_LocalFrame.type() == CV_8UC3) {
-                        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_LocalFrame.cols,
-                                     m_LocalFrame.rows, 0, GL_BGR, GL_UNSIGNED_BYTE,
-                                     m_LocalFrame.data);
-                    } else if (m_LocalFrame.type() == CV_8UC4) {
-                        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_LocalFrame.cols,
-                                     m_LocalFrame.rows, 0, GL_BGRA, GL_UNSIGNED_BYTE,
-                                     m_LocalFrame.data);
-                    }
-                    glBindTexture(GL_TEXTURE_2D, 0);
+                glBindTexture(GL_TEXTURE_2D, m_Texture);
+                //get type of image
+                if (m_LocalFrame.type() == CV_8UC3) {
+                    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_LocalFrame.cols,
+                                 m_LocalFrame.rows, 0, GL_BGR, GL_UNSIGNED_BYTE,
+                                 m_LocalFrame.data);
+                } else if (m_LocalFrame.type() == CV_8UC4) {
+                    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_LocalFrame.cols,
+                                 m_LocalFrame.rows, 0, GL_BGRA, GL_UNSIGNED_BYTE,
+                                 m_LocalFrame.data);
+                }
+                glBindTexture(GL_TEXTURE_2D, 0);
+
+                //complete the vector of signs
+                m_Signs.clear();
+                for (const auto &object: objects) {
+                    Sign sign;
+                    float pixelFromCenter = (object.rect.x + object.rect.width / 2) - m_LocalFrame.cols / 2;
+                    sign.pixelFromCenter = pixelFromCenter;
+                    ATLOG_INFO("Angle from center: {0}", sign.pixelFromCenter);
+                    sign.confidence = object.probability;
+                    sign.label = m_Model->getLabels()[object.label];
+                    m_Signs.push_back(sign);
+                }
             }
-
-
         }
 #endif
     }
@@ -97,19 +105,18 @@ namespace Atom {
 
             //draw image to background
             draw_list->AddImage((void *) m_Texture, canvas_left_top, canvas_bottom_right, ImVec2(0, 0),
-                                ImVec2(1,1));
+                                ImVec2(1, 1));
 
 
             draw_list->AddRect(canvas_left_top, canvas_bottom_right, IM_COL32(255, 255, 255, 255));
             draw_list->PushClipRect(canvas_left_top, canvas_bottom_right, true);
             draw_list->PopClipRect();
-        }else {
+        } else {
             ImGui::Text("Please Open camera before");
         }
 
 #endif
 
         ImGui::End();
-
     }
 }

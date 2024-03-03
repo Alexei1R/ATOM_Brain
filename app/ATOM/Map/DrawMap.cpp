@@ -5,6 +5,7 @@
 #include "DrawMap.h"
 
 #include "ATOM/Application.h"
+#include "ATOM/Sensors/Frame.h"
 
 
 namespace Atom {
@@ -15,9 +16,14 @@ namespace Atom {
     }
 
 
-    DrawMap::DrawMap()
-        : Layer("DrawMap") {
+    DrawMap::DrawMap(TrainEngine *trainEngine)
+        : Layer("DrawMap"), m_TrainEngine(trainEngine) {
         m_Window = (GLFWwindow *) Application::GetApp().GetWindow().GetNativeWindow();
+
+
+        //fov of camera in degrees = 160
+        //width in pixels = 640
+        m_PixelToAngle = m_MapSetings.m_Fov / 640.0f;
 
         GenerateTextures();
         m_Matrix = new MatrixElement *[m_LinesX];
@@ -32,10 +38,8 @@ namespace Atom {
         m_TresholdsMax = glm::vec3(255.0, 255.0, 255.0);
         //main road tresold blue color
 
-        cv::inRange(m_ImgHSV, cv::Scalar(119.0,120.0,255.0), cv::Scalar(255.0,255.0,255.0), m_MainRoad);
+        cv::inRange(m_ImgHSV, cv::Scalar(119.0, 120.0, 255.0), cv::Scalar(255.0, 255.0, 255.0), m_MainRoad);
         cv::erode(m_MainRoad, m_MainRoad, cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(10, 10)));
-
-
 
 
         //side road tresold blue color
@@ -46,10 +50,9 @@ namespace Atom {
             for (int j = 0; j < m_LinesY; ++j) {
                 if (m_MainRoad.at<uchar>(j * m_MainRoad.rows / m_LinesY, i * m_MainRoad.cols / m_LinesX) > 50) {
                     m_Matrix[i][j].type = ElementType::MainRoad;
-                }else {
+                } else {
                     m_Matrix[i][j].type = ElementType::Empty;
                 }
-
             }
         }
 
@@ -58,9 +61,7 @@ namespace Atom {
             for (int j = 0; j < m_LinesY; ++j) {
                 //detect if point is part of main road
                 if (m_Matrix[i][j].type == ElementType::MainRoad) {
-
                 }
-
             }
         }
 
@@ -68,30 +69,23 @@ namespace Atom {
         m_FrameWidth = m_ImgBackground.cols;
         m_FrameHeight = m_ImgBackground.rows;
         m_AspectRatio = (float) m_FrameWidth / (float) m_FrameHeight;
-
-
-
     }
 
     DrawMap::~DrawMap() {
     }
 
     void DrawMap::OnAttach() {
-//        MatToTexture(m_ImgBackground, textureID);
+        //        MatToTexture(m_ImgBackground, textureID);
     }
 
     void DrawMap::OnDetach() {
     }
 
     void DrawMap::OnUpdate() {
-
-
     }
 
     void DrawMap::OnFixedUpdate() {
-        if(!m_ImgColorBackground.empty()){
-
-
+        if (!m_ImgColorBackground.empty()) {
             if (m_MapSetings.isChanged) {
                 m_MapSetings.isChanged = false;
                 MatToTexture(m_ImgColorBackground, textureID);
@@ -99,21 +93,20 @@ namespace Atom {
                 switch (m_MapSetings.background) {
                     case MapBackground::Track:
                         MatToTexture(m_ImgBackground, textureID);
-                    break;
+                        break;
                     case MapBackground::ColorTrack:
                         MatToTexture(m_ImgColorBackground, textureID);
-                    break;
+                        break;
                     case MapBackground::MainRoad:
                         //check color format
-                            if (m_MainRoad.type() == CV_8UC1) {
-                                cv::cvtColor(m_MainRoad, m_MainRoad, cv::COLOR_GRAY2BGR);
-                            }
-                    MatToTexture(m_MainRoad, textureID);
-                    break;
+                        if (m_MainRoad.type() == CV_8UC1) {
+                            cv::cvtColor(m_MainRoad, m_MainRoad, cv::COLOR_GRAY2BGR);
+                        }
+                        MatToTexture(m_MainRoad, textureID);
+                        break;
                     default:
                         MatToTexture(m_ImgBackground, textureID);
-                    break;
-
+                        break;
                 }
             }
         }
@@ -138,16 +131,12 @@ namespace Atom {
             available.y = available.x / m_AspectRatio;
         }
         ImGuiIO &io = ImGui::GetIO();
-        ImDrawList* draw_list = ImGui::GetWindowDrawList();
+        ImDrawList *draw_list = ImGui::GetWindowDrawList();
         draw_list->AddRectFilled(canvas_left_top, canvas_bottom_right, IM_COL32(50, 50, 50, 255));
 
 
-
         //draw image to background
-        draw_list->AddImage((void *) textureID, canvas_left_top, canvas_bottom_right );
-
-
-
+        draw_list->AddImage((void *) textureID, canvas_left_top, canvas_bottom_right);
 
 
         m_DeltaDashLineX = available.x / m_LinesX;
@@ -169,47 +158,42 @@ namespace Atom {
                                ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
         const bool is_hovered = ImGui::IsItemHovered(); // Hovered
         const bool is_active = ImGui::IsItemActive(); // Held
-        const ImVec2 origin(canvas_left_top.x , canvas_left_top.y); // Lock scrolled origin
+        const ImVec2 origin(canvas_left_top.x, canvas_left_top.y); // Lock scrolled origin
         const ImVec2 mouse_pos_in_canvas(io.MousePos.x - origin.x, io.MousePos.y - origin.y);
 
 
         //Add text to canvas , mouse position
 
         sprintf(buffer, "Mouse Position: (%.1f, %.1f)", mouse_pos_in_canvas.x, mouse_pos_in_canvas.y);
-        if(is_hovered){
-            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 10), IM_COL32(255, 255, 255, 255), buffer);
+        if (is_hovered) {
+            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 10), IM_COL32(255, 255, 255, 255),
+                               buffer);
             draw_list->AddCircleFilled(ImVec2(mouse_pos_in_canvas.x + origin.x, mouse_pos_in_canvas.y + origin.y), 8,
-                                   IM_COL32(255, 255, 255, 255), 10);
-            if(!m_StartFinish.StartFlagPlaced) {
+                                       IM_COL32(255, 255, 255, 255), 10);
+            if (!m_StartFinish.StartFlagPlaced) {
                 draw_list->AddText(ImVec2(mouse_pos_in_canvas.x + origin.x + 10, mouse_pos_in_canvas.y + origin.y + 10),
                                    IM_COL32(0, 255, 255, 255), "Start");
             }
 
-            if((!m_StartFinish.FinishFlagPlaced )&& m_StartFinish.StartFlagPlaced == true) {
+            if ((!m_StartFinish.FinishFlagPlaced) && m_StartFinish.StartFlagPlaced == true) {
                 draw_list->AddText(ImVec2(mouse_pos_in_canvas.x + origin.x + 10, mouse_pos_in_canvas.y + origin.y + 10),
                                    IM_COL32(0, 255, 255, 255), "Finish");
             }
 
 
-
-
-
-            if(m_MapSetings.showPoints) {
+            if (m_MapSetings.showPoints) {
                 // draw points from matrix that are part of main road
                 for (int i = 0; i < m_LinesX; ++i) {
                     for (int j = 0; j < m_LinesY; ++j) {
                         if (m_Matrix[i][j].type == ElementType::MainRoad) {
-                            draw_list->AddCircleFilled(ImVec2(canvas_left_top.x + i * m_DeltaDashLineX ,
-                                                              canvas_left_top.y + j * m_DeltaDashLineY ),
-                                                      2, IM_COL32(0, 255, 0, 255), 5);
+                            draw_list->AddCircleFilled(ImVec2(canvas_left_top.x + i * m_DeltaDashLineX,
+                                                              canvas_left_top.y + j * m_DeltaDashLineY),
+                                                       2, IM_COL32(0, 255, 0, 255), 5);
                         }
                     }
                 }
             }
-
-
         }
-
 
 
         //input sliders for tresholds
@@ -221,8 +205,7 @@ namespace Atom {
         // ImGui::SliderFloat("Max V", &m_TresholdsMax.z, 0, 255);
 
 
-
-        if(m_StartFinish.StartFlagPlaced){
+        if (m_StartFinish.StartFlagPlaced) {
             // StartFlagPos
             // draw_list->AddCircleFilled(ImVec2(m_StartFinish.StartFlagPos.x , m_StartFinish.StartFlagPos.y), 8,
             //                            IM_COL32(255, 255, 255, 255), 10);
@@ -231,14 +214,15 @@ namespace Atom {
 
             //GridStartFlagPos
             draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridStartFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
-                                              m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 8,
+                                              m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y),
+                                       8,
                                        IM_COL32(255, 255, 255, 255), 10);
             draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridStartFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
-                                              m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 5,
+                                              m_StartFinish.GridStartFlagPos.y * m_DeltaDashLineY + canvas_left_top.y),
+                                       5,
                                        IM_COL32(255, 0, 0, 255), 10);
-
         }
-        if(m_StartFinish.FinishFlagPlaced){
+        if (m_StartFinish.FinishFlagPlaced) {
             //
             // draw_list->AddCircleFilled(ImVec2(m_StartFinish.FinishFlagPos.x, m_StartFinish.FinishFlagPos.y ), 8,
             //                            IM_COL32(255, 255, 255, 255), 10);
@@ -247,28 +231,30 @@ namespace Atom {
 
             //GridFinishFlagPos
             draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridFinishFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
-                                              m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 8,
+                                              m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y),
+                                       8,
                                        IM_COL32(255, 255, 255, 255), 10);
             draw_list->AddCircleFilled(ImVec2(m_StartFinish.GridFinishFlagPos.x * m_DeltaDashLineX + canvas_left_top.x,
-                                              m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y), 5,
+                                              m_StartFinish.GridFinishFlagPos.y * m_DeltaDashLineY + canvas_left_top.y),
+                                       5,
                                        IM_COL32(0, 0, 255, 255), 10);
         }
 
 
-
-
-        if(is_hovered) {
+        if (is_hovered) {
             //calculate coordinates of mouse in grid
             int x = (int) (mouse_pos_in_canvas.x / m_DeltaDashLineX);
             int y = (int) (mouse_pos_in_canvas.y / m_DeltaDashLineY);
             sprintf(buffer, "Grid Position: (%d, %d)", x, y);
-            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 30), IM_COL32(255, 255, 255, 255), buffer);
+            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 30), IM_COL32(255, 255, 255, 255),
+                               buffer);
 
             //if is hover and left mouse button is pressed
             if (is_hovered && ImGui::IsMouseDown(ImGuiMouseButton_Left)) {
                 m_MousePos = glm::vec2(mouse_pos_in_canvas.x + origin.x, mouse_pos_in_canvas.y + origin.y);
                 m_StartFinish.StartFlagPlaced = true;
                 m_StartFinish.StartFlagPos = m_MousePos;
+                m_CarPos = m_MousePos;
                 m_StartFinish.GridStartFlagPos = glm::vec2(x, y);
             }
             if (is_hovered && ImGui::IsMouseDown(ImGuiMouseButton_Right)) {
@@ -278,10 +264,90 @@ namespace Atom {
                 m_StartFinish.GridFinishFlagPos = glm::vec2(x, y);
             }
             //left mouse button is pressed reset start and finish flag
-            if (is_hovered  && ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
+            if (is_hovered && ImGui::IsMouseDown(ImGuiMouseButton_Middle)) {
                 m_StartFinish.StartFlagPlaced = false;
                 m_StartFinish.FinishFlagPlaced = false;
             }
+        }
+
+
+        //draw lidar data using car position as reference m_CarPos , multiply scaling factor
+        for (int i = 0; i < m_LidarData.size(); ++i) {
+            //if distance is bigger than 90 degrees and less than 270 degrees ignore
+
+            if (m_LidarData[i].first > glm::radians(std::round(m_MapSetings.m_Fov / 2)) && m_LidarData[i].first < glm::radians(
+                    360.0f - std::round(m_MapSetings.m_Fov / 2))) {
+                continue;
+            }
+
+
+            //first is angle, second is distance
+            float x = m_LidarData[i].second * cos(m_LidarData[i].first);
+            float y = m_LidarData[i].second * sin(m_LidarData[i].first);
+            draw_list->AddCircleFilled(ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor), 2,
+                                       IM_COL32(255,255,255,255), 10);
+            // print index of text
+            // sprintf(buffer, "%d", i);
+            // draw_list->AddText(ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor),
+            //                    IM_COL32(255, 255, 255, 255), buffer);
+        }
+
+
+        // //print signs
+        m_Signs = m_TrainEngine->GetSigns();
+        for (int i = 0; i < m_Signs.size(); ++i) {
+            sprintf(buffer, "Sign: %s", m_Signs[i].label.c_str());
+            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 50 + i * 20),
+                               IM_COL32(255, 255, 255, 255), buffer);
+        }
+
+
+        //draw signs
+        for (int i = 0; i < m_Signs.size(); ++i) {
+
+
+            float angle = std::round(m_Signs[i].pixelFromCenter * m_PixelToAngle * m_MapSetings.m_CameraCurvature);
+            //make an average 0f +- 2 degrees and distance is less than 1000
+            float distance = 0;
+            int counter = 0;
+            for (int j = angle - 2; j < angle + 2; ++j) {
+                if (m_LidarData[j].second < 1000) {
+                    distance += m_LidarData[j].second;
+                    counter++;
+                }
+            }
+            distance /= counter;
+
+
+
+            float x = distance * cos(glm::radians(angle));
+            float y = distance * sin(glm::radians(angle));
+            draw_list->AddCircleFilled(
+                ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor), 6,
+                IM_COL32(255, 0, 0, 255), 10);
+
+            // print angle , and distance
+            sprintf(buffer, "A: %f", angle);
+            draw_list->AddText(ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor),
+                               IM_COL32(255, 255, 255, 255), buffer);
+            sprintf(buffer, "D: %f", distance);
+            draw_list->AddText(ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor + 10),
+                               IM_COL32(255, 255, 255, 255), buffer);
+
+            // draw a red line from car to sign red if is stop sign
+            if (m_Signs[i].label == "stop-sign") {
+                draw_list->AddLine(ImVec2(m_CarPos.x, m_CarPos.y),
+                                   ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor),
+                                   IM_COL32(255, 0, 0, 255), 2);
+            }
+
+            //blue for crosswalk
+            if (m_Signs[i].label == "crosswalk-sign") {
+                draw_list->AddLine(ImVec2(m_CarPos.x, m_CarPos.y),
+                                   ImVec2(m_CarPos.x + x * m_LidarScalingFactor, m_CarPos.y + y * m_LidarScalingFactor),
+                                   IM_COL32(0, 0, 255, 255), 2);
+            }
+
         }
 
 
@@ -293,19 +359,11 @@ namespace Atom {
         draw_list->PopClipRect();
 
 
-
-
-
-
-
         ImGui::End();
     }
 
 
-
-
     void DrawMap::GenerateTextures() {
-
         //open image
         m_ImgBackground = cv::imread("ASSETS/track.png");
         if (m_ImgBackground.empty()) {
@@ -322,7 +380,5 @@ namespace Atom {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
-
-
     }
 }

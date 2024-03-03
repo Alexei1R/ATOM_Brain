@@ -62,6 +62,13 @@
 #endif
 
 
+typedef struct {
+    float pixelFromCenter;
+    float confidence;
+    std::string label;
+
+
+}Sign;
 
 
 

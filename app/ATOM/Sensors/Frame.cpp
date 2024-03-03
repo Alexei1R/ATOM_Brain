@@ -83,6 +83,8 @@ namespace Atom {
 
         m_VideoCapture.SetFrameRecivedCallback([&](cv::Mat &frame) {
             // cv::flip(frame,frame,0);
+                //flip horizontal and vertical
+                    cv::flip(frame, frame, -1);
             m_Frame = frame;
             s_Frame = frame;
             m_CaptureOpened = true;

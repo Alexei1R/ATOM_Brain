@@ -52,15 +52,7 @@ struct YoloV8Config {
     float kpsThreshold = 0.5f;
     // Class thresholds (default are COCO classes)
     std::vector<std::string> classNames = {
-        "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light",
-        "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow",
-        "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee",
-        "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard",
-        "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple",
-        "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "couch",
-        "potted plant", "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone",
-        "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
-        "hair drier", "toothbrush"
+        "crosswalk-sign", "parking-sign", "pedestrian", "priority-sign", "stop-sign"
     };
 };
 
@@ -75,7 +67,11 @@ public:
 
     // Draw the object bounding boxes and labels on the image
     void drawObjectLabels(cv::Mat& image, const std::vector<Object> &objects, unsigned int scale = 2);
+    std::vector<std::string> getLabels() { return m_Labels; }
 private:
+    //labels
+    std::vector<std::string> m_Labels;
+
     // Preprocess the input
     std::vector<std::vector<cv::cuda::GpuMat>> preprocess(const cv::cuda::GpuMat& gpuImg);
 

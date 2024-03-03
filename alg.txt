@@ -1,0 +1,122 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+// Define a simple Node structure
+struct Node {
+    int x, y;
+
+    // Comparison functions for set and unordered_map
+    bool operator<(const Node& other) const {
+        return tie(x, y) < tie(other.x, other.y);
+    }
+
+    bool operator==(const Node& other) const {
+        return x == other.x && y == other.y;
+    }
+};
+
+// Hash function for the Node struct
+struct NodeHash {
+    size_t operator()(const Node& node) const {
+        return hash<int>()(node.x) ^ hash<int>()(node.y);
+    }
+};
+
+// Function to calculate the Manhattan distance heuristic
+int heuristic(const Node& a, const Node& b) {
+    return abs(a.x - b.x) + abs(a.y - b.y);
+}
+
+// A* algorithm implementation
+vector<Node> astar(const Node& start, const Node& goal, const vector<vector<int>>& grid) {
+    set<Node> open_set;
+    unordered_map<Node, Node, NodeHash> came_from;
+    unordered_map<Node, int, NodeHash> g_score;
+
+    auto f_score = [&](const Node& node) {
+        return g_score[node] + heuristic(node, goal);
+    };
+
+    open_set.insert(start);
+    g_score[start] = 0;
+
+    while (!open_set.empty()) {
+        auto current = *min_element(open_set.begin(), open_set.end(),
+            [&](const Node& a, const Node& b) {
+                return f_score(a) < f_score(b);
+            });
+
+        if (current == goal) {
+            // Reconstruct the path
+            vector<Node> path;
+            while (came_from.find(current) != came_from.end()) {
+                path.push_back(current);
+                current = came_from[current];
+            }
+            path.push_back(start);
+            reverse(path.begin(), path.end());
+            return path;
+        }
+
+        open_set.erase(current);
+
+        // Define possible movements (up, down, left, right)
+        const vector<pair<int, int>> neighbors = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (const auto& delta : neighbors) {
+            Node neighbor = {current.x + delta.first, current.y + delta.second};
+
+            if (neighbor.x < 0 || neighbor.x >= grid.size() ||
+                neighbor.y < 0 || neighbor.y >= grid[0].size() ||
+                grid[neighbor.x][neighbor.y] == 1) {
+                continue; // Skip invalid or blocked nodes
+            }
+
+            int tentative_g_score = g_score[current] + 1;
+
+            if (g_score.find(neighbor) == g_score.end() || tentative_g_score < g_score[neighbor]) {
+                came_from[neighbor] = current;
+                g_score[neighbor] = tentative_g_score;
+                open_set.insert(neighbor);
+            }
+        }
+    }
+
+    // If the open set is empty and the goal is not reached, return an empty path
+    return {};
+}
+
+int main() {
+    // Example usage
+    Node start = {0, 0};
+    Node goal = {4, 4};
+
+    // Example grid where 0 represents open space and 1 represents blocked space
+    vector<vector<int>> grid = {
+        {0, 0, 0, 0, 0},
+        {0, 1, 1, 0, 0},
+        {0, 0, 0, 1, 0},
+        {0, 1, 0, 1, 0},
+        {0, 0, 0, 0, 0}
+    };
+
+    vector<Node> path = astar(start, goal, grid);
+
+    if (!path.empty()) {
+        cout << "Path found: ";
+        for (const auto& node : path) {
+            cout << "(" << node.x << ", " << node.y << ") ";
+        }
+        cout << endl;
+    } else {
+        cout << "No path found." << endl;
+    }
+
+    return 0;
+}
+

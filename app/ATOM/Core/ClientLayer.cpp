@@ -8,14 +8,14 @@ Atom::ClientLayer::ClientLayer() {
 
     m_Client = new Client();
     m_Client->SetDataReceivedCallback([&](const void* data, unsigned int size) {
-        ATLOG_INFO("Data Received: {0} bytes", size);
+        // ATLOG_INFO("Data Received: {0} bytes", size);
         try {
             if (size < sizeof(uint8_t) + sizeof(size_t)) {
                 throw std::runtime_error("Received data is too small to contain a valid message.");
             }
             const char* buffer = static_cast<const char*>(data);
             uint8_t messageID = *buffer;
-            ATLOG_INFO("Message ID: {0}", messageID);
+            // ATLOG_INFO("Message ID: {0}", messageID);
             for (auto map : m_RegistedMessageCallbacks) {
                 if (map.find(messageID) != map.end()) {
                     Message message;
