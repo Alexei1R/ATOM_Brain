@@ -68,7 +68,7 @@ namespace Atom {
                     Sign sign;
                     float pixelFromCenter = (object.rect.x + object.rect.width / 2) - m_LocalFrame.cols / 2;
                     sign.pixelFromCenter = pixelFromCenter;
-                    ATLOG_INFO("Angle from center: {0}", sign.pixelFromCenter);
+                    // ATLOG_INFO("Angle from center: {0}", sign.pixelFromCenter);
                     sign.confidence = object.probability;
                     sign.label = m_Model->getLabels()[object.label];
                     m_Signs.push_back(sign);

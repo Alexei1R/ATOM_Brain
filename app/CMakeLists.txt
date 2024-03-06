@@ -72,6 +72,8 @@ set(SOURCES
         ATOM/AI/engine.h
         ATOM/AI/YoloV8.cpp
         ATOM/AI/YoloV8.h
+        ATOM/PID/pid.cpp
+        ATOM/PID/pid.h
 
 )
 

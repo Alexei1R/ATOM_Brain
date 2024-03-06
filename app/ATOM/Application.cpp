@@ -7,7 +7,7 @@
 
 
 namespace Atom {
-    char inputBuffer[256] = "/home/toor/Downloads/pc.mp4";
+    char inputBuffer[256] = "/home/toor/Downloads/video.mp4";
     static const char *comboItems[] = {
         "nvarguscamerasrc sensor_id=0 ! video/x-raw(memory:NVMM),width=640, height=480, framerate=30/1 ! nvvidconv flip-method=0 ! video/x-raw,width=640, height=480 ! nvvidconv ! video/x-raw,format=BGRx ! videoconvert ! appsink",
         "v4l2src device=/dev/video0 ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! videoconvert ! appsink",
@@ -24,16 +24,14 @@ namespace Atom {
         m_Window->SetVSync(m_VSync);
         m_Window->SetWindowCloseCallback([this] { WindowClose(); });
 
-
+        m_Frame = new Frame();
+        PushLayer(m_Frame);
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
         m_EditorLayer = new EditorLayer();
         PushOverlay(m_EditorLayer);
         m_ClientLayer = new ClientLayer();
         PushLayer(m_ClientLayer);
-
-        m_Frame = new Frame();
-        PushLayer(m_Frame);
         m_Gamepad = new Gamepad();
         PushLayer(m_Gamepad);
         m_DetectLines = new DetectLines();
@@ -65,7 +63,6 @@ namespace Atom {
             m_NewLidarData = true;
             m_DrawMap->SetLidarData(m_LidarData);
         });
-
 
 
         m_Gamepad->SetChangeState([&](float value, JoystickAxis joyAxis) {
@@ -139,15 +136,31 @@ namespace Atom {
             if (ImGui::CollapsingHeader("Map Settings")) {
                 DrawMapSettings();
             }
+            if (ImGui::CollapsingHeader("PID Settings")) {
+                DrawPidSettings();
+            }
 
             ImGui::Separator();
             ImGui::SliderFloat("Max Speed", &m_MaxSpeed, 0.0f, 100.0f);
             ImGui::SliderFloat("Max Steering", &m_MaxSteering, 0.0f, 100.0f);
             ImGui::Separator();
 
+
+            //check box for start and stop car
+            ImGui::Checkbox("Start Car", &m_CarStarted);
+
+
             ImGui::End();
         };
         m_EditorLayer->AddDrawCallback(draw);
+
+
+        // m_PidController = new MiniPID(PID_KP, PID_KI, PID_KD);
+        // m_PidController->setOutputLimits(-m_MaxSteering, m_MaxSteering);
+        // m_PidController->setSetpoint(0);
+        // m_PidController->setOutputRampRate(0.5);
+        // m_PidController->setSetpointRange(0.5);
+
     }
 
 
@@ -183,6 +196,35 @@ namespace Atom {
                 lastTime = std::chrono::high_resolution_clock::now();
                 for (Layer *layer: m_LayerStack) {
                     layer->OnFixedUpdate();
+                }
+            }
+
+            //update time pid 0.5 sec
+            if(m_CarStarted) {
+                if(m_PidChanged) {
+                    m_PidChanged = false;
+                }
+
+
+                auto currentTimePid = std::chrono::high_resolution_clock::now();
+                std::chrono::duration<double, std::milli> timeSpanPid = currentTimePid - lastTimePid;
+                if (timeSpanPid.count() > 100) {
+                    lastTimePid = std::chrono::high_resolution_clock::now();
+
+                    // update pid
+                    error = m_DetectLines->GetOffsetCenter() * 0.3;
+                    //clamp pid out to max steering
+                    m_PidOut = std::clamp(m_PidOut, -m_MaxSteering, m_MaxSteering);
+
+                    //print
+                    ATLOG_INFO("Offset Center{0} PID Out: {1}",m_DetectLines->GetOffsetCenter(), m_PidOut);
+                    if (m_ClientLayer->IsRunning()) {
+                        Message message;
+                        message.id = 2; // Set message ID
+                        message.payloadSize = sizeof(m_PidOut); // Set the size of the payload
+                        message.payload = static_cast<void *>(&m_PidOut); // Set the payload
+                        m_ClientLayer->SendMessage(message);
+                    }
                 }
             }
 
@@ -233,7 +275,7 @@ namespace Atom {
 
                 if (m_IPIndex == SelectIP) {
                     // static char inputBuffer[256] = "10.42.0.1";
-                    static char inputBuffer[256] = "192.168.1.100";
+                    static char inputBuffer[256] = "192.168.8.133";
                     // static char inputBuffer[256] = "192.168.1.16";
                     // static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";
@@ -348,6 +390,24 @@ namespace Atom {
         ImGui::Separator();
     }
 
+    void Application::DrawPidSettings() {
+
+        ImGui::Text("PID Out: %.2f", m_PidOut);
+
+        ImGui::SliderFloat("PID_KP", &PID_KP, 0.0f, 10.0f);
+        ImGui::SliderFloat("PID_KI", &PID_KI, 0.0f, 10.0f);
+        ImGui::SliderFloat("PID_KD", &PID_KD, 0.0f, 10.0f);
+
+        if (ImGui::Button("Set PID")) {
+            m_PidChanged = true;
+        }
+
+
+    }
+
     void Application::ConntrollCarUithGamepad() {
     }
+
+    // float Application::ComputePidOut() {
+    // }
 }

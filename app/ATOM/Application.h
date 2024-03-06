@@ -17,6 +17,10 @@
 #include "ATOM/GamePad/Gamepad.h"
 #include "ATOM/RoadDetect/DetectLines.h"
 #include "ATOM/AI/TrainEngine.h"
+#include "ATOM/PID/pid.h"
+
+
+
 
 namespace Atom {
     class Application {
@@ -48,12 +52,20 @@ namespace Atom {
 
         void DrawMapSettings();
 
+        void DrawPidSettings();
+
 
         void ConntrollCarUithGamepad();
+        // float ComputePidOut(float error);
 
     private:
+        bool m_CarStarted = false;
         bool m_IsRuning = true;
         std::chrono::time_point<std::chrono::high_resolution_clock> lastTime =
+                std::chrono::high_resolution_clock::now();
+
+        //lastLime pid out
+        std::chrono::time_point<std::chrono::high_resolution_clock> lastTimePid =
                 std::chrono::high_resolution_clock::now();
 
         bool isConnected = false;
@@ -91,6 +103,20 @@ namespace Atom {
         float xAxisLeftLast = 0;
         float xAxisRightMaxValue = 0;
         float xAxisLeftMaxValue = 0;
+
+
+
+        //PID
+        // PID Constants
+        float PID_KP = 5.0f;
+        float PID_KI = 0.5f;
+        float PID_KD = 0.025f;
+
+
+        //Pid Out
+        float m_PidOut = 0;
+        float error;
+        bool m_PidChanged = false;
     };
 }
 

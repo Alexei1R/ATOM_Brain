@@ -26,6 +26,10 @@ namespace Atom {
 
         virtual void OnImGuiRender() override;
 
+
+        //get ofset center
+        [[nodiscard]] float GetOffsetCenter() const { return m_FindLines->GetOffsetCenter(); }
+
     private:
         cv::Mat *m_Frame;
         FindLines *m_FindLines;
