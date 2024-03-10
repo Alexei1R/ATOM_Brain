@@ -219,7 +219,8 @@ namespace Atom {
 
                 if (m_IPIndex == SelectIP) {
                     // static char inputBuffer[256] = "10.42.0.1";
-                    static char inputBuffer[256] = "192.168.8.133";
+                    static char inputBuffer[256] = "192.168.1.101";
+                    // static char inputBuffer[256] = "192.168.8.133";
                     // static char inputBuffer[256] = "192.168.1.16";
                     // static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";

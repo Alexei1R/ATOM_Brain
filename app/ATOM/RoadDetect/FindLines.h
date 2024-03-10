@@ -43,7 +43,7 @@ namespace Atom {
     private:
         // glm::vec2 RectSize = glm::vec2(60, 30);
         //int vec2 rectsize;
-        glm::vec<2 , int> RectSize = glm::vec2(60, 30);
+        glm::vec<2 , int> RectSize = glm::vec2(90, 30);
 
         cv::Mat &frame;
         cv::Mat original;

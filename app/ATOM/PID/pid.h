@@ -21,6 +21,10 @@ public:
 
     // Returns the manipulated variable given a setpoint and current process value
     double calculate( double setpoint, double pv , double deltaTime,double max, double min );
+
+    void SetP(double p);
+    void SetI(double i);
+    void SetD(double d);
     ~PID();
 
 private:

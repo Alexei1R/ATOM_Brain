@@ -15,6 +15,10 @@ public:
     ~PIDImpl();
     double calculate( double setpoint, double pv , double deltaTime , double max, double min);
 
+    void SetP(double p);
+    void SetI(double i);
+    void SetD(double d);
+
 private:
     double _Kp;
     double _Kd;
@@ -32,6 +36,17 @@ double PID::calculate( double setpoint, double pv , double deltaTime ,double max
 {
     return pimpl->calculate(setpoint,pv , deltaTime , max, min);
 }
+
+void PID::SetP(double p) {
+    pimpl->SetP(p);
+}
+void PID::SetI(double i) {
+    pimpl->SetI(i);
+}
+void PID::SetD(double d) {
+    pimpl->SetD(d);
+}
+
 PID::~PID()
 {
     delete pimpl;
@@ -80,6 +95,18 @@ double PIDImpl::calculate( double setpoint, double pv , double deltaTime , doubl
     _pre_error = error;
 
     return output;
+}
+
+void PIDImpl::SetP(double p) {
+    this->_Kp = p;
+}
+void PIDImpl::SetI(double i) {
+    this->_Ki = i;
+
+}
+void PIDImpl::SetD(double d) {
+    this->_Kd = d;
+
 }
 
 PIDImpl::~PIDImpl()

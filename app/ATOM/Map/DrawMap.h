@@ -25,7 +25,7 @@ namespace Atom {
         MapBackground background = MapBackground::Track;
         bool showPoints = false;
         bool isChanged = true;
-        float m_CameraCurvature = 1.15f;
+        float m_CameraCurvature = 1.0f;
         float m_Fov = 90.0f;
     } MapSetings;
 

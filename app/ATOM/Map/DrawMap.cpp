@@ -358,7 +358,7 @@ namespace Atom {
 
             SignDetected sign;
             sign.angle = angle;
-            sign.distance = distance;
+            sign.distance = abs(x);
             sign.name = m_Signs[i].label;
             m_SignsDetected.push_back(sign);
 

@@ -52,7 +52,7 @@ namespace Atom {
     private:
         StateMasine m_StateMasine;
         bool m_CheckBoxState = false;
-        int m_MimSignDistance = 200;
+        int m_MimSignDistance = 0;
 
 
         Gamepad *m_Gamepad;
@@ -81,16 +81,18 @@ namespace Atom {
 
 
         int m_TimeToTurnLeft = 10;
-        int m_TimeToTurnRight = 10;
+        int m_TimeToTurnRight = 30;
         int m_TimeToMoveForward = 10;
+
+        int m_StopSignDistance = 0;
 
 
         //PID
         PID *m_Pid;
         // PID Constants
-        float PID_KP = 5.0f;
-        float PID_KI = 0.5f;
-        float PID_KD = 0.025f;
+        float PID_KP = 1.75f;
+        float PID_KI = 0.8;
+        float PID_KD = 0.0025f;
         //Pid Out
         float m_PidOut = 0;
         float error;

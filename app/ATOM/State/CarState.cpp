@@ -20,9 +20,10 @@ namespace Atom {
         m_Gamepad->SetChangeState([&](float value, JoystickAxis joyAxis) {
             // ATLOG_INFO("Value: {0}", value);
             if (m_StateMasine.state == CarStateEnum::IDLE) {
-                ATLOG_INFO("CarState::CarState: Gamepad state changed");
+                // ATLOG_INFO("CarState::CarState: Gamepad state changed");
                 if (joyAxis == JoystickAxis::LeftY) {
-                    float speed = value * -m_MaxSpeed;
+                    float speed = value * -m_MaxSpeed * 1.5;
+
                     ComandCarSpeed(speed);
                 }
                 if (joyAxis == JoystickAxis::RightX) {
@@ -72,6 +73,7 @@ namespace Atom {
 
             for (auto &detectedSign: m_DrawMap->GetSignsDetected()) {
                 if (detectedSign.name == "stop-sign") {
+                    m_StopSignDistance = detectedSign.distance;
                     if (detectedSign.distance < m_MimSignDistance) {
                         // STOPPED
                         m_StateMasine.state = CarStateEnum::STOPPED;
@@ -108,7 +110,7 @@ namespace Atom {
                 lastTime = std::chrono::high_resolution_clock::now();
                 ComandCarSpeed(m_MaxSpeed);
             }
-            if (m_Gamepad->GetJoystickState()->PadRight) {
+            if (m_Gamepad->GetJoystickState()->PadRight ) {
                 m_StateMasine.state = CarStateEnum::TURN_RIGHT;
                 lastTime = std::chrono::high_resolution_clock::now();
                 ComandCarSpeed(m_MaxSpeed);
@@ -178,10 +180,10 @@ namespace Atom {
         if (m_Gamepad->GetJoystickState()->LeftShoulder) {
             m_StateMasine.state = CarStateEnum::IDLE;
         }
-        if (m_Gamepad->GetJoystickState()->RightShoulder) {
+        if (m_Gamepad->GetJoystickState()->RightShoulder || m_Gamepad->GetJoystickState()->LeftTrigger > 0.2) {
             m_StateMasine.state = CarStateEnum::AUTONOMOUS;
         }
-        if (m_Gamepad->GetJoystickState()->ButtonX) {
+        if (m_Gamepad->GetJoystickState()->ButtonX || m_Gamepad->GetJoystickState()->RightTrigger > 0.5 || m_Gamepad->GetJoystickState()->PadDown) {
             m_StateMasine.state = CarStateEnum::STOPPED;
         }
 
@@ -202,6 +204,11 @@ namespace Atom {
         ImGui::Separator();
         ImGui::SliderInt("Min Sign Distance", &m_MimSignDistance, 0, 1000);
         ImGui::Separator();
+
+        ImGui::Text("STOP Sign Distance %d", m_StopSignDistance);
+        ImGui::Separator();
+
+
 
         //print state
         if (m_StateMasine.state == CarStateEnum::IDLE) {
@@ -243,6 +250,11 @@ namespace Atom {
 
         if (ImGui::Button("Set PID")) {
             m_PidChanged = true;
+            m_Pid->SetP(PID_KP);
+            m_Pid->SetI(PID_KI);
+            m_Pid->SetD(PID_KD);
+            m_PidOut = 0;
+
         }
 
 
