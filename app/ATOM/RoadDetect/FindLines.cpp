@@ -88,7 +88,7 @@ namespace Atom {
         const int thresholdVal = 120;
         cv::threshold(processed, processed, thresholdVal, 255, cv::THRESH_BINARY);
 
-        std::vector<cv::Point2f> pts = slidingWindow(processed, cv::Rect(0, 450, 90, 30));
+        std::vector<cv::Point2f> pts = slidingWindow(processed, cv::Rect(0, 450, RectSize.x, RectSize.y));
         std::vector<cv::Point> allPts; // Used for the end polygon at the end.
 
         std::vector<cv::Point2f> outPts;
@@ -108,9 +108,11 @@ namespace Atom {
         // for (unsigned int i = 0; i < pts.size() - 1; ++i) // Draw a line on the processed image
         //     line(out, pts[i], pts[i + 1], cv::Scalar(255, 0, 0));
 
+
+
         // Sliding window for the right side
-        pts = slidingWindow(processed, cv::Rect(550, 450, 90, 30));
-        cv::rectangle(original, cv::Rect(550, 450, 90, 30), cv::Scalar(0, 255, 0), 2);
+        pts = slidingWindow(processed, cv::Rect(550, 450, RectSize.x, RectSize.y));
+        cv::rectangle(original, cv::Rect(550, 450, RectSize.x, RectSize.y), cv::Scalar(0, 255, 0), 2);
         perspectiveTransform(pts, outPts, invertedPerspectiveMatrix);
         rightLanePts = outPts;
 

@@ -38,9 +38,10 @@ namespace Atom {
         PushLayer(m_DetectLines);
         m_TrainEngine = new TrainEngine();
         PushLayer(m_TrainEngine);
-
         m_DrawMap = new DrawMap(m_TrainEngine);
         PushLayer(m_DrawMap);
+        m_CarState = new CarState(m_Gamepad, m_DrawMap, m_ClientLayer, m_DetectLines);
+        PushLayer(m_CarState);
 
 
         m_ClientLayer->RegisterMessageWithID(2, [&](Message message) {
@@ -62,33 +63,10 @@ namespace Atom {
             memcpy(m_LidarData.data(), message.payload, message.payloadSize);
             m_NewLidarData = true;
             m_DrawMap->SetLidarData(m_LidarData);
+            m_DrawMap->SetLidarAvailable(true);
         });
 
 
-        m_Gamepad->SetChangeState([&](float value, JoystickAxis joyAxis) {
-            if (joyAxis == JoystickAxis::LeftY) {
-                float speed = value * m_MaxSpeed;
-                if (m_ClientLayer->IsRunning()) {
-                    Message message;
-                    message.id = 1; // Set message ID
-                    message.payloadSize = sizeof(speed); // Set the size of the payload
-                    message.payload = static_cast<void *>(&speed); // Set the payload
-                    m_ClientLayer->SendMessage(message);
-                }
-            }
-            if (joyAxis == JoystickAxis::RightX) {
-                float angle = value * m_MaxSteering;
-                angle = std::clamp(angle, -m_MaxSteering, m_MaxSteering);
-                angle += m_OffsetSteering;
-                if (m_ClientLayer->IsRunning()) {
-                    Message message;
-                    message.id = 2; // Set message ID
-                    message.payloadSize = sizeof(angle); // Set the size of the payload
-                    message.payload = static_cast<void *>(&angle); // Set the payload
-                    m_ClientLayer->SendMessage(message);
-                }
-            }
-        });
 
 
         std::function<void()> drawPopUp = [&]() {
@@ -136,18 +114,10 @@ namespace Atom {
             if (ImGui::CollapsingHeader("Map Settings")) {
                 DrawMapSettings();
             }
-            if (ImGui::CollapsingHeader("PID Settings")) {
-                DrawPidSettings();
-            }
 
             ImGui::Separator();
-            ImGui::SliderFloat("Max Speed", &m_MaxSpeed, 0.0f, 100.0f);
-            ImGui::SliderFloat("Max Steering", &m_MaxSteering, 0.0f, 100.0f);
-            ImGui::Separator();
 
 
-            //check box for start and stop car
-            ImGui::Checkbox("Start Car", &m_CarStarted);
 
 
             ImGui::End();
@@ -155,11 +125,6 @@ namespace Atom {
         m_EditorLayer->AddDrawCallback(draw);
 
 
-        // m_PidController = new MiniPID(PID_KP, PID_KI, PID_KD);
-        // m_PidController->setOutputLimits(-m_MaxSteering, m_MaxSteering);
-        // m_PidController->setSetpoint(0);
-        // m_PidController->setOutputRampRate(0.5);
-        // m_PidController->setSetpointRange(0.5);
 
     }
 
@@ -172,6 +137,11 @@ namespace Atom {
         delete m_ClientLayer;
         m_Frame->Shutdown();
         delete m_Frame;
+        delete m_Gamepad;
+        delete m_DetectLines;
+        delete m_TrainEngine;
+        delete m_DrawMap;
+        delete m_CarState;
     }
 
 
@@ -199,34 +169,6 @@ namespace Atom {
                 }
             }
 
-            //update time pid 0.5 sec
-            if(m_CarStarted) {
-                if(m_PidChanged) {
-                    m_PidChanged = false;
-                }
-
-
-                auto currentTimePid = std::chrono::high_resolution_clock::now();
-                std::chrono::duration<double, std::milli> timeSpanPid = currentTimePid - lastTimePid;
-                if (timeSpanPid.count() > 100) {
-                    lastTimePid = std::chrono::high_resolution_clock::now();
-
-                    // update pid
-                    error = m_DetectLines->GetOffsetCenter() * 0.3;
-                    //clamp pid out to max steering
-                    m_PidOut = std::clamp(m_PidOut, -m_MaxSteering, m_MaxSteering);
-
-                    //print
-                    ATLOG_INFO("Offset Center{0} PID Out: {1}",m_DetectLines->GetOffsetCenter(), m_PidOut);
-                    if (m_ClientLayer->IsRunning()) {
-                        Message message;
-                        message.id = 2; // Set message ID
-                        message.payloadSize = sizeof(m_PidOut); // Set the size of the payload
-                        message.payload = static_cast<void *>(&m_PidOut); // Set the payload
-                        m_ClientLayer->SendMessage(message);
-                    }
-                }
-            }
 
             m_Window->ClearDisplay(glm::vec3(0, 255, 255));
 
@@ -275,8 +217,8 @@ namespace Atom {
 
                 if (m_IPIndex == SelectIP) {
                     // static char inputBuffer[256] = "10.42.0.1";
-                    static char inputBuffer[256] = "192.168.8.133";
-                    // static char inputBuffer[256] = "192.168.1.16";
+                    // static char inputBuffer[256] = "192.168.8.133";
+                    static char inputBuffer[256] = "192.168.1.16";
                     // static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";
                     // static char inputBuffer[256] = "192.168.8.124";
@@ -388,21 +330,6 @@ namespace Atom {
         ImGui::SliderFloat("Camera Curvature", &mapSetings->m_CameraCurvature, 0.0f, 2.0f);
         ImGui::SliderFloat("Camera FOV", &mapSetings->m_Fov, 0.0f, 200.0f);
         ImGui::Separator();
-    }
-
-    void Application::DrawPidSettings() {
-
-        ImGui::Text("PID Out: %.2f", m_PidOut);
-
-        ImGui::SliderFloat("PID_KP", &PID_KP, 0.0f, 10.0f);
-        ImGui::SliderFloat("PID_KI", &PID_KI, 0.0f, 10.0f);
-        ImGui::SliderFloat("PID_KD", &PID_KD, 0.0f, 10.0f);
-
-        if (ImGui::Button("Set PID")) {
-            m_PidChanged = true;
-        }
-
-
     }
 
     void Application::ConntrollCarUithGamepad() {

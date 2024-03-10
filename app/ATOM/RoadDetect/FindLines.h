@@ -35,11 +35,16 @@ namespace Atom {
 
         [[nodiscard]] float GetOffsetCenter() const { return laneCenterOffset; }
         LineSettings &GetLineSettings() { return lineSettings; }
+        glm::vec<2 , int> &GetRectSize() { return RectSize; }
 
     private:
         void PreprocessLine(cv::Mat &original);
 
     private:
+        // glm::vec2 RectSize = glm::vec2(60, 30);
+        //int vec2 rectsize;
+        glm::vec<2 , int> RectSize = glm::vec2(60, 30);
+
         cv::Mat &frame;
         cv::Mat original;
 
@@ -59,7 +64,7 @@ namespace Atom {
 
         //processed
         cv::Mat processed;
-        cv::Mat img;		// Working image
+        cv::Mat img; // Working image
         cv::Mat out;
         cv::Mat overlay;
 

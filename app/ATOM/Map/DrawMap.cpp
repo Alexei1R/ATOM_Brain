@@ -154,8 +154,12 @@ namespace Atom {
                                IM_COL32(0, 255, 255, 50));
         }
 
-        ImGui::InvisibleButton("canvas", canvas_size,
-                               ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
+        if(canvas_size.x == 0 && canvas_size.y == 0 ) {
+            canvas_size.x = 200;
+            canvas_size.y = 200;
+        }
+        ImGui::InvisibleButton("canvas", canvas_size, ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
+
         const bool is_hovered = ImGui::IsItemHovered(); // Hovered
         const bool is_active = ImGui::IsItemActive(); // Held
         const ImVec2 origin(canvas_left_top.x, canvas_left_top.y); // Lock scrolled origin
@@ -270,6 +274,17 @@ namespace Atom {
             }
         }
 
+        // //print signs
+        m_Signs = m_TrainEngine->GetSigns();
+        for (int i = 0; i < m_Signs.size(); ++i) {
+            sprintf(buffer, "Sign: %s", m_Signs[i].label.c_str());
+            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 50 + i * 20),
+                               IM_COL32(0, 255, 255, 255), buffer);
+        }
+
+
+        //lidar
+        if(IsLidarAvailable) {
 
         //draw lidar data using car position as reference m_CarPos , multiply scaling factor
         for (int i = 0; i < m_LidarData.size(); ++i) {
@@ -293,15 +308,8 @@ namespace Atom {
         }
 
 
-        // //print signs
-        m_Signs = m_TrainEngine->GetSigns();
-        for (int i = 0; i < m_Signs.size(); ++i) {
-            sprintf(buffer, "Sign: %s", m_Signs[i].label.c_str());
-            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 50 + i * 20),
-                               IM_COL32(255, 255, 255, 255), buffer);
-        }
 
-
+        m_SignsDetected.clear();
         //draw signs
         for (int i = 0; i < m_Signs.size(); ++i) {
 
@@ -348,8 +356,15 @@ namespace Atom {
                                    IM_COL32(0, 0, 255, 255), 2);
             }
 
+            SignDetected sign;
+            sign.angle = angle;
+            sign.distance = distance;
+            sign.name = m_Signs[i].label;
+            m_SignsDetected.push_back(sign);
+
         }
 
+        }
 
 
 

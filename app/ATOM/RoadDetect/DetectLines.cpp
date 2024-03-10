@@ -78,6 +78,7 @@ namespace Atom {
         ImGui::SliderInt("Min s", &s, 0, 255);
         ImGui::SliderInt("Min v", &v, 0, 255);
         m_FindLines->GetLineSettings().lowerWhite = cv::Scalar(h, s, v);
+
         //slider for offset
         ImGui::SliderInt("Offset", &m_FindLines->GetLineSettings().offsetSides, 0, 240);
 
@@ -109,7 +110,7 @@ namespace Atom {
 
 
             sprintf(buffer, "Offeset: (%f)", m_FindLines->GetOffsetCenter());
-            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 30), IM_COL32(255, 255, 255, 255),
+            draw_list->AddText(ImVec2(canvas_left_top.x + 10, canvas_left_top.y + 30), IM_COL32(100, 255, 100, 255),
                                buffer);
 
 

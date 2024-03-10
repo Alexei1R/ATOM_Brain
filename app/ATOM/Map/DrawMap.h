@@ -55,6 +55,16 @@ namespace Atom {
         glm::vec2 GridFinishFlagPos;
     } StartFinish;
 
+
+
+    typedef struct SignDetected {
+        glm::vec2 pos;
+        float angle;
+        float distance;
+        int type;
+        std::string name;
+    } SignDetected;
+
     class DrawMap : public Layer {
     public:
         DrawMap(TrainEngine *trainEngine);
@@ -74,10 +84,19 @@ namespace Atom {
         MapSetings *GetMapSetings() { return &m_MapSetings; }
 
         void SetLidarData(std::vector<std::pair<float, float>> &data) { m_LidarData = data; }
+        void SetLidarAvailable(bool available) { IsLidarAvailable = available; }
+
+       std::vector<SignDetected> &GetSignsDetected() { return m_SignsDetected; }
+
+
+
     private:
         void GenerateTextures();
 
     private:
+        std::vector<SignDetected> m_SignsDetected;
+
+        bool IsLidarAvailable = false;
         TrainEngine *m_TrainEngine;
 
         bool IsRunning = true;

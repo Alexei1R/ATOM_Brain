@@ -74,6 +74,8 @@ set(SOURCES
         ATOM/AI/YoloV8.h
         ATOM/PID/pid.cpp
         ATOM/PID/pid.h
+        ATOM/State/CarState.cpp
+        ATOM/State/CarState.h
 
 )
 
