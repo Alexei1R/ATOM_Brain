@@ -100,14 +100,16 @@ namespace Atom {
                 if (m_Gamepad->GetJoystickState()->ButtonA && m_Gamepad->GetJoystickState()->ButtonY &&
                     isOpenCameraComandSent == false) {
                     if (m_ClientLayer->IsRunning()) {
-                        ATLOG_WARN("Open Camera using Gamepad");
-                        isOpenCameraComandSent = true;
-                        std::string data = comboItems[0];
-                        Message message;
-                        message.id = 50;
-                        message.payloadSize = data.size();
-                        message.payload = static_cast<void *>(const_cast<char *>(data.c_str()));
-                        m_ClientLayer->SendMessage(message);
+                        if (m_ClientLayer->IsRunning()) {
+                            ATLOG_INFO("Open Camera using default pipeline gamepad button A and Y pressed");
+                            isOpenCameraComandSent = true;
+                            std::string data = comboItems[0];
+                            Message message;
+                            message.id = 50;
+                            message.payloadSize = data.size();
+                            message.payload = static_cast<void *>(const_cast<char *>(data.c_str()));
+                            m_ClientLayer->SendMessage(message);
+                        }
                     }
                 }
             }
@@ -217,8 +219,8 @@ namespace Atom {
 
                 if (m_IPIndex == SelectIP) {
                     // static char inputBuffer[256] = "10.42.0.1";
-                    // static char inputBuffer[256] = "192.168.8.133";
-                    static char inputBuffer[256] = "192.168.1.16";
+                    static char inputBuffer[256] = "192.168.8.133";
+                    // static char inputBuffer[256] = "192.168.1.16";
                     // static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";
                     // static char inputBuffer[256] = "192.168.8.124";

@@ -48,7 +48,6 @@ namespace Atom {
 
         void ComandCarSteering(float angle);
 
-        bool IsCarSleep() { return Sleep; }
 
     private:
         StateMasine m_StateMasine;
@@ -69,16 +68,21 @@ namespace Atom {
         std::chrono::time_point<std::chrono::high_resolution_clock> timenow;
         int deltatime = 1;
 
-        bool Sleep;
-        bool m_CarStop;
+        bool m_CarStop = false;
         int sleepFor = 1000;
+        int m_IterationCount = 0;
 
 
         bool m_GamepadChanged = false;
 
-        float m_MaxSpeed = 20;
+        float m_MaxSpeed = -10;
         float m_MaxSteering = 45;
         float m_OffsetSteering = 0;
+
+
+        int m_TimeToTurnLeft = 10;
+        int m_TimeToTurnRight = 10;
+        int m_TimeToMoveForward = 10;
 
 
         //PID

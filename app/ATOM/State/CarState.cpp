@@ -1,6 +1,14 @@
+//
 // Created by toor on 3/9/24.
+//
 
 #include "CarState.h"
+
+
+#include "CarState.h"
+#include "ATOM/Application.h"
+#include "opencv2/opencv.hpp"
+
 
 namespace Atom {
     CarState::CarState(Gamepad *gamepad, DrawMap *drawMap, ClientLayer *clientLayer, DetectLines *detectLines)
@@ -8,11 +16,13 @@ namespace Atom {
           m_DetectLines(detectLines) {
         m_Pid = new PID(PID_KP, PID_KI, PID_KD);
 
+
         m_Gamepad->SetChangeState([&](float value, JoystickAxis joyAxis) {
+            // ATLOG_INFO("Value: {0}", value);
             if (m_StateMasine.state == CarStateEnum::IDLE) {
                 ATLOG_INFO("CarState::CarState: Gamepad state changed");
                 if (joyAxis == JoystickAxis::LeftY) {
-                    float speed = value * m_MaxSpeed;
+                    float speed = value * -m_MaxSpeed;
                     ComandCarSpeed(speed);
                 }
                 if (joyAxis == JoystickAxis::RightX) {
@@ -29,135 +39,204 @@ namespace Atom {
         delete m_Pid;
     }
 
-    void CarState::OnAttach() {}
+    void CarState::OnAttach() {
+    }
 
-    void CarState::OnDetach() {}
+    void CarState::OnDetach() {
+    }
 
     void CarState::OnUpdate() {
-        timenow = std::chrono::high_resolution_clock::now();
-        deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(timenow - lastTimeState).count();
-        if (deltatime > 100) {
-            // AUTONOMOUS
-            if (m_StateMasine.state == CarStateEnum::AUTONOMOUS) {
-                ComandCarSpeed(m_MaxSpeed);
-                // DO AUTONOMOUS DRIVING
-                auto currentTimePid = std::chrono::high_resolution_clock::now();
-                std::chrono::duration<double, std::milli> timeSpanPid = currentTimePid - lastTimePid;
-                if (timeSpanPid.count() > 100) {
-                    lastTimePid = std::chrono::high_resolution_clock::now();
-                    float deltaTime = timeSpanPid.count() / 1000.0f;
-                    m_PidOut = m_Pid->calculate(0, m_DetectLines->GetOffsetCenter() / 3, deltaTime, m_MaxSteering,
-                                                -m_MaxSteering);
-                    m_PidOut = std::clamp(m_PidOut, -m_MaxSteering, m_MaxSteering);
-                    ComandCarSteering(m_PidOut);
-                }
+        //AUTONOMOUS
+        if (m_StateMasine.state == CarStateEnum::AUTONOMOUS) {
+            //DO AUTONOMOUS DRIVING
+            auto currentTimePid = std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double, std::milli> timeSpanPid = currentTimePid - lastTimePid;
+            if (timeSpanPid.count() > 100) {
+                lastTimePid = std::chrono::high_resolution_clock::now();
+                float deltaTime = timeSpanPid.count() / 1000.0f;
+                m_PidOut = m_Pid->calculate(0, m_DetectLines->GetOffsetCenter() / 3, deltaTime, m_MaxSteering,
+                                            -m_MaxSteering);
+                m_PidOut = std::clamp(m_PidOut, -m_MaxSteering, m_MaxSteering);
+                ComandCarSteering(m_PidOut);
+            }
 
-                // IF AUTONOMOUS DRIVING AND SIGN DETECTED
-                for (auto &detectedSign: m_DrawMap->GetSignsDetected()) {
-                    if (detectedSign.name == "stop-sign" && detectedSign.distance < m_MimSignDistance) {
+            timenow = std::chrono::high_resolution_clock::now();
+            deltatime = std::chrono::duration_cast<std::chrono::milliseconds>(timenow - lastTimeState).count();
+            if (deltatime > 500) {
+                lastTimeState = std::chrono::high_resolution_clock::now();
+                //Send Reset Command For Speed
+                ComandCarSpeed(m_MaxSpeed);
+            }
+
+            //IF AUTONOMOUS DRIVING AND SIGN DETECTED
+
+            for (auto &detectedSign: m_DrawMap->GetSignsDetected()) {
+                if (detectedSign.name == "stop-sign") {
+                    if (detectedSign.distance < m_MimSignDistance) {
                         // STOPPED
                         m_StateMasine.state = CarStateEnum::STOPPED;
+                        lastTime = std::chrono::high_resolution_clock::now();
+                        //RESET SPEED AND STEERING
+                        ComandCarSpeed(0);
+                        ComandCarSteering(0);
                     }
                 }
             }
-            // STOPPED
-            else if (m_StateMasine.state == CarStateEnum::STOPPED) {
+        }
+
+
+        //STOPPED
+        if (m_StateMasine.state == CarStateEnum::STOPPED) {
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+            if (duration > 200) {
+                lastTime = std::chrono::high_resolution_clock::now();
                 ComandCarSpeed(0);
                 ComandCarSteering(0);
+            }
 
-                // WAIT FOR DIRECTION
-                if (m_Gamepad->GetJoystickState()->PadUp) {
-                    m_StateMasine.state = CarStateEnum::MOVE_FORWARD;
-                }
-                else if (m_Gamepad->GetJoystickState()->PadLeft) {
-                    m_StateMasine.state = CarStateEnum::TURN_LEFT;
-                }
-                else if (m_Gamepad->GetJoystickState()->PadRight) {
-                    m_StateMasine.state = CarStateEnum::TURN_RIGHT;
-                }
-            }
-            // TURN_LEFT
-            else if (m_StateMasine.state == CarStateEnum::TURN_LEFT) {
+
+            //WAIT FOR DIRECTION
+            //Gamepad
+            if (m_Gamepad->GetJoystickState()->PadUp) {
+                m_StateMasine.state = CarStateEnum::MOVE_FORWARD;
+                lastTime = std::chrono::high_resolution_clock::now();
                 ComandCarSpeed(m_MaxSpeed);
-                ComandCarSteering(-m_MaxSteering);
-                auto currentTime = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-                if (duration > 3000) {
-                    m_StateMasine.state = CarStateEnum::AUTONOMOUS;
-                    ComandCarSpeed(m_MaxSpeed);
-                    ComandCarSteering(0);
-                    lastTime = std::chrono::high_resolution_clock::now();
-                }
             }
-            // TURN_RIGHT
-            else if (m_StateMasine.state == CarStateEnum::TURN_RIGHT) {
+            if (m_Gamepad->GetJoystickState()->PadLeft) {
+                m_StateMasine.state = CarStateEnum::TURN_LEFT;
+                lastTime = std::chrono::high_resolution_clock::now();
                 ComandCarSpeed(m_MaxSpeed);
-                ComandCarSteering(m_MaxSteering);
-                auto currentTime = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-                if (duration > 2000) {
-                    m_StateMasine.state = CarStateEnum::AUTONOMOUS;
-                    ComandCarSpeed(m_MaxSpeed);
-                    ComandCarSteering(0);
-                    lastTime = std::chrono::high_resolution_clock::now();
-                }
             }
-            // MOVE_FORWARD
-            else if (m_StateMasine.state == CarStateEnum::MOVE_FORWARD) {
+            if (m_Gamepad->GetJoystickState()->PadRight) {
+                m_StateMasine.state = CarStateEnum::TURN_RIGHT;
+                lastTime = std::chrono::high_resolution_clock::now();
                 ComandCarSpeed(m_MaxSpeed);
-                ComandCarSteering(0);
-                auto currentTime = std::chrono::high_resolution_clock::now();
-                auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-                if (duration > 2000) {
-                    m_StateMasine.state = CarStateEnum::AUTONOMOUS;
-                    ComandCarSpeed(m_MaxSpeed);
-                    ComandCarSteering(0);
+            }
+        }
+
+
+        //TURN_LEFT
+        if (m_StateMasine.state == CarStateEnum::TURN_LEFT) {
+            //FOR 3 SECONDS TURN LEFT
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+            if (duration > 200) {
+                if (m_IterationCount < m_TimeToTurnLeft) {
+                    ComandCarSteering(-m_MaxSteering);
+                    // ComandCarSpeed(m_MaxSpeed);
+                    m_IterationCount++;
                     lastTime = std::chrono::high_resolution_clock::now();
+                } else {
+                    m_StateMasine.state = CarStateEnum::AUTONOMOUS;
+                    m_IterationCount = 0;
                 }
             }
         }
+
+        //TURN_RIGHT
+        if (m_StateMasine.state == CarStateEnum::TURN_RIGHT) {
+            //FOR 3 SECONDS TURN RIGHT
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+            if (duration > 200) {
+                if (m_IterationCount < m_TimeToTurnRight) {
+                    ComandCarSteering(m_MaxSteering);
+                    // ComandCarSpeed(m_MaxSpeed);
+                    m_IterationCount++;
+                    lastTime = std::chrono::high_resolution_clock::now();
+                } else {
+                    m_StateMasine.state = CarStateEnum::AUTONOMOUS;
+                    m_IterationCount = 0;
+                }
+            }
+        }
+
+        //MOVE_FORWARD
+        if (m_StateMasine.state == CarStateEnum::MOVE_FORWARD) {
+            //FOR 3 SECONDS MOVE FORWARD
+            auto currentTime = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+            if (duration > 200) {
+                if (m_IterationCount < m_TimeToMoveForward) {
+                    ComandCarSteering(0);
+                    m_IterationCount++;
+                    lastTime = std::chrono::high_resolution_clock::now();
+                } else {
+                    m_StateMasine.state = CarStateEnum::AUTONOMOUS;
+                    m_IterationCount = 0;
+                }
+            }
+        }
+
+
+
+
     }
 
-    void CarState::OnFixedUpdate() {}
+    void CarState::OnFixedUpdate() {
+        if (m_Gamepad->GetJoystickState()->LeftShoulder) {
+            m_StateMasine.state = CarStateEnum::IDLE;
+        }
+        if (m_Gamepad->GetJoystickState()->RightShoulder) {
+            m_StateMasine.state = CarStateEnum::AUTONOMOUS;
+        }
+        if (m_Gamepad->GetJoystickState()->ButtonX) {
+            m_StateMasine.state = CarStateEnum::STOPPED;
+        }
+
+
+    }
 
     void CarState::OnImGuiRender() {
         ImGui::Begin("Car State");
         ImGui::Separator();
         if (ImGui::Checkbox("Autonoumous Driving", &m_CheckBoxState)) {
-            m_StateMasine.state = (m_CheckBoxState) ? CarStateEnum::AUTONOMOUS : CarStateEnum::IDLE;
-            ComandCarSpeed(m_MaxSpeed);
+            if (m_CheckBoxState) {
+                m_StateMasine.state = CarStateEnum::AUTONOMOUS;
+                ComandCarSpeed(m_MaxSpeed);
+            } else {
+                m_StateMasine.state = CarStateEnum::IDLE;
+            }
         }
         ImGui::Separator();
         ImGui::SliderInt("Min Sign Distance", &m_MimSignDistance, 0, 1000);
         ImGui::Separator();
 
-        // Print state
-        switch (m_StateMasine.state) {
-            case CarStateEnum::IDLE:
-                ImGui::Text("State: IDLE");
-                break;
-            case CarStateEnum::AUTONOMOUS:
-                ImGui::Text("State: AUTONOMOUS");
-                break;
-            case CarStateEnum::STOPPED:
-                ImGui::Text("State: STOPPED");
-                break;
-            case CarStateEnum::TURN_LEFT:
-                ImGui::Text("State: TURN_LEFT");
-                break;
-            case CarStateEnum::TURN_RIGHT:
-                ImGui::Text("State: TURN_RIGHT");
-                break;
-            case CarStateEnum::MOVE_FORWARD:
-                ImGui::Text("State: MOVE_FORWARD");
-                break;
+        //print state
+        if (m_StateMasine.state == CarStateEnum::IDLE) {
+            ImGui::Text("State: IDLE");
+            m_CheckBoxState = false;
         }
-
+        if (m_StateMasine.state == CarStateEnum::AUTONOMOUS) {
+            m_CheckBoxState = true;
+            ImGui::Text("State: AUTONOMOUS");
+        }
+        if (m_StateMasine.state == CarStateEnum::STOPPED) {
+            ImGui::Text("State: STOPPED");
+        }
+        if (m_StateMasine.state == CarStateEnum::TURN_LEFT) {
+            ImGui::Text("State: TURN_LEFT");
+        }
+        if (m_StateMasine.state == CarStateEnum::TURN_RIGHT) {
+            ImGui::Text("State: TURN_RIGHT");
+        }
+        if (m_StateMasine.state == CarStateEnum::MOVE_FORWARD) {
+            ImGui::Text("State: MOVE_FORWARD");
+        }
         ImGui::Separator();
+
+        ImGui::SliderInt("Time To Turn Left", &m_TimeToTurnLeft, 0, 100);
+        ImGui::SliderInt("Time To Turn Right", &m_TimeToTurnRight, 0, 100);
+        ImGui::SliderInt("Time To Move Forward", &m_TimeToMoveForward, 0, 100);
+
         ImGui::SliderFloat("Max Speed", &m_MaxSpeed, 0.0f, 100.0f);
         ImGui::SliderFloat("Max Steering", &m_MaxSteering, 0.0f, 100.0f);
         ImGui::Separator();
+
+
         ImGui::Text("PID Out: %.2f", m_PidOut);
+
         ImGui::SliderFloat("PID_KP", &PID_KP, 0.0f, 10.0f);
         ImGui::SliderFloat("PID_KI", &PID_KI, 0.0f, 10.0f);
         ImGui::SliderFloat("PID_KD", &PID_KD, 0.0f, 10.0f);
@@ -165,6 +244,7 @@ namespace Atom {
         if (ImGui::Button("Set PID")) {
             m_PidChanged = true;
         }
+
 
         ImGui::End();
     }

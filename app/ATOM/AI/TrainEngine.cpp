@@ -10,7 +10,7 @@ namespace Atom {
     TrainEngine::TrainEngine()
         : Layer("TrainEngine") {
 #ifdef NDEBUG
-        m_Model = new YoloV8("/home/toor/Code/ATOM_Brain/app/ASSETS/best.onnx", config);
+        m_Model = new YoloV8("/home/toor/Code/ATOM_Brain/app/ASSETS/roadsign.onnx", config);
         m_Frame = &Application::GetApp().GetFrame().GetNativeFrame();
 #endif
     }
