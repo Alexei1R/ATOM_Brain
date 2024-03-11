@@ -80,7 +80,7 @@ namespace Atom {
         float m_OffsetSteering = 0;
 
 
-        int m_TimeToTurnLeft = 10;
+        int m_TimeToTurnLeft = 35;
         int m_TimeToTurnRight = 30;
         int m_TimeToMoveForward = 10;
 

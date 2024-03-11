@@ -22,7 +22,7 @@ namespace Atom {
             if (m_StateMasine.state == CarStateEnum::IDLE) {
                 // ATLOG_INFO("CarState::CarState: Gamepad state changed");
                 if (joyAxis == JoystickAxis::LeftY) {
-                    float speed = value * -m_MaxSpeed * 1.5;
+                    float speed = value * -m_MaxSpeed * 2;
 
                     ComandCarSpeed(speed);
                 }
@@ -125,7 +125,7 @@ namespace Atom {
             auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
             if (duration > 200) {
                 if (m_IterationCount < m_TimeToTurnLeft) {
-                    ComandCarSteering(-m_MaxSteering);
+                    ComandCarSteering(-m_MaxSteering / 2);
                     // ComandCarSpeed(m_MaxSpeed);
                     m_IterationCount++;
                     lastTime = std::chrono::high_resolution_clock::now();
