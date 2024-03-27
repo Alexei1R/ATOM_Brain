@@ -119,7 +119,24 @@ namespace Atom {
 
             ImGui::Separator();
 
+            //Button to initialize the gpio
+            //60 , begin read gpio pin 8
+            // m_ServerLayer->RegisterMessageWithID(60, [&](Message message) {
+            //     ATLOG_INFO("Message Received: ID = 60");
+            //     GPIO::setmode(GPIO::BOARD);
+            //     GPIO::setup(8, GPIO::IN);
+            //     GPIO::add_event_detect(8, GPIO::RISING, GPIO_Callback);
+            // });
 
+            if(ImGui::Button(" Initialize GPIO ")) {
+                int pin = 40;
+                // RegisterInterupts
+                Message message;
+                message.id = 60;
+                message.payloadSize = sizeof(int);
+                message.payload = static_cast<void *>(const_cast<int *>(&pin));
+                m_ClientLayer->SendMessage(message);
+            }
 
 
             ImGui::End();
@@ -219,8 +236,8 @@ namespace Atom {
 
                 if (m_IPIndex == SelectIP) {
                     // static char inputBuffer[256] = "10.42.0.1";
-                    static char inputBuffer[256] = "192.168.1.101";
-                    // static char inputBuffer[256] = "192.168.8.133";
+                    // static char inputBuffer[256] = "192.168.1.101";
+                    static char inputBuffer[256] = "192.168.8.133";
                     // static char inputBuffer[256] = "192.168.1.16";
                     // static char inputBuffer[256] = "192.168.1.8";
                     // static char inputBuffer[256] = "192.168.156.32";

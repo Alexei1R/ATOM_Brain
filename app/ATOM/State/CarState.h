@@ -75,7 +75,7 @@ namespace Atom {
 
         bool m_GamepadChanged = false;
 
-        float m_MaxSpeed = -10;
+        float m_MaxSpeed = -18;
         float m_MaxSteering = 45;
         float m_OffsetSteering = 0;
 
